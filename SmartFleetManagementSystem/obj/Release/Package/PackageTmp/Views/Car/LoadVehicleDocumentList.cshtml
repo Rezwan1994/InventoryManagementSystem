@@ -1,0 +1,226 @@
+﻿@model IEnumerable<SFMS.Entity.Documents>
+
+@{
+    Layout = null;
+}
+<style>
+    #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        #myImg:hover {
+            opacity: 0.7;
+        }
+
+    /* The Modal (background) */
+    .modalzoom {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content (image) */
+    .modal-content1 {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* Caption of Modal Image */
+    #caption1 {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    /* Add Animation */
+    .modal-content1, #caption {
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @@-webkit-keyframes zoom {
+        from {
+            -webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+    }
+
+    @@keyframes zoom {
+        from {
+            transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+    }
+
+    /* The Close Button */
+    .close1 {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+        .close1:hover,
+        .close1:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    /* 100% Image Width on Smaller Screens */
+    @@media only screen and (max-width: 700px) {
+        .modal-content1 {
+            width: 100%;
+        }
+    }
+</style>
+<script>
+    var DeleteDocument = function (DriverId) {
+        console.log("he");
+        var url = "/Car/DeleteDocuments";
+        $.ajax({
+            type: "POST",
+            ajaxStart: function () { },
+            url: url,
+            data: JSON.stringify({
+
+                DriverId: DriverId
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                if (data.result) {
+                    OpenSuccessMessageNew("Success!", data.message, function () {
+                        $(".LoadDocumentList").load("/Car/LoadVehicleDocumentList/?CarId=" + CarId)
+                    });
+
+                }
+                else {
+                    OpenErrorMessageNew("Error!", data.message);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+    var EditDocuments = function (item) {
+        OpenRightToLeftModal("/Car/AddDocuments/?Id=" + item);
+    }
+    var DeleteDocumentConfirm = function (DriverId) {
+
+        OpenConfirmationMessageNew("Confirm?", "Do you  want to delete this assigned driver?", function () {
+
+            DeleteDocument(DriverId);
+        });
+    }
+
+    var zoomImg = function (src, licenseNo) {
+        var modal = document.getElementById('myModal');
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption1");
+        modal.style.display = "block";
+        modalImg.src = src;
+        captionText.innerHTML = "License No : " + licenseNo;
+    }
+    $(document).ready(function () {
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close1")[0];
+        var modal = document.getElementById('myModal');
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    })
+</script>
+<!-- The Modal -->
+<div id="myModal" class="modalzoom">
+    <span class="close1">&times;</span>
+    <img class="modal-content1" id="img01">
+    <div id="caption1"></div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentsType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileSource)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LicenseNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpireDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadedDate)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.DocumentsType
+            </td>
+            <td class="docimg">
+                <img style="width: 70px; height: 60px;" src="@item.FileSource" class="cus-anchor" title="Click to full view" onclick="zoomImg(this.src, @item.LicenseNo)"><img>
+
+            </td>
+            <td>
+                @item.LicenseNo
+            </td>
+            <td>
+                @item.IssueDate.ToString("dd MMM yyyy")
+            </td>
+            <td>
+                @item.ExpireDate.ToString("dd MMM yyyy")
+            </td>
+            <td>
+                @item.UploadedDate.ToString("dd MMM yyyy")
+            </td>
+            <td>
+                <span onclick="EditDocuments('@item.Id')" title="Edit"><i class="fa fa-edit"></i></span><span class="divide">/</span>
+                <span onclick="DeleteDocumentConfirm('@item.Id')" title="Delete"><i class="fa fa-trash-o"></i></span>
+            </td>
+        </tr>
+    }
+
+</table>

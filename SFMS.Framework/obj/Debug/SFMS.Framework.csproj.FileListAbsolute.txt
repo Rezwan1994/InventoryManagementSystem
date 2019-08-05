@@ -1,0 +1,10 @@
+D:\CodeVehicle\trunk\SFMS.Framework\bin\Debug\SFMS.Framework.dll.config
+D:\CodeVehicle\trunk\SFMS.Framework\bin\Debug\SFMS.Framework.dll
+D:\CodeVehicle\trunk\SFMS.Framework\bin\Debug\SFMS.Framework.pdb
+D:\CodeVehicle\trunk\SFMS.Framework\bin\Debug\EntityFramework.dll
+D:\CodeVehicle\trunk\SFMS.Framework\bin\Debug\EntityFramework.SqlServer.dll
+D:\CodeVehicle\trunk\SFMS.Framework\bin\Debug\EntityFramework.xml
+D:\CodeVehicle\trunk\SFMS.Framework\bin\Debug\EntityFramework.SqlServer.xml
+D:\CodeVehicle\trunk\SFMS.Framework\obj\Debug\SFMS.Framework.csprojResolveAssemblyReference.cache
+D:\CodeVehicle\trunk\SFMS.Framework\obj\Debug\SFMS.Framework.dll
+D:\CodeVehicle\trunk\SFMS.Framework\obj\Debug\SFMS.Framework.pdb

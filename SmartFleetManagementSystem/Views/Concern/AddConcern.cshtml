@@ -1,0 +1,62 @@
+﻿@model SFMS.Entity.Concerns
+
+@{
+    Layout = null;
+  
+}
+
+
+<link href="~/Content/Css/Car/AddDriver.css" rel="stylesheet" />
+
+
+<link href="~/Content/Select2/select2.css" rel="stylesheet" />
+<script src="~/Content/Js/Concern/AddConcern.js"></script>
+
+<style>
+    .add_reminder_style {
+        position: absolute;
+        margin-top: 12px;
+    }
+</style>
+
+<div class="form-group add_note_header_container">
+
+    <div class="add_note_header">Add Concern</div>
+</div>
+<input type="hidden" id="IdVal" value="@Model.Id" />
+<div class="container-fluid add_note_margin_top">
+    
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Concern Name</span>
+            <input type="text" id="ConcernName"   placeholder="Concern Name" value="@Model.ConcernName" datarequired="true" class="form-control" />
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Phone</span>
+            <input type="text" id="Phone" name="CC" placeholder="Phone" value="@Model.Phone"  class="form-control" />
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Address</span>
+            <input type="text" id="Address" name="Address" placeholder="Adress" value="@Model.Address" class="form-control" />
+        </div>
+    </div>
+
+
+</div>
+
+<section class="footer-section">
+    <footer class="footer">
+        <div class="SaveCancelDiv">
+            <button class="btn btn-snote" id="SaveConcern" onclick="SaveConcern()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+        </div>
+    </footer>
+</section>
+
+<input type="hidden" id="IdVal" value="@Model.Id">
+

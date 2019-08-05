@@ -1,0 +1,14 @@
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\SFMS.Facade.dll.config
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\SFMS.Facade.dll
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\SFMS.Facade.pdb
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\EntityFramework.dll
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\EntityFramework.SqlServer.dll
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\SFMS.Entity.dll
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\SFMS.Repository.dll
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\SFMS.Entity.pdb
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\SFMS.Repository.pdb
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\EntityFramework.xml
+D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\EntityFramework.SqlServer.xml
+D:\CodeVehicle\trunk\SFMS.Facade\obj\Debug\SFMS.Facade.csprojResolveAssemblyReference.cache
+D:\CodeVehicle\trunk\SFMS.Facade\obj\Debug\SFMS.Facade.dll
+D:\CodeVehicle\trunk\SFMS.Facade\obj\Debug\SFMS.Facade.pdb

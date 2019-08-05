@@ -1,0 +1,141 @@
+﻿
+@{
+    Layout = null;
+}
+@model SFMS.Entity.DriverInfo
+
+<link href="~/Content/Select2/select2.css" rel="stylesheet" />
+<link href="~/Content/Css/Car/AddCar.css" rel="stylesheet" />
+@Styles.Render("~/styles/AddFile")
+
+<script src="~/Content/Select2/Select2.min.js"></script>
+<script src="~/Content/Js/Drivers/AddDriver.js"></script>
+@Scripts.Render("~/scripts/AddFile")
+<script>
+    $(document).ready(function () {
+        IssueDatePicker = new Pikaday({ format: 'MM/DD/YYYY', field: $('#IssueDate')[0] });
+        ExpireDatePicker = new Pikaday({ format: 'MM/DD/YYYY', field: $('#ExpireDate')[0] });
+    })
+</script>
+<div class="add_opportunity_container">
+    <div class="add_opportunity_header">@(Model.Drivers.Id > 0 ? "Update Driver" : "Add Driver")</div>
+    <div class="add_opportunity_inner">
+        <div class="form-group clearfix">
+            <span class="span_style">Name</span>
+
+            <input type="text" id="Name" name="Name" placeholder="Name" value="@Model.Drivers.Name" datarequired="true" class="form-control" />
+            <label rel="Name" class="label hidden red position-absolute">Name Required</label>
+        </div>
+
+        <div class="form-group clearfix">
+            <span class="span_style">Mobile Number</span>
+            <input type="text" id="MobileNumber" name="MobileNumber" placeholder="Mobile Number" value="@Model.Drivers.MobileNumber" class="form-control" />
+        </div>
+
+        <div class="form-group clearfix">
+            <span class="span_style">Email</span>
+            <input type="text" id="Email" name="Email" placeholder="Email" value="@Model.Drivers.Email" class="form-control" />
+        </div>
+
+        <div class="form-group clearfix">
+            <span class="span_style">Address</span>
+            <input type="text" id="Address" name="Address" placeholder="Address" value="@Model.Drivers.Address" class="form-control" />
+        </div>
+
+        <input type="hidden" id="IdVal" value="@Model.Drivers.Id">
+        <input type="hidden" id="DocIdVal" value="@Model.Documents.Id">
+        <input type="hidden" id="DriverId" value="@Model.Drivers.DriverId">
+
+    </div>
+
+    <div class="sub-header">
+        Upload Documents
+    </div>
+    <div id="DriverDocuments">
+        <div id="DriverPhoto">
+            <div class="container-fluid">
+                <div class="clearfix">
+                    &nbsp;
+                </div>
+                <div class="form-group clearfix">
+                    <span class="span_style">Driving License (max file size: 20 mb)</span><br/>    
+                </div>
+                <div>
+                    <br />
+                </div>
+                <div class="txt-form Upload_Doc">
+                    <div class="col-md-12 padding-left-0">
+                        <div class="fileborder border_none">
+                            <img id="UploadCustomerFileBtn" class="cursor-pointer custom-file" src="~/Content/Icons/blank_thumb_file.png" />
+                        </div>
+                        @*<input class="deleteDoc" type="image" src="/Content/Icons/cross.png" />*@
+                        <div class="deleteDoc cursor-pointer hidden">
+                            <img src="/Content/Icons/cross-image-delete.png" />
+                        </div>
+                        <div class="change-picture-logo white-color cursor-pointer text-align-center">
+                            <span class="chooseFilebtn"><img src="~/Content/Icons/edit-icon.png" /> Choose File to Upload</span>
+                            <span class="changeFilebtn hidden"><img src="~/Content/Icons/edit-icon.png" /> Change File</span>
+                        </div>
+                        @*<div class="" style="margin-top: 15px;">
+                            <span id="UploadSuccessMessage" class="hidden">File Uploaded Successfully..!</span>
+                        </div>*@
+                        <div class="LoadPreviewDocument hidden">
+                            <div class="show-image PropertyLogoPreviewPic">
+                                <div class="image-delete" data-id="">
+                                    <img src="/Content/Icons/cross-image-delete.png" />
+                                </div>
+                                <img class="Preview_Doc T360image-photo T360image" src="@System.Configuration.ConfigurationManager.AppSettings["SiteDomain"]@Model.Documents.FileSource" />
+                            </div>
+                            <div class="change-picture-logo white-color cursor-pointer text-align-center T360image">
+                                <span><img src="~/Content/Icons/edit-icon.png" /> Change File</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 progress-container file-progress" style="display:none; padding-left:0; padding-right:0; margin-top: 15px;">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-success" style="width:0%">
+                                <span> 0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="label red position-relative hidden" id="uploadfileerror">*File required</label>
+                </div>
+            </div>
+            <div class="LoadPreviewDocument hidden">
+                <div class="show-image">
+                    <img id="Preview_Doc" src="" />
+                    <input class="deleteDoc" type="image" title="Close" src="/Content/Icons/cross.png" />
+                </div>
+                <div class="change-picture-logo white-color cursor-pointer text-align-center T360image">
+                    <span><img src="~/Content/Icons/edit-icon.png" /></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="DriverDocumentsNumber">
+            <div class="form-group clearfix">
+                <span class="span_style">License No</span>
+                <input type="text" id="DriverLicense" name="DriverLicense" placeholder="License No" value="@Model.Drivers.DriverLicense" class="form-control" />
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Issue Date</span>
+                <input type="text" id="IssueDate" name="IssueDate" placeholder="Issue Date" value="@Model.Documents.IssueDate" class="form-control" />
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Expire Date</span>
+                <input type="text" id="ExpireDate" name="ExpireDate" placeholder="Expire Date" value="@Model.Documents.ExpireDate" class="form-control" />
+            </div>
+        </div>
+    </div>
+   
+   
+</div>
+<div class="add_opportunity_footer">
+    <input type="button" value="@(Model.Drivers.Id > 0 ? "Update" : "Save")" id="SaveDriver" />
+</div>
+<div class="">
+    <input type="hidden" id="UploadedPath" value="@Model.Documents.FileSource" />
+    <input type="file" name="DrivingLicense" class="hidden" id="UploadedFile" accept="image/*" />
+</div>
+

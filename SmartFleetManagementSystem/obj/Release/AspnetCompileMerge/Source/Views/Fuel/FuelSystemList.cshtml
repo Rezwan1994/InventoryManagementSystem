@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+<link href="~/Content/Css/FuelList/FuelList.css" rel="stylesheet" />
+<script src="~/Content/Js/FuelList/FuelList.js"></script>
+<div class="container-fluid opportunities_container">
+    <div class="opportunities_fixed_header">
+        <div class="main_header"><h2>Daily Fuel System</h2></div>
+
+
+        @*<div class="dropdown">
+                <button class="btn addView_button dropdown-toggle" data-toggle="dropdown"><i class="fa fa-plus"></i></button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <button class="btn" id="ExcelImport">@Localize.T("Excel")</button>
+                    </li>
+                    <li>
+                        <button class="btn" id="PdfImport">@Localize.T("Pdf")</button>
+                    </li>
+                </ul>
+            </div>*@
+        <div>
+            <button class="btn customer-new" id="AddFuel" type="button">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> New
+            </button>
+        </div>
+    </div>
+    <div style="margin-top:50px;">
+        <div class="">
+            <div id="searchbardiv">
+                <input class="form-control srch-term" placeholder="Find daily fuel" type="text">
+                <button class="btn btn-default custom-btn SearchFuels" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+            <Span>Total Fuel Cost : @ViewBag.TotalFuelCost &#2547;</Span> | <span>Fuel Cost Using Octane : @ViewBag.FuelCostForOctane &#2547;</span> | <span>Fuel Cost Using Diesel : @ViewBag.FuelCostForDiesel &#2547;</span> | <span>Fuel Cost Using Gas  : @ViewBag.FuelCostForGas &#2547;</span>
+
+        </div>
+        <div class="ListDailyFuelSystem">
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

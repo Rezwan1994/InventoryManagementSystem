@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_PrivateLayout.cshtml";
+
+}
+<script>
+    $(document).ready(function () {
+        $(".LoaderWorkingDiv").hide();
+    })
+</script>
+@{
+    string url = Request.Url.AbsolutePath.ToLower();
+    if (url.IndexOf("/users") == 0)
+    {
+        ViewBag.Title = "Users";
+        Html.RenderAction("UsersList", "Users");
+    }
+    else if (url.IndexOf("/admintration") == 0)
+    {
+        ViewBag.Title = "Administration";
+        Html.RenderAction("AdmintrationPartial", "app");
+    }
+}

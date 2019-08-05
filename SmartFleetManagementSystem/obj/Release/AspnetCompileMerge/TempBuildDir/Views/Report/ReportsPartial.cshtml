@@ -1,0 +1,182 @@
+﻿@{
+    Layout = null;
+}
+<link href="~/Content/Css/Car/car.css" rel="stylesheet" />
+<style>
+    .LoadVehicleTab{
+        border: 1px solid #ddd;
+        background-color: cadetblue;
+        padding: 6px;
+        width: 116px;
+        color: white;
+    }
+    .LoadFuelTab{
+        border: 1px solid #ddd;
+        background-color: cadetblue;
+        padding: 6px;
+        width: 116px;
+        color: white;
+    }
+    .active {
+          background-color: #00467A;
+    }
+     .sub-list:not(:first-child) {
+        padding-left:10px;
+    }
+    
+    .FilterImage
+    {
+        width:10%;
+        position: absolute;
+        top: -20px;
+    }
+    #Download {
+        float:right;
+      
+
+    }
+ 
+    .item1:hover
+    {
+        background-color:#DADADA;;
+    }
+     .item2:hover
+    {
+        background-color:#DADADA;;
+    }
+    #searchbardiv {
+       margin-bottom:10px;
+    }
+</style>
+<script>
+  
+    var TabsLoaderText = "<div class='invoice-loader'><div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>";
+    var FilterRecord = function () {
+        window.location.href = "/Report/NewReport?ReportFor=Vehicle&SelectAllIds=filtered";
+    }
+    var AllRecord = function () {
+        window.location.href = "/Report/NewReport?ReportFor=Vehicle";
+    }
+
+    var FilterBillRecord = function () {
+        window.location.href = "/Report/NewReport?ReportFor=Fuel&SelectAllIds=filtered";
+    }
+    var AllBillRecord = function () {
+        window.location.href = "/Report/NewReport?ReportFor=Fuel";
+    }
+    $(document).ready(function () {
+        $(".LoaderWorkingDiv").hide();
+        $("#LoadVehicleTab").html(TabsLoaderText);
+        $("#LoadVehicleTab").load("/Car/LoadCarList");
+  
+        if ($("#LoadFuelTab").hasClass("active")) {
+            $(".export1").show();
+            $(".export2").hide();
+            $(".VehicleFilter").show();
+            $(".FuelFilter").hide();
+        }
+        else
+        {
+            $(".export2").show();
+            $(".export1").hide();
+            $(".VehicleFilter").hide();
+            $(".FuelFilter").show();
+        }
+        $("#LoadVehicleTab").addClass("active");
+        $(".LoadVehicleTab").click(function () {
+            $("#LoadVehicleTab").html(TabsLoaderText);
+            $("#LoadVehicleTab").load("/Car/LoadCarList");
+            if ($("#LoadFuelTab").hasClass("active"))
+            {
+                $("#LoadFuelTab").removeClass("active");
+            }
+            $("#LoadVehicleTab").addClass("active");
+             $(".export1").show();
+             $(".export2").hide();
+             $(".VehicleFilter").show();
+             $(".FuelFilter").hide();
+        });
+        $(".LoadFuelTab").click(function () {
+            $("#LoadFuelTab").html(TabsLoaderText);
+            $("#LoadFuelTab").load("/Fuel/LoadFuelSystemList");
+            if ($("#LoadVehicleTab").hasClass("active")) {
+                $("#LoadVehicleTab").removeClass("active");
+            }
+            $("#LoadFuelTab").addClass("active");
+
+            $(".export2").show();
+            $(".export1").hide();
+            $(".VehicleFilter").hide();
+            $(".FuelFilter").show();
+        });
+        $(".opportunity_filter_list").hide();
+        $(".VehicleFilter").click(function () {
+            OpenRightToLeftModal("/Report/VehicleFilter")
+        })
+
+        $(".FuelFilter").click(function () {
+            OpenRightToLeftModal("/Report/FuelFilter")
+        })
+   
+    });
+
+</script>
+<link href="~/Content/Css/Report/Report.css" rel="stylesheet" />
+<div class="ReportsTitle">Reports</div>
+
+<div class="col-xs-12 Report-Tabs">
+    <div class="nav-detail-contents">
+        <div class="">
+            <div id="searchbardiv" class="row">
+                <div class="col-md-6">
+                    <input class="form-control srch-term" placeholder="Find Vehicles" type="text">
+                </div>
+                <div class="col-md-6">
+                    <span class="VehicleFilter">
+                        <img class="FilterImage" src="~/Content/Img/Filter.jpeg" />
+                    </span>
+                    <span class="FuelFilter">
+                        <img class="FilterImage" src="~/Content/Img/Filter.jpeg" />
+                    </span>
+                    <div class="dropdown" id="Download">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-download"></i>
+                        </button>
+                        <div class="dropdown-menu ExportOption" style="left:-113px;cursor:pointer;margin-bottom:5px;" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-item item1 export1" onclick="AllRecord()">Export All Record</div>
+                            <div class="dropdown-item item2 export1" onclick="FilterRecord()">Export Filtered Record</div>
+
+                            <div class="dropdown-item item1 export2" onclick="AllBillRecord()">Export All Record</div>
+                            <div class="dropdown-item item2 export2" onclick="FilterBillRecord()" >Export Filtered Record</div>
+                           
+                        </div>
+                    </div>
+                  
+                </div>
+               
+
+            </div>
+            
+        </div>
+     
+      
+        <ul class="nav nav-tabs reports-tabs" id="myTab">
+            <li class="active LoadVehicleTab"
+                <a data-target="#LoadVehicleTab  .active" data-toggle="tab">Vehicle Report</a>
+            </li>
+            <li class="LoadFuelTab"
+                <a data-target="#LoadFuelTab  .active" data-toggle="tab">Fuel Report</a>
+            </li>
+
+        </ul>
+        <div class="tab-content reports_tab_content">
+            <div class="tab-pane active" id="LoadVehicleTab">
+
+            </div>
+            <div class="tab-pane active" id="LoadFuelTab">
+
+            </div>
+        </div>
+    </div>
+
+</div>

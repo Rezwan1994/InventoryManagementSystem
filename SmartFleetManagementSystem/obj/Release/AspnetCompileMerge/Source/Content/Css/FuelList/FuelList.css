@@ -1,0 +1,187 @@
+﻿.opportunities_container {
+    width:100%;
+    float:left;
+}
+.opportunities_fixed_header {
+    position: fixed;
+    width: 86.7%;
+    background-color: #fff;
+    z-index: 3;
+    margin-top: -5px;
+    padding-top: 5px;
+}
+
+#Range{
+    width: 5%;
+    height: 35px;
+}
+.opportunity_filter_list {
+    width:100%;
+    float:left;
+    padding-top:10px;
+}
+.opportunity_filter_list > div {
+    width:9%;
+    float:left;
+}
+.btn-filter {
+    border: none;
+    background: transparent;
+    height: 27px;
+    font-size: 27px;
+    color: #999999;
+}
+.main_header {
+       width: 40%;
+    float: left;
+}
+.main_header h2 {
+    margin-top:0px;
+}
+.opportunities_container #searchbardiv {
+    width:435px;
+    float:left;
+    padding-top: 7px;
+}
+.opportunities_container #searchbardiv input {
+    width:350px;
+    float:left;
+}
+.opportunities_container #searchbardiv button {
+  float:left;
+}
+.opportunities_container .ListContents {
+    width:100%;
+    float:left;
+    margin-top:45px;
+}
+ .opportunity_list_container {
+       width:100%;
+       float:left;
+       position:relative;
+   }
+ .opportunities_table_container {
+        width:100%;
+       float:left;
+       margin-bottom:10px;
+
+ }
+.opportunities_table {
+       width:100%;
+       float:left;
+      
+       margin-bottom: 10px;
+   }
+    .opportunities_table thead tr {
+       border-bottom: 2px solid #d4d7dc;
+    }
+     .opportunities_table tbody tr td {
+      border-bottom:1px solid #ddd;
+   }
+     .opportunities_table thead tr th {
+         width:200px;
+     }
+   .opportunities_table thead tr th,
+   .opportunities_table tbody tr td {
+       padding:10px;
+   }
+   .opportunities_table tbody tr td a {
+     cursor:pointer;
+   }
+  
+   .opportunities_table tbody tr:nth-child(odd) {
+     background-color:#f8f8f8;
+   }
+    .opportunities_table tbody tr:hover {
+     background-color:#f4f5f8;
+   }
+   
+   .opportunity_list_container  .paginationtextdv {
+       font-weight:bold;
+       padding: 5px 10px;
+   }
+   .opportunities_table thead tr th div:nth-child(1) {
+        width: 94%;
+        float: left;
+        padding-top: 2px;
+    }
+
+    .opportunities_table thead tr th div:nth-child(2) {
+        width: 6%;
+        float: left;
+    }
+
+        .opportunities_table thead tr th div:nth-child(2) i {
+            float: right;
+            cursor: pointer;
+            width: 100%;
+            text-align: right;
+            color: #bdbdbd;
+        }
+
+            .opportunities_table thead tr th div:nth-child(2) i:nth-child(2) {
+                margin-top: -5px;
+            }
+            .opportunities_pagination_container {
+       width:100%;
+       float:left;
+       text-align:right;
+   }
+   .opportunities_pagination_inner {
+       float:right;
+   }
+#pagination {
+        display: inline-block;
+    }
+    .paginationMiddleButtondv {
+    width: 38px;
+    float: left;
+    margin-right:2px;
+}
+    .PaginationButtons {
+    padding-left: 14px;
+    padding-right: 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+    .NavigatonButtonsDiv {
+    float: left;
+    border: 1px solid #ccc;
+}
+    .activeBtn {
+    background-color: #ddd !important;
+    color: black;
+    border: none;
+    height: 26px;
+    width: 35px;
+}
+    .paginationRightButtondv {
+    width: 38px;
+    float: left;
+    margin-left:2px;
+}
+.btn {
+    float: right;
+    background-color: #2ca01c;
+    border-color: #2ca01c;
+    color: white;
+}
+@media (max-width:414px) {
+    .main_header {
+        width:100%;
+    }
+    .opportunities_container #searchbardiv {
+        width:100%;
+    }
+    .opportunities_container .ListContents {
+        margin-top:115px;
+    }
+    .opportunities_container #searchbardiv input {
+    width:100%;
+}
+    .opportunities_container #searchbardiv button {
+    margin-top: 10px;
+}
+}

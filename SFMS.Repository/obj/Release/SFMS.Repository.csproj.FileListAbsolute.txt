@@ -1,0 +1,12 @@
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\SFMS.Repository.dll.config
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\SFMS.Repository.dll
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\SFMS.Repository.pdb
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\EntityFramework.dll
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\EntityFramework.SqlServer.dll
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\SFMS.Entity.dll
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\SFMS.Entity.pdb
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\EntityFramework.xml
+D:\CodeVehicle\trunk\SFMS.Repository\bin\Release\EntityFramework.SqlServer.xml
+D:\CodeVehicle\trunk\SFMS.Repository\obj\Release\SFMS.Repository.csprojResolveAssemblyReference.cache
+D:\CodeVehicle\trunk\SFMS.Repository\obj\Release\SFMS.Repository.dll
+D:\CodeVehicle\trunk\SFMS.Repository\obj\Release\SFMS.Repository.pdb

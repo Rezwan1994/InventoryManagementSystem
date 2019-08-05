@@ -1,0 +1,157 @@
+﻿@{
+    Layout = null;
+}
+@model SFMS.Entity.Car
+
+<link href="~/Content/Select2/select2.css" rel="stylesheet" />
+<link href="~/Content/Css/Car/AddCar.css" rel="stylesheet" />
+@Styles.Render("~/styles/AddFile")
+<script src="~/Content/Js/Car/AddCar.js"></script>
+<script src="~/Content/Select2/Select2.min.js"></script>
+
+@Scripts.Render("~/scripts/AddFile")
+<style>
+    .phototd {
+        border-right: 1px solid #ddd;
+    }
+
+    #DriverDocumentsNumber {
+        margin-left: 23px;
+    }
+
+    .Upload_Doc {
+        margin-left: 64px;
+    }
+</style>
+<script>
+    var Status = '@Model.Status'
+    var AddDocuments = function () {
+        OpenRightToLeftModal("/Car/AddDocuments/?CarId="+'@Model.CarId');
+    }
+</script>
+<div class="add_opportunity_container">
+    <div class="container-fluid add_note_margin_top">
+        <div class="add_opportunity_header">Add Car</div>
+        <div class="add_opportunity_inner">
+            <div class="form-group clearfix">
+                <span class="span_style">Make</span>
+
+                <input type="text" id="Make" name="Name" placeholder="Make" value="@Model.Make" datarequired="true" class="form-control" />
+                <label rel="Name" class="label hidden red position-absolute">Make Required</label>
+            </div>
+
+            <div class="form-group clearfix">
+                <span class="span_style">Model</span>
+                <input type="text" id="Model" name="Name" placeholder="Model" value="@Model.Model" class="form-control" />
+            </div>
+
+            <div class="form-group clearfix">
+                <span class="span_style">Reg No</span>
+                <input type="text" id="RegId" name="RegId" placeholder="Reg Id" value="@Model.RegId" class="form-control" />
+
+            </div>
+
+            <div class="form-group clearfix">
+                <span class="span_style">Chassis No</span>
+                <input type="text" id="ChassisNo" name="ChassisNo" placeholder="ChassisNo" value="@Model.ChassisNo" class="form-control" />
+            </div>
+
+            <div class="form-group clearfix">
+                <span class="span_style">CC</span>
+                <input type="text" id="CC" name="CC" placeholder="CC" value="@Model.CC" datarequired="true" class="form-control" />
+            </div>
+
+            <div class="form-group clearfix">
+                <span class="span_style">Financier</span>
+                <input type="text" id="Financier" name="Financier" placeholder="Financier" value="@Model.Financier" class="form-control" />
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Initial Odometer</span>
+                <input type="text" id="InitialOdometer" name="Financier" placeholder="Initial Odometer" value="@Model.InitialOdometer" class="form-control" />
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Initial Volume</span>
+                <input type="text" id="InitialVolume" name="InitialVolume" placeholder="Initial Volume" value="@Model.InitialVolume" class="form-control" />
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Status</span>
+
+                @Html.DropDownList("Status", (List<SelectListItem>)ViewBag.VehicleStatusList, new { @class = "form-control" })
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Fuel System</span>
+
+                @Html.DropDownList("FuelSystem", (List<SelectListItem>)ViewBag.FuelSystemList, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group clearfix">
+                <span class="span_style">Legal Owner</span>
+                @Html.DropDownList("LigalOwner", (List<SelectListItem>)ViewBag.LegalOwnerList, new { @class = "form-control dropdown_owner" })
+            </div>
+            <div class="form-group clearfix">
+                    <span class="span_style">Concern</span>
+                    @Html.DropDownList("Concern", (List<SelectListItem>)ViewBag.ConcernList, new { @class = "form-control dropdown_concern" })
+                </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Vehicle Type</span>
+                @Html.DropDownListFor(x => x.Type, (List<SelectListItem>)ViewBag.VehicleTypeList, new { @class = "form-control ", id = "VehicleType" })
+            </div>
+            <div class="form-group clearfix" id="SubType">
+                <span class="span_style">Vehicle Sub Type</span>
+                @Html.DropDownListFor(x => x.SubType, (List<SelectListItem>)ViewBag.VehicleSubTypeList, new { @class = "form-control ", id = "VehicleSubType" })
+            </div>
+
+            <div class="form-group clearfix" id="CapacityList">
+                <span class="span_style">Capacity</span>
+                @Html.DropDownListFor(x => x.Capacity, (List<SelectListItem>)ViewBag.CapacityList, new { @class = "form-control ", id = "Capacity" })
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Year Of Mfg</span>
+                <input type="text" id="YearOfMfg" name="Financier" placeholder="Year Of Mfg" value="@Model.InitialOdometer" class="form-control" />
+
+            </div>
+
+
+
+            <input type="hidden" id="IdVal" value="@Model.Id">
+            <input type="hidden" id="CarIdVal" value="@Model.CarId">
+
+        </div>
+        @if (Model.CarId != new Guid())
+        {
+            <div class="sub-header">
+                <span>
+                    Assign Driver
+                </span>
+                <span>
+                    <button class="btn customer-new" id="AddDriver" type="button">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> New
+                    </button>
+                </span>
+            </div>
+            <div class="LoadDriverList add_opportunity_inner">
+
+            </div>
+
+            <div class="sub-header">
+                <span>
+                    Upload Documents
+                </span>
+                <span>
+                    <button class="btn customer-new" onclick="AddDocuments()" type="button">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> New
+                    </button>
+                </span>
+            </div>
+            <div class="LoadDocumentList add_opportunity_inner">
+
+            </div>
+        }
+
+    </div>
+    <div class="add_opportunity_footer">
+        <input type="button" value="@(Model.Id > 0 ? "Update" : "Save")" onclick="SaveVehicle()" />
+    </div>
+
+</div>
+

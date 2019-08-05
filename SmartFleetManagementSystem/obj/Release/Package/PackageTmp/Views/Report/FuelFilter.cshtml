@@ -1,0 +1,180 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+
+
+<link href="~/Content/Css/Car/AddDriver.css" rel="stylesheet" />
+
+<style>
+    .add_reminder_style {
+        position: absolute;
+        margin-top: 12px;
+    }
+
+    .add_note_margin_top {
+        overflow-y: auto;
+        height: 603px;
+        width: 95%;
+    }
+
+    .btn-apply-filter {
+        background-color: #005485;
+        float: right;
+        margin-right: 23px;
+        color: white;
+    }
+</style>
+<link href="~/Content/Select2/select2.css" rel="stylesheet" />
+<script src="~/Content/Select2/Select2.min.js"></script>
+<script>
+    var InitializeCarDropdown = function (dropdownitem) {
+        console.log("ddfsd");
+        $(dropdownitem).select2({
+            placeholder: 'Vehicles',
+            allowClear: true,
+            minimumInputLength: 1,
+            ajax: {
+                url: "/Car/GetCarList",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        q: term
+                    };
+                },
+                processResults: function (data, params) {
+                    console.log(data);
+                    return {
+                        results: $.map(data, function (item) {
+
+                            if (typeof (item.Make) != "undefined") {
+                                return {
+                                    text: "[" + item.Make + " " + item.Model + "](" + item.RegId + ")",
+                                    id: item.CarId,
+                                }
+                            }
+                        })
+                    };
+                }
+            }
+        });
+        $(dropdownitem).on("select2:closing", function (e) {
+
+        });
+
+
+    }
+    $(".btn-apply-filter").click(function () {
+        console.log("hlw");
+
+        var Vehicle = $("#Allocation").val();
+        var FuelSystem = $(".FuelType").val();
+        var LastReading = $(".LastReading").val();
+        var Odometer = $(".Odometer").val();
+   
+
+        var Usage = $(".Usage").val();
+        var IssueDate = $(".IssueDateFilter").val();
+        var VoucharNo = $(".VoucherNo").val();
+    
+
+        $('#LoadFuelTab').load("/Fuel/LoadFuelSystemList?Make=" + Vehicle
+          + "&FuelSystem=" + FuelSystem
+          + "&LastReading=" + LastReading
+        
+          + "&Odometer=" + Odometer
+          + "&Usage=" + Usage
+          + "&IssueDate=" + IssueDate
+          + "&VoucharNo=" + VoucharNo
+ 
+
+         );
+
+
+
+    })
+    $(document).ready(function ()
+    {
+        InitializeCarDropdown($('.dropdown_car'));
+    })
+</script>
+<div class="form-group add_note_header_container">
+
+    <div class="add_note_header">
+        <i class="fa fa-filter"></i>
+        <span>Filter</span>
+        <button class="btn-apply-filter"><i class="fa fa-search"></i>Search</button>
+    </div>
+
+</div>
+<div class="container-fluid add_note_margin_top">
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Vehicle</span>
+            @Html.DropDownList("Allocation", (List<SelectListItem>)ViewBag.CarList, new { @class = "form-control dropdown_car" })
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">FuelSystem</span>
+            @Html.DropDownList("FuelSystem", (List<SelectListItem>)ViewBag.FuelSystemList, new { @class = "form-control  FuelType", id = "FuelSystem" })
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Last Reading</div>
+            <input type="text" class="form-control LastReading" placeholder="Last Reading">
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Odometer</span>
+            <input type="text" class="form-control Odometer" placeholder="Odometer">
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Fuel Type</div>
+            @Html.DropDownList("FuelSystem", (List<SelectListItem>)ViewBag.FuelSystemList, new { @class = "form-control  FuelType", id = "FuelSystem" })
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Usage</span>
+            <input type="text" class="form-control UsageFilter" placeholder="Usage">
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Issue Date</div>
+            <input type="text" class="form-control IssueDateFilter" placeholder="Chassis No">
+
+        </div>
+    </div>
+  
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Fuel Amount</div>
+            <input type="text" class="form-control FuelAmountFilter" placeholder="Fuel Amount">
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Voucher No</div>
+            <input type="text" class="form-control VoucherNo" placeholder="Voucher No">
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

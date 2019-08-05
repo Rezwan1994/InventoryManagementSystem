@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+@model SFMS.Entity.UserDriverMap
+
+
+
+<link href="~/Content/Css/Car/AddDriver.css" rel="stylesheet" />
+<script src="~/Content/Js/Car/AddDriver.js"></script>
+<style>
+    .add_reminder_style {
+        position: absolute;
+        margin-top: 12px;
+    }
+</style>
+<script>
+    var CarId = '@ViewBag.CarId'
+</script>
+<div class="form-group add_note_header_container">
+    <div style="display:none" class="DCarId">@ViewBag.CarId</div>
+    <div style="display:none" class="DId">@Model.Id</div>
+    <div  class="add_note_header">Add Driver</div>
+</div>
+<div class="container-fluid add_note_margin_top">
+    <div class="form-group clearfix">
+        <div class="row">
+             <span class="span_style">Allocation</span>
+            @Html.DropDownList("Allocation", (List<SelectListItem>)ViewBag.AllocationList, new { @class = "form-control dropdown_allocation" })
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Note</div>
+            <textarea id="DriverNote" rows="5"  placeholder="Note" value="" class="form-control" />
+
+        </div>
+    </div>
+</div>
+
+<section class="footer-section">
+    <footer class="footer">
+        <div class="SaveCancelDiv">
+            <button class="btn btn-snote" id="SaveDriver"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+        </div>
+    </footer>
+</section>
+
+<input type="hidden" id="DCarIdVal" value="@ViewBag.CarId">

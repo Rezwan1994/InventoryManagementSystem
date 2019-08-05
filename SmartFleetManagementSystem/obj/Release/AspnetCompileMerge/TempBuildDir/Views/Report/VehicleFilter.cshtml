@@ -1,0 +1,143 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+
+
+<link href="~/Content/Css/Car/AddDriver.css" rel="stylesheet" />
+
+<style>
+    .add_reminder_style {
+        position: absolute;
+        margin-top: 12px;
+    }
+    .add_note_margin_top
+    {
+        overflow-y: auto;
+        height: 603px;
+
+        width: 95%;
+    }
+    .btn-apply-filter
+    {
+        background-color:#005485;
+        float:right;
+        margin-right: 23px;
+        color: white;
+    }
+</style>
+<script>
+    $(".btn-apply-filter").click(function () {
+        console.log("hlw");
+       
+        var Model = $(".ModelFilter").val();
+        var Make = $(".MakeFilter").val();
+        var RegId = $(".RegIdFilter").val();
+        var CC = $(".CCFilter").val();
+        var FuelSystem = $("#FuelSystem").val();
+
+        var ChassisNo = $(".ChassisNoFilter").val();
+        var VehicleType = $("#VehicleType").val();
+        var VehicleSubType = $("#VehicleSubType").val();
+        var Capacity = $("#Capacity").val();
+        var Status = $("#Status").val();
+      
+        $('#LoadVehicleTab').load("/Car/LoadCarList?Model=" + Model
+          + "&Make=" + Make
+          + "&RegId=" + RegId
+          + "&CC=" + CC
+          + "&FuelSystem=" + FuelSystem
+          + "&ChassisNo=" + ChassisNo
+          + "&VehicleType=" + VehicleType
+          + "&VehicleSubType=" + VehicleSubType
+          + "&Capacity=" + Capacity
+          + "&Status=" + Status
+         
+         );
+
+
+
+    })
+</script>
+<div class="form-group add_note_header_container">
+ 
+    <div class="add_note_header"><i class="fa fa-filter"></i>
+    <span>Filter</span>
+        <button class="btn-apply-filter" ><i class="fa fa-search"></i>Search</button>
+    </div>
+    
+</div>
+<div class="container-fluid add_note_margin_top">
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Make</span>
+            <input type="text" class="form-control MakeFilter" placeholder="Make">
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Model</div>
+            <input type="text" class="form-control ModelFilter" placeholder="Model">
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Reg No</span>
+            <input type="text" class="form-control RegIdFilter" placeholder="Reg No">
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Fuel Type</div>
+            @Html.DropDownList("FuelSystem", (List<SelectListItem>)ViewBag.FuelSystemList, new { @class = "form-control  FuelType", id = "FuelSystem" })
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">CC</span>
+            <input type="text" class="form-control CCFilter" placeholder="CC">
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Chassis No</div>
+            <input type="text" class="form-control ChassisNoFilter" placeholder="Chassis No">
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Vehicle Type</span>
+            @Html.DropDownList("VehicleType", (List<SelectListItem>)ViewBag.VehicleTypeList, new { @class = "form-control", id = "VehicleType" })
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Vehicle Sub Type</div>
+            @Html.DropDownList("VehicleSubType", (List<SelectListItem>)ViewBag.VehicleSubTypeList, new { @class = "form-control", id = "VehicleSubType" })
+
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <span class="span_style">Capacity</span>
+            @Html.DropDownList("Capacity", (List<SelectListItem>)ViewBag.CapacityList, new { @class = "form-control", id = "Capacity" })
+        </div>
+    </div>
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="span_style">Status</div>
+            @Html.DropDownList("Status", (List<SelectListItem>)ViewBag.VehicleStatusList, new { @class = "form-control", id = "Status" })
+
+        </div>
+    </div>
+  
+</div>
+
+
+
+<input type="hidden" id="DCarIdVal" value="@ViewBag.CarId">

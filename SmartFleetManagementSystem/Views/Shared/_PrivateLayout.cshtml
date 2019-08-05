@@ -1,0 +1,162 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section styles{
+    @Styles.Render("~/styles/privatelayout")
+    @RenderSection("PrivateStyles", required: false)
+    <link href="~/Content/JQueryFileUpload/jquery.fileupload.css" rel="stylesheet" />
+    <script src="~/Content/Js/Layout/Device.js"></script>
+}
+@section scripts{
+    @Scripts.Render("~/scripts/privatelayout")
+    @RenderSection("PrivateScripts", required: false)
+    @*<script src="~/Content/JQueryFileUpload/jquery.fileupload.js"></script>
+        <script src="~/Content/JQueryFileUpload/jquery.fileupload-ui.js"></script>*@
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        if (window.innerWidth < 769) {
+            $(".dropdown-user").width(window.innerWidth);
+        }
+        else {
+
+        }
+        if (window.innerWidth < 415) {
+            $(".dropdown_notification").width(window.innerWidth);
+            $(".dropdown_help").width(window.innerWidth);
+        }
+        else {
+
+        }
+
+
+        $(window).on('popstate', function (item) {
+            if (top.location.hash != '') {
+                if ($("[tabname='" + top.location.hash + "']").length > 0) {
+                    TabPopStateCheck = true;
+                    $("[tabname='" + top.location.hash + "']").click();
+                } else {
+                    var windoloc = window.location.href;
+                    //window.location = windoloc.split('#')[0]
+                }
+            } else {
+                window.location = window.location.href;
+            }
+        });
+
+    });
+    $(document).bind('keydown', function (e) {
+        if (e.keyCode == 13) {
+            $('#GlobalSearchButton').trigger('click');
+        }
+    });
+    $(window).resize(function () {
+        if (window.innerWidth < 768) {
+            $(".dropdown-user").width(window.innerWidth);
+        }
+        else {
+
+        }
+        if (window.innerWidth < 415) {
+            $(".dropdown_notification").width(window.innerWidth);
+            $(".dropdown_help").width(window.innerWidth);
+        }
+        else {
+
+        }
+    })
+</script>
+
+<div class="PrivateLayoutContents">
+    <nav class="navbar navbar-inverse navbar-fixed-top header" role="navigation">
+        <div class="navbar-header Top-Logo">
+            @*logo hide class "Top-Logo"*@
+
+            <a class="navbar-brand" href="/Dashboard"><img class="company-white-logo" src="~/Content/Icons/logo.jpg" /></a>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <ul class="nav navbar-nav  navbar-top-links GlobalSearchNavbarUl">
+                <li class="GlobalEstInvCustSearchDiv">
+                    <div class="input-group">
+                        <input type="text" onkeyup="GlobalSearchKeyUp(this, event)" onkeydown="GlobalSearchKeyDown(this,event)" class="GlobalSearchInp src-cls" style="padding:7px;" placeholder="Search for.." />
+                        <div class='tt-menu'>
+                            <div class='tt-dataset tt-dataset-autocomplete'>
+                            </div>
+                        </div>
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary src-logo left_things main_search" id="GlobalSearchButton" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+
+                </li>
+            </ul>
+        <!-- /.navbar-top-links -->
+    </nav>
+    <div class="SideContent">
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a class="custom_color" href="/Dashboard" id="LoadDashBoard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a class="custom_color" href="/Users" id="LoadUsers" onclick="LoadUsers(true)"><i class="fa fa-address-book fa-fw"></i> Users</a>
+                    </li>
+                    <li>
+                        <a class="custom_color" href="/Concerns" id="LoadConcerns" onclick="LoadConcerns(true)"><i class="fa fa-building"></i> Concerns</a>
+                    </li>
+                    <li>
+                        <a class="custom_color" href="/Vehicles" id="LoadVehicles" onclick="LoadVehicle(true)"><i class="fa fa-car"></i> Vehicles</a>
+                    </li>
+                    <li>
+                        <a class="custom_color" href="/Drivers" id="LoadDrivers" onclick="LoadDrivers(true)"><i class="fa fa-user fa-fw"></i> Drivers</a>
+                    </li>
+                    <li>
+                        <a class="custom_color" href="/FuelSystems" id="LoadFuelSystems"><i class="fa fa-tasks"></i> Fuel System</a>
+                    </li>
+                    <li>
+                        <a class="custom_color" href="/Reports" id="LoadReport" onclick="LoadReports(true)"><i class="fa fa-book fa-fw"></i> Reports</a>
+                    </li>
+                    <li>
+                        <a class="custom_color" href="/Settings" id="LoadSettings"><i class="fa fa-cog fa-fw"></i> Settings</a>
+                    </li>
+                    <li>
+                        <a href="/Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+   <div class="MiddleContent">
+       <div class="flyout-overlay">
+       </div>
+       <div id="page-wrapper">
+           <div class="LoaderWorkingDiv">
+               @*<div class='uil-ring-css' style='transform:scale(1);'>
+                    <div></div>
+                </div>*@
+               <div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+               <div>
+                   <h3>Please wait</h3>
+                   <h4>We are fetching your data</h4>
+               </div>
+           </div>
+           <div class="page-wrapper-contents">
+               @RenderBody()
+           </div>
+       </div>
+   </div>
+   
+
+    @RenderPage("~/Views/Shared/_Modals.cshtml")
+</div>
