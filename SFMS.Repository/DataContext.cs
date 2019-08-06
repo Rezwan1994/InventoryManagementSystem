@@ -4,7 +4,7 @@ using SFMS.Entity;
 
 
 
-namespace SFMS.Repository
+namespace IMS.Repository
 {
     public class DataContext : DbContext
     {

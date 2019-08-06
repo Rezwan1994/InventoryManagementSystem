@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SFMS.Repository
+namespace IMS.Repository
 {
     public class UserRepository : Repository<Users>
     {

@@ -12,3 +12,7 @@ D:\CodeVehicle\trunk\SFMS.Facade\bin\Debug\EntityFramework.SqlServer.xml
 D:\CodeVehicle\trunk\SFMS.Facade\obj\Debug\SFMS.Facade.csprojResolveAssemblyReference.cache
 D:\CodeVehicle\trunk\SFMS.Facade\obj\Debug\SFMS.Facade.dll
 D:\CodeVehicle\trunk\SFMS.Facade\obj\Debug\SFMS.Facade.pdb
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Facade\obj\Debug\SFMS.Facade.csprojAssemblyReference.cache
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Facade\obj\Debug\SFMS.Facade.csproj.CoreCompileInputs.cache
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Facade\obj\Debug\SFMS.Facade.dll
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Facade\obj\Debug\SFMS.Facade.pdb

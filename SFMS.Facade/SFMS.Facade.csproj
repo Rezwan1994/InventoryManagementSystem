@@ -74,9 +74,9 @@
       <Project>{03D8531D-107E-4EF6-A7B7-4DB251B38E9A}</Project>
       <Name>SFMS.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFMS.Repository\SFMS.Repository.csproj">
+    <ProjectReference Include="..\SFMS.Repository\IMS.Repository.csproj">
       <Project>{4D9089CA-ECAF-474A-BCE5-314490F0F2B1}</Project>
-      <Name>SFMS.Repository</Name>
+      <Name>IMS.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

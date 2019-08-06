@@ -382,9 +382,9 @@
       <Project>{b21bb7c1-5706-4810-a0c7-2731a1585706}</Project>
       <Name>SFMS.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFMS.Repository\SFMS.Repository.csproj">
+    <ProjectReference Include="..\SFMS.Repository\IMS.Repository.csproj">
       <Project>{4d9089ca-ecaf-474a-bce5-314490f0f2b1}</Project>
-      <Name>SFMS.Repository</Name>
+      <Name>IMS.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

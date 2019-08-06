@@ -8,3 +8,15 @@ D:\CodeVehicle\trunk\SFMS.Framework\bin\Debug\EntityFramework.SqlServer.xml
 D:\CodeVehicle\trunk\SFMS.Framework\obj\Debug\SFMS.Framework.csprojResolveAssemblyReference.cache
 D:\CodeVehicle\trunk\SFMS.Framework\obj\Debug\SFMS.Framework.dll
 D:\CodeVehicle\trunk\SFMS.Framework\obj\Debug\SFMS.Framework.pdb
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\bin\Debug\SFMS.Framework.dll.config
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\bin\Debug\SFMS.Framework.dll
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\bin\Debug\SFMS.Framework.pdb
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\bin\Debug\EntityFramework.dll
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\bin\Debug\EntityFramework.SqlServer.dll
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\bin\Debug\EntityFramework.xml
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\bin\Debug\EntityFramework.SqlServer.xml
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.csprojAssemblyReference.cache
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.csproj.CoreCompileInputs.cache
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.csproj.CopyComplete
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.dll
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.pdb

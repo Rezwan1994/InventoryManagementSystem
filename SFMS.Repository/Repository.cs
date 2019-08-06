@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 
-namespace SFMS.Repository
+namespace IMS.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity.Entity
     {

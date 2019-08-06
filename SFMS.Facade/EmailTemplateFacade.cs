@@ -1,5 +1,5 @@
 ﻿using SFMS.Entity;
-using SFMS.Repository;
+using IMS.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
