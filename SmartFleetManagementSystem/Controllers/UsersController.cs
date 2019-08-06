@@ -121,7 +121,7 @@ namespace SmartFleetManagementSystem.Controllers
             bool result = false;
             string message = "";
             Users user = usersFacade.Get(Id);
-            List<UserCarMap> MapList = carMapFacade.GetUserCarMapByUserId(user.UserId);
+            List<PurchaseOrderDetail> MapList = carMapFacade.GetUserCarMapByUserId(user.UserId);
             try
             {
                 usersFacade.Delete(Id);

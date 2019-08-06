@@ -25,7 +25,7 @@ namespace SFMS.Entity
     }
     public class DriversModel
     {
-        public List<Drivers> DriversList { get; set; }
+        public List<SalesOrder> DriversList { get; set; }
         public int TotalCount { get; set; }
     }
     public class DriversFilter
@@ -40,8 +40,8 @@ namespace SFMS.Entity
 
     public class DriverInfo
     {
-        public Drivers Drivers { get; set; }
-        public Documents Documents { get; set; }
+        public SalesOrder Drivers { get; set; }
+        public SalesOrderDetail Documents { get; set; }
     }
 
     public static class DocumentType

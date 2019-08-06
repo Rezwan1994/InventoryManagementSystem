@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Facade
 {
-    public class CarFacade : Facade<Car>
+    public class CarFacade : Facade<Product>
     {
         public CarFacade(DataContext dataContext) : base(dataContext) { }
     }

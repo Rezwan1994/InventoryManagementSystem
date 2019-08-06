@@ -74,7 +74,7 @@ namespace SmartFleetManagementSystem.Controllers
                 item.Documents = documentsFacade.GetByUserId(item.DriverId);
                 if(item.Documents== null)
                 {
-                    item.Documents = new Documents();
+                    item.Documents = new SalesOrderDetail();
                 }
             }
             #endregion
@@ -94,16 +94,16 @@ namespace SmartFleetManagementSystem.Controllers
                 }
                 else
                 {
-                    model.Drivers = new Drivers();
+                    model.Drivers = new SalesOrder();
                 }
             }
             if (model.Documents == null)
             {
-                model.Documents = new Documents();
+                model.Documents = new SalesOrderDetail();
             }
             if (model.Drivers == null)
             {
-                model.Drivers = new Drivers();
+                model.Drivers = new SalesOrder();
             }
 
             return View(model);

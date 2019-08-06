@@ -92,7 +92,7 @@ namespace SmartFleetManagementSystem.Controllers
 
         public ActionResult AddConcern(int? id)
         {
-            Concerns model = new Concerns();
+            PaymentReceive model = new PaymentReceive();
             if (id.HasValue && id > 0)
             {
                 model = ConcernFacade.Get(id.Value);
@@ -100,20 +100,20 @@ namespace SmartFleetManagementSystem.Controllers
             }
           else
             {
-                model = new Concerns();
+                model = new PaymentReceive();
             }
 
             return View(model);
         }
 
-        public JsonResult SaveConcern(Concerns Concern)
+        public JsonResult SaveConcern(PaymentReceive Concern)
         {
             bool result = false;
             string message = "";
             try
             {
                 #region Car Driver Map
-                Concerns ump = new Concerns();
+                PaymentReceive ump = new PaymentReceive();
                 if (Concern.Id > 0)
                 {
                     ump = ConcernFacade.Get(Concern.Id);

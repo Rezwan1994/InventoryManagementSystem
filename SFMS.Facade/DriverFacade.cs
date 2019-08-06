@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Facade
 {
-    public class DriverFacade : Facade<Drivers>
+    public class DriverFacade : Facade<SalesOrder>
     {
         DriverRepository driverRepository = null;
         public DriverFacade(DataContext dataContext) : base(dataContext) {

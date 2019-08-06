@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace SFMS.Facade
 {
-    public class DocumentsFacade : Facade<Documents>
+    public class DocumentsFacade : Facade<SalesOrderDetail>
     {
         DocumentsRepository documentsRepository = null;
         public DocumentsFacade(DataContext dataContext) : base(dataContext) {
             documentsRepository = new DocumentsRepository(dataContext);
         }
 
-        public Documents GetByUserId(Guid UserId)
+        public SalesOrderDetail GetByUserId(Guid UserId)
         {
             return documentsRepository.GetByUserId(UserId);
         }
 
-        public List<Documents> GetAllByUserId(Guid UserId)
+        public List<SalesOrderDetail> GetAllByUserId(Guid UserId)
         {
             return documentsRepository.GetAllByUserId(UserId);
         }

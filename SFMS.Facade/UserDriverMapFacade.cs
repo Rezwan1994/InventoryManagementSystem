@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Facade
 {
-    public class UserDriverMapFacade : Facade<UserDriverMap>
+    public class UserDriverMapFacade : Facade<WareHouse>
     {
         UserDriverMapRepository driverMapRepo = null;
         public UserDriverMapFacade(DataContext dataContext) : base(dataContext)
@@ -19,7 +19,7 @@ namespace SFMS.Facade
         {
             return driverMapRepo.GetDriverMapByCarId(CarId);
         }
-        public UserDriverMap GetDriverMapById(int id)
+        public WareHouse GetDriverMapById(int id)
         {
             return driverMapRepo.GetDriverMapById(id);
         }

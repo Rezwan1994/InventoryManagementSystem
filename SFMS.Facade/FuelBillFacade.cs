@@ -6,7 +6,7 @@ using System.IO;
 
 namespace SFMS.Facade
 {
-    public class FuelBillFacade : Facade<FuelBill>
+    public class FuelBillFacade : Facade<PurchaseOrder>
     {
         FuelBillRepository fuelrepo = null;
         public FuelBillFacade(DataContext dataContext) : base(dataContext)
@@ -24,7 +24,7 @@ namespace SFMS.Facade
         {
             return fuelrepo.GetFuelById(id);
         }
-        public List<FuelBill> GetAllFuelBillbyIdList(List<string> IdList)
+        public List<PurchaseOrder> GetAllFuelBillbyIdList(List<string> IdList)
         {
 
             return fuelrepo.GetAllBillsbyIdList(IdList);

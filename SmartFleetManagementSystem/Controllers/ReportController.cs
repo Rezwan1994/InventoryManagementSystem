@@ -149,7 +149,7 @@ namespace SmartFleetManagementSystem.Controllers
                 }
                 else
                 {
-                    List<Car> idList = carFacade.GetAll();
+                    List<Product> idList = carFacade.GetAll();
                     foreach (var item in idList)
                     {
                         IdList.Add(item.Id.ToString());
@@ -167,7 +167,7 @@ namespace SmartFleetManagementSystem.Controllers
                 }
                 else
                 {
-                    List<FuelBill> idList = fuelbillfacade.GetAll();
+                    List<PurchaseOrder> idList = fuelbillfacade.GetAll();
                     foreach (var item in idList)
                     {
                         IdList.Add(item.Id.ToString());
