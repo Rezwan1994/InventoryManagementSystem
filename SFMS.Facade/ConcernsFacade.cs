@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Facade
 {
-    public class ConcernsFacade : Facade<Concerns>
+    public class ConcernsFacade : Facade<PaymentReceive>
     {
         ConcernsRepository concernRepo = null;
         public ConcernsFacade(DataContext dataContext) : base(dataContext) {
@@ -19,7 +19,7 @@ namespace SFMS.Facade
         {
             return concernRepo.GetConcerns(filter);
         }
-        public List<Concerns> GetAllConcernsbyQuery(string query)
+        public List<PaymentReceive> GetAllConcernsbyQuery(string query)
         {
 
             return concernRepo.GetAllConcernsbyQuery(query);

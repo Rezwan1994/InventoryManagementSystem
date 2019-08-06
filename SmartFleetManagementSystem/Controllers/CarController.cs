@@ -123,7 +123,7 @@ namespace SmartFleetManagementSystem.Controllers
         public ActionResult GetAllocaionList()
         {
             string query = Request.QueryString["q[term]"] != null ? Request.QueryString["q[term]"].ToString() : "";
-            List<Drivers> DriverList = carFacade.GetAllAllocationsbyQuery(query);
+            List<SalesOrder> DriverList = carFacade.GetAllAllocationsbyQuery(query);
 
             var AllocationList = ToDataTable(DriverList);
 
@@ -146,7 +146,7 @@ namespace SmartFleetManagementSystem.Controllers
         public ActionResult GetCarList()
         {
             string query = Request.QueryString["q[term]"] != null ? Request.QueryString["q[term]"].ToString() : "";
-            List<Car> CarList = carFacade.GetAllCarsbyQuery(query);
+            List<Product> CarList = carFacade.GetAllCarsbyQuery(query);
 
             var CarNameList = ToDataTable(CarList);
 
@@ -170,7 +170,7 @@ namespace SmartFleetManagementSystem.Controllers
         public ActionResult GetConcernList()
         {
             string query = Request.QueryString["q[term]"] != null ? Request.QueryString["q[term]"].ToString() : "";
-            List<Concerns> ConcernList = concernFacade.GetAllConcernsbyQuery(query);
+            List<PaymentReceive> ConcernList = concernFacade.GetAllConcernsbyQuery(query);
 
             var CarNameList = ToDataTable(ConcernList);
 
@@ -195,7 +195,7 @@ namespace SmartFleetManagementSystem.Controllers
             string query = Request.QueryString["q[term]"] != null ? Request.QueryString["q[term]"].ToString() : "";
 
             List<Users> UserList = carFacade.GetAllOwnersbyQuery(query);
-            List<Concerns> ConcernList = concernFacade.GetAllConcernsbyQuery(query);
+            List<PaymentReceive> ConcernList = concernFacade.GetAllConcernsbyQuery(query);
             var LegalUserList = ToDataTable(UserList);
             var VehicleConcernList = ToDataTable(ConcernList);
 
@@ -227,7 +227,7 @@ namespace SmartFleetManagementSystem.Controllers
         public ActionResult AddDocuments(int? id, string CarId)
         {
             List<SelectListItem> DocumentsType = new List<SelectListItem>();
-            Documents documents = new Documents();
+            SalesOrderDetail documents = new SalesOrderDetail();
             DocumentsType = lookupFacade.GetLookupByKey("DocumentsType").Select(x =>
             new SelectListItem()
             {
@@ -245,7 +245,7 @@ namespace SmartFleetManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveDocuments(Documents documents)
+        public ActionResult SaveDocuments(SalesOrderDetail documents)
         {
             bool result = false;
             string message = "";
@@ -254,7 +254,7 @@ namespace SmartFleetManagementSystem.Controllers
                 #region Documents
                 if (documents.Id > 0)
                 {
-                    Documents ump = documentsFacade.Get(documents.Id);
+                    SalesOrderDetail ump = documentsFacade.Get(documents.Id);
                     ump.DocumentsType = documents.DocumentsType;
                     ump.ExpireDate = documents.ExpireDate;
                     ump.IssueDate = documents.IssueDate;
@@ -345,7 +345,7 @@ namespace SmartFleetManagementSystem.Controllers
                 Text = x.DisplayText.ToString(),
                 Value = x.DataValue.ToString()
             }).ToList();
-            Car model = new Car();
+            Product model = new Product();
             if (id.HasValue && id > 0)
             {
                 model = carFacade.GetVehicleById(id.Value);
@@ -387,7 +387,7 @@ namespace SmartFleetManagementSystem.Controllers
             List<SelectListItem> LegalOwnerList = new List<SelectListItem>();
             if (CarId != null && CarId != new Guid())
             {
-                Car model = carFacade.GetVehicleByCarId(CarId.Value);
+                Product model = carFacade.GetVehicleByCarId(CarId.Value);
                 ViewBag.CarId = model.CarId;
             }
 
@@ -465,7 +465,7 @@ namespace SmartFleetManagementSystem.Controllers
             return Json(new { result = result, message = message });
 
         }
-        public JsonResult SaveDriver(UserDriverMap userDriver)
+        public JsonResult SaveDriver(WareHouse userDriver)
         {
             bool result = false;
             string message = "";
@@ -474,7 +474,7 @@ namespace SmartFleetManagementSystem.Controllers
                 #region Car Driver Map
                 if (userDriver.Id > 0)
                 {
-                    UserDriverMap ump = DriverMapFacade.Get(userDriver.Id);
+                    WareHouse ump = DriverMapFacade.Get(userDriver.Id);
                     ump.DriverId = userDriver.DriverId;
                     ump.Note = userDriver.Note;
                     DriverMapFacade.Update(ump);
@@ -503,7 +503,7 @@ namespace SmartFleetManagementSystem.Controllers
 
         public ActionResult LoadAllAssignedDriver(int Id)
         {
-            Car model = carFacade.GetVehicleById(Id);
+            Product model = carFacade.GetVehicleById(Id);
             List<UserDriverMapVM> DriverList = new List<UserDriverMapVM>();
             if (model != null)
             {
@@ -515,7 +515,7 @@ namespace SmartFleetManagementSystem.Controllers
             return View(DriverList);
 
         }
-        public JsonResult SaveVehicle(Car car, UserCarMap userCar, CarConcernMap carConcern)
+        public JsonResult SaveVehicle(Product car, PurchaseOrderDetail userCar, ProductWarehouseMap carConcern)
         {
 
             var result = false;
@@ -537,7 +537,7 @@ namespace SmartFleetManagementSystem.Controllers
 
 
                     #region UserCarMap Update
-                    UserCarMap carmap = carMapFacade.GetUserCarMapByCarId(updateCar.CarId);
+                    PurchaseOrderDetail carmap = carMapFacade.GetUserCarMapByCarId(updateCar.CarId);
                     if (carmap != null)
                     {
                         carmap.UserId = userCar.UserId;
@@ -586,7 +586,7 @@ namespace SmartFleetManagementSystem.Controllers
 
         public ActionResult LoadVehicleDocumentList(string CarId)
         {
-            List<Documents> documents = new List<Documents>();
+            List<SalesOrderDetail> documents = new List<SalesOrderDetail>();
             documents = documentsFacade.GetAllByUserId(new Guid(CarId));
             return View(documents);
         }

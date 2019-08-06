@@ -115,7 +115,7 @@ namespace SmartFleetManagementSystem.Controllers
             return View(FuelList.FuelList);
         }
       
-        public JsonResult SaveDailyFuel(FuelBill fuelbill, string CarId)
+        public JsonResult SaveDailyFuel(PurchaseOrder fuelbill, string CarId)
         {
             bool result = false;
             string message = "";
@@ -124,7 +124,7 @@ namespace SmartFleetManagementSystem.Controllers
                 #region Car Driver Map
                 if (fuelbill.Id > 0)
                 {
-                    FuelBill ump = FuelFacade.Get(fuelbill.Id);
+                    PurchaseOrder ump = FuelFacade.Get(fuelbill.Id);
                     ump.CarId = fuelbill.CarId;
                     ump.DriverId = fuelbill.DriverId;
                     ump.FuelSystem = fuelbill.FuelSystem;
@@ -150,7 +150,7 @@ namespace SmartFleetManagementSystem.Controllers
                     result = true;
                     message = "Fuel bill added successfully.";
                 }
-                Car cars = carFacade.GetVehicleByCarId(fuelbill.CarId);
+                Product cars = carFacade.GetVehicleByCarId(fuelbill.CarId);
                 cars.InitialOdometer = fuelbill.Odometer;
                 cars.InitialVolume = fuelbill.FuelAmount;
                 carFacade.Update(cars);

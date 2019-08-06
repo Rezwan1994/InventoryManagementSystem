@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Repository
 {
-    public class UserDriverMapRepository : Repository<UserDriverMap>
+    public class UserDriverMapRepository : Repository<WareHouse>
     {
 
         DataContext context = null;
@@ -36,7 +36,7 @@ namespace SFMS.Repository
 
         }
 
-        public UserDriverMap GetDriverMapById(int Id)
+        public WareHouse GetDriverMapById(int Id)
         {
 
 
@@ -50,7 +50,7 @@ namespace SFMS.Repository
 
             string sqlQuery = string.Format(rawQuery, Id);
             //List<UserDriverMap> dsResult = context.Set<UserDriverMap>().SqlQuery(sqlQuery).ToList();
-            UserDriverMap dsResult = context.Database.SqlQuery<UserDriverMapVM>(sqlQuery, new object[] { }).ToList<UserDriverMap>().FirstOrDefault();
+            WareHouse dsResult = context.Database.SqlQuery<UserDriverMapVM>(sqlQuery, new object[] { }).ToList<WareHouse>().FirstOrDefault();
 
             return dsResult;
 

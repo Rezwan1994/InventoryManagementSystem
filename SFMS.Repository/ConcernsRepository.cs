@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Repository
 {
-    public class ConcernsRepository : Repository<Concerns>
+    public class ConcernsRepository : Repository<PaymentReceive>
     {
         DataContext context = null;
         public ConcernsRepository(DataContext dataContext) : base(dataContext) {
@@ -44,7 +44,7 @@ namespace SFMS.Repository
 
             rawQuery = string.Format(rawQuery, subquery, searchTextQuery, filterQuery);
             int TotalCount = 0;
-            List<Concerns> dsResult = new List<Concerns>();
+            List<PaymentReceive> dsResult = new List<PaymentReceive>();
             try
             {
                 var ctx = DataContext.getInstance();
@@ -64,9 +64,9 @@ namespace SFMS.Repository
             return concernModel;
         }
 
-        public List<Concerns> GetAllConcernsbyQuery(string query)
+        public List<PaymentReceive> GetAllConcernsbyQuery(string query)
         {
-            List<Concerns> ConcernList = new List<Concerns>();
+            List<PaymentReceive> ConcernList = new List<PaymentReceive>();
 
             string rawQuery = @"  
                                 
@@ -82,7 +82,7 @@ namespace SFMS.Repository
 
 
 
-            List<Concerns> dsResult = context.Set<Concerns>().SqlQuery(sqlQuery).ToList();
+            List<PaymentReceive> dsResult = context.Set<PaymentReceive>().SqlQuery(sqlQuery).ToList();
 
 
             return dsResult;

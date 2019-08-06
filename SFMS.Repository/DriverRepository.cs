@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Repository
 {
-    public class DriverRepository : Repository<Drivers>
+    public class DriverRepository : Repository<SalesOrder>
     {
         public DriverRepository(DataContext dataContext) : base(dataContext) { }
 
@@ -41,7 +41,7 @@ namespace SFMS.Repository
 
             rawQuery = string.Format(rawQuery, subquery, searchTextQuery, filterQuery);
             int TotalCount = 0;
-            List<Drivers> dsResult = new List<Drivers>();
+            List<SalesOrder> dsResult = new List<SalesOrder>();
             try
             {
                 var ctx = DataContext.getInstance();

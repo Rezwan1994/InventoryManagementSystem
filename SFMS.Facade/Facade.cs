@@ -28,18 +28,18 @@ namespace SFMS.Facade
 
             return carRepo.GetVehicles(filter);
         }
-        public List<Car> GetAllVehiclesbyIdList(List<string> IdList)
+        public List<Product> GetAllVehiclesbyIdList(List<string> IdList)
         {
 
             return carRepo.GetAllCarsbyIdList(IdList);
         }
-        public List<Drivers> GetAllAllocationsbyQuery(string query)
+        public List<SalesOrder> GetAllAllocationsbyQuery(string query)
         {
 
             return carRepo.GetAllAllocationsbyQuery(query);
         }
        
-        public List<Car> GetAllCarsbyQuery(string query)
+        public List<Product> GetAllCarsbyQuery(string query)
         {
 
             return carRepo.GetAllCarsbyQuery(query);
@@ -54,11 +54,11 @@ namespace SFMS.Facade
             return repo.Get(id);
         }
 
-        public Car GetVehicleById(int id)
+        public Product GetVehicleById(int id)
         {
             return carRepo.GetVehicleById(id);
         }
-        public Car GetVehicleByCarId(Guid CarId)
+        public Product GetVehicleByCarId(Guid CarId)
         {
             return carRepo.GetVehicleByCarId(CarId);
         }

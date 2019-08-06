@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Repository
 {
-    public class CarRepository : Repository<Car>
+    public class CarRepository : Repository<Product>
     {
         DataContext context = null;
         public CarRepository(DataContext dataContext) : base(dataContext) {
@@ -73,7 +73,7 @@ namespace SFMS.Repository
                 CountTextQuery = " where c.RegId like '%" + filter.SearchText + "%' or c.RegId like '%" + filter.SearchText + "%' or c.CC like '%" + filter.SearchText + "%' or c.Model like '%" + filter.SearchText + "%' or c.Make like '%" + filter.SearchText + "%' or  c.Financier like '%" + filter.SearchText + "%' or c.FuelSystem like '%" + filter.SearchText + "%' or c.ChassisNo like '%" + filter.SearchText + "%' or c.CreatedDate like '%" + filter.SearchText + "%' ";
             }
 
-            List<Car> OpportunityList = new List<Car>();
+            List<Product> OpportunityList = new List<Product>();
           
             string rawQuery = @"  
                                 declare @pagesize int
@@ -171,14 +171,14 @@ namespace SFMS.Repository
             #endregion
 
             rawQuery = string.Format(rawQuery, subquery, searchTextQuery, filterQuery);
-            List<Car> dsResult = context.Database.SqlQuery<CarVM>(rawQuery, new object[] { }).ToList<Car>();
+            List<Product> dsResult = context.Database.SqlQuery<CarVM>(rawQuery, new object[] { }).ToList<Product>();
 
             //List<EF.Person> listPerson = dbEntities.Database.SqlQuery<EF.Person_Reflect>(sql, new object[] { }).ToList<EF.Person>();
 
             //List<CarVM> dsResult = context.Set<CarVM>().SqlQuery(rawQuery).ToList<CarVM>();
             VehicleModel vehicleModel = new VehicleModel();
             vehicleModel.CarList = dsResult;
-            int TotalCount = context.Set<Car>().SqlQuery(CountQuery).ToList().Count;
+            int TotalCount = context.Set<Product>().SqlQuery(CountQuery).ToList().Count;
             //context.Dispose();
             vehicleModel.TotalCount = TotalCount;
            
@@ -187,12 +187,12 @@ namespace SFMS.Repository
             
         }
 
-        public List<Drivers> GetAllAllocationsbyQuery(string query)
+        public List<SalesOrder> GetAllAllocationsbyQuery(string query)
         {
          
          
 
-            List<Car> OpportunityList = new List<Car>();
+            List<Product> OpportunityList = new List<Product>();
 
             string rawQuery = @"  
                                 
@@ -208,16 +208,16 @@ namespace SFMS.Repository
 
 
         
-            List<Drivers> dsResult = context.Set<Drivers>().SqlQuery(sqlQuery).ToList();
+            List<SalesOrder> dsResult = context.Set<SalesOrder>().SqlQuery(sqlQuery).ToList();
          
      
             return dsResult;
 
 
         }
-        public List<Car> GetAllCarsbyQuery(string query)
+        public List<Product> GetAllCarsbyQuery(string query)
         {
-            List<Car> CarList = new List<Car>();
+            List<Product> CarList = new List<Product>();
 
             string rawQuery = @"  
                                 
@@ -233,7 +233,7 @@ namespace SFMS.Repository
 
 
 
-            List<Car> dsResult = context.Set<Car>().SqlQuery(sqlQuery).ToList();
+            List<Product> dsResult = context.Set<Product>().SqlQuery(sqlQuery).ToList();
 
 
             return dsResult;
@@ -241,7 +241,7 @@ namespace SFMS.Repository
 
         }
 
-        public List<Car> GetAllCarsbyIdList(List<string> idList)
+        public List<Product> GetAllCarsbyIdList(List<string> idList)
         {
             string ids = "";
             if(idList.Count > 0)
@@ -265,7 +265,7 @@ namespace SFMS.Repository
 
 
 
-            List<Car> dsResult = context.Set<Car>().SqlQuery(sqlQuery).ToList();
+            List<Product> dsResult = context.Set<Product>().SqlQuery(sqlQuery).ToList();
 
 
             return dsResult;
@@ -300,7 +300,7 @@ namespace SFMS.Repository
 
 
         }
-        public Car GetVehicleById(int id)
+        public Product GetVehicleById(int id)
         {
             
             List<Users> OpportunityList = new List<Users>();
@@ -325,14 +325,14 @@ namespace SFMS.Repository
 
             string sqlQuery = string.Format(rawQuery, id);
             //List<Users> dsResult = context.Set<Users>().SqlQuery(sqlQuery).ToList();
-            Car dsResult = context.Database.SqlQuery<CarVM>(sqlQuery, new object[] { }).ToList<Car>().FirstOrDefault();
+            Product dsResult = context.Database.SqlQuery<CarVM>(sqlQuery, new object[] { }).ToList<Product>().FirstOrDefault();
 
             return dsResult;
 
 
         }
 
-        public Car GetVehicleByCarId(Guid CarId)
+        public Product GetVehicleByCarId(Guid CarId)
         {
 
             List<Users> OpportunityList = new List<Users>();
@@ -354,7 +354,7 @@ namespace SFMS.Repository
 
             string sqlQuery = string.Format(rawQuery, CarId);
             //List<Users> dsResult = context.Set<Users>().SqlQuery(sqlQuery).ToList();
-            Car dsResult = context.Database.SqlQuery<CarVM>(sqlQuery, new object[] { }).ToList<Car>().FirstOrDefault();
+            Product dsResult = context.Database.SqlQuery<CarVM>(sqlQuery, new object[] { }).ToList<Product>().FirstOrDefault();
 
             return dsResult;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Repository
 {
-    public class FuelBillRepository : Repository<FuelBill>
+    public class FuelBillRepository : Repository<PurchaseOrder>
     {
         DataContext context = null;
         public FuelBillRepository(DataContext dataContext) : base(dataContext) {
@@ -50,7 +50,7 @@ namespace SFMS.Repository
                 CountTextQuery = " where c.CarName like '%" + filter.SearchText + "%' or d.DriverName like '%" + filter.SearchText + "%' or fu.FuelSystem like '%" + filter.SearchText + "%' or fu.FuelAmount like '%" + filter.SearchText + "%' or  fu.Milage like '%" + filter.SearchText + "%' or fu.UnitPrice like '%" + filter.SearchText + "%'  ";
             }
 
-            List<Car> OpportunityList = new List<Car>();
+            List<Product> OpportunityList = new List<Product>();
 
             string rawQuery = @"  
                                 declare @pagesize int
@@ -152,14 +152,14 @@ namespace SFMS.Repository
             //List<CarVM> dsResult = context.Set<CarVM>().SqlQuery(rawQuery).ToList<CarVM>();
             FuelModel FuelModel = new FuelModel();
             FuelModel.FuelList = dsResult;
-            int TotalCount = context.Set<FuelBill>().SqlQuery(CountQuery).ToList().Count;
+            int TotalCount = context.Set<PurchaseOrder>().SqlQuery(CountQuery).ToList().Count;
             FuelModel.TotalCount = TotalCount;
 
             return FuelModel;
 
 
         }
-        public List<FuelBill> GetAllBillsbyIdList(List<string> idList)
+        public List<PurchaseOrder> GetAllBillsbyIdList(List<string> idList)
         {
             string ids = "";
             if (idList.Count > 0)
@@ -183,7 +183,7 @@ namespace SFMS.Repository
 
 
 
-            List<FuelBill> dsResult = context.Set<FuelBill>().SqlQuery(sqlQuery).ToList();
+            List<PurchaseOrder> dsResult = context.Set<PurchaseOrder>().SqlQuery(sqlQuery).ToList();
 
 
             return dsResult;

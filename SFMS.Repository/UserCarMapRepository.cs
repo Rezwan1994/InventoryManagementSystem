@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SFMS.Repository
 {
-    public class UserCarMapRepository : Repository<UserCarMap>
+    public class UserCarMapRepository : Repository<PurchaseOrderDetail>
     {
 
         DataContext context = null;
@@ -16,7 +16,7 @@ namespace SFMS.Repository
             this.context = dataContext;
         }
 
-        public UserCarMap GetUserCarMapByDriverId(Guid CarId)
+        public PurchaseOrderDetail GetUserCarMapByDriverId(Guid CarId)
         {
 
 
@@ -29,7 +29,7 @@ namespace SFMS.Repository
 
 
             string sqlQuery = string.Format(rawQuery, CarId);
-            UserCarMap dsResult = context.Set<UserCarMap>().SqlQuery(sqlQuery).ToList().FirstOrDefault();
+            PurchaseOrderDetail dsResult = context.Set<PurchaseOrderDetail>().SqlQuery(sqlQuery).ToList().FirstOrDefault();
           
 
             return dsResult;
@@ -37,7 +37,7 @@ namespace SFMS.Repository
 
         }
 
-        public List<UserCarMap> GetUserCarMapByUserId(Guid UserId)
+        public List<PurchaseOrderDetail> GetUserCarMapByUserId(Guid UserId)
         {
 
 
@@ -50,7 +50,7 @@ namespace SFMS.Repository
 
 
             string sqlQuery = string.Format(rawQuery, UserId);
-            List<UserCarMap> dsResult = context.Set<UserCarMap>().SqlQuery(sqlQuery).ToList();
+            List<PurchaseOrderDetail> dsResult = context.Set<PurchaseOrderDetail>().SqlQuery(sqlQuery).ToList();
 
 
             return dsResult;
