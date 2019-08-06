@@ -8,19 +8,20 @@ namespace IMS.Repository
 {
     public class DataContext : DbContext
     {
-        public DbSet<PurchaseOrderDetail> UserCarMap { get; set; }
-        public DbSet<Users> Users { get; set; }
-        public DbSet<SalesOrder> Drivers { get; set; }
-        public DbSet<PaymentReceive> Concerns { get; set; }
-        public DbSet<SalesOrderDetail> Documents { get; set; }
-        public DbSet<WareHouse> UserDriverMap { get; set; }
-        public DbSet<Product> Car { get; set; }
-        public DbSet<PurchaseOrder> FuelBill { get; set; }
+   
+        public DbSet<SalesOrder> SalesOrder { get; set; }
+        public DbSet<PaymentReceive> PaymentReceive { get; set; }
+        public DbSet<SalesOrderDetail> SalesOrderDetail { get; set; }
+        public DbSet<WareHouse> WareHouse { get; set; }
+        public DbSet<ProductWarehouseMap> ProductWarehouseMap { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrder { get; set; }
+        public DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public DbSet<LookUp> LookUp { get; set; }
         public DbSet<EmailTemplate> EmailTemplate { get; set; }
         public DbSet<EmailHistory> EmailHistory { get; set; }
         public DbSet<UserLogin> UserLogin { get; set; }
-
+        public DbSet<Users> Users { get; set; }
         private DataContext() { }
         public static DataContext context = null;
         public static DataContext getInstance()

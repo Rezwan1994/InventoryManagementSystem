@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace SFMS.Entity
 {
-    public class UserCarMap :Entity
+    public class PurchaseOrderDetail :Entity
     {
-        public Guid UserId { get; set; }
-        public Guid CarId { get; set; }
-        public Guid Note { get; set; }
+        public Guid PurchaseOrderId { get; set; }
+        public Guid ProductId { get; set; }
+        public int Quantity { get; set; }
+        public double UnitPrice { get; set; }
+        public double TotalPrice { get; set; }
     }
 }
+

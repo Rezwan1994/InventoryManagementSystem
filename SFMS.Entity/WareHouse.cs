@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace SFMS.Entity
 {
-    public class UserDriverMap : Entity
+    public class WareHouse : Entity
     {
-        public Guid DriverId { get; set; }
-        public Guid CarId { get; set; }
-        public string Note { get; set; }
+ 
+        public Guid WarehouseId { get; set; }
+        public Guid WarehouseName { get; set; }
+        public string Address { get; set; }
+        public string Description { get; set; }
     }
-    [NotMapped]
-    public class UserDriverMapVM : UserDriverMap
-    {
-        public string DriverName { get; set; }
-        public string Mobile { get; set; }
-    }
+
+  
 }
+
+
+
+

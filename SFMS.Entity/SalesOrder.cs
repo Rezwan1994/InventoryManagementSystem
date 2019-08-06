@@ -7,19 +7,32 @@ using System.Threading.Tasks;
 
 namespace SFMS.Entity
 {
-   public class Drivers : Entity
+   public class SalesOrder : Entity
     {
-        public Guid DriverId { get; set; }
-        public string Name { get; set; }
-        public string MobileNumber { get; set; }
-        public string Email { get; set; }
-        public string ImgSrc { get; set; }
-        public string Address { get; set; }
-        public string DriverLicense { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public bool IsActive { get; set; }
+        public Guid SalesOrderId { get; set; }
+        public Guid WarehouseId { get; set; }
+        public Guid CustomerId { get; set; }
 
-        [NotMapped]
-        public SalesOrderDetail Documents { get; set; }
+        public string Remarks { get; set; }
+        public double Amount { get; set; }
+        public double SubTotal { get; set; }
+        public double Freight { get; set; }
+   
+        public double Total { get; set; }
+        public DateTime OrderDate { get; set; }
+        public DateTime DelivaryDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+     
     }
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -48,20 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
-    <Compile Include="CarConcernMap.cs" />
-    <Compile Include="Concerns.cs" />
-    <Compile Include="Documents.cs" />
-    <Compile Include="Drivers.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="ProductWarehouseMap.cs" />
+    <Compile Include="PaymentReceive.cs" />
+    <Compile Include="SalesOrderDetail.cs" />
+    <Compile Include="SalesOrder.cs" />
     <Compile Include="EmailHistory.cs" />
     <Compile Include="EmailTemplate.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="FuelBill.cs" />
+    <Compile Include="PurchaseOrder.cs" />
     <Compile Include="LookUp.cs" />
     <Compile Include="ModelClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserCarMap.cs" />
-    <Compile Include="UserDriverMap.cs" />
+    <Compile Include="PurchaseOrderDetail.cs" />
+    <Compile Include="WareHouse.cs" />
     <Compile Include="UserLogin.cs" />
     <Compile Include="Users.cs" />
   </ItemGroup>

@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace SFMS.Entity 
 {
-    public class CarConcernMap : Entity
+    public class ProductWarehouseMap : Entity
     {
-        public Guid ConcernId { get; set; }
-        public Guid CarId { get; set; }
-        public string Note { get; set; }
+        public Guid ProductWarehouseMapId { get; set; }
+        public Guid WarehouseId { get; set; }
+        public Guid ProductId { get; set; }
+        public string Quantity { get; set; }
+  
     }
 }
+
+
+
+
