@@ -1,0 +1,160 @@
+﻿@model SFMS.Entity.FuelBill
+
+@{
+    Layout = null;
+    double LastReading = Model.Id > 0 ? Model.LastReading : 0;
+    string unit = "";
+    if (Model.Id > 0)
+    {
+        unit = (Model.FuelSystem == "Octane") || (Model.FuelSystem == "Diesel") ? "Litere" : "m&#179;";
+    }
+}
+
+
+@*<link href="~/Content/Css/Car/AddDriver.css" rel="stylesheet" />*@
+
+<link href="~/Content/Css/Car/AddCar.css" rel="stylesheet" />
+<link href="~/Content/Select2/select2.css" rel="stylesheet" />
+@Styles.Render("~/styles/AddFile")
+@Scripts.Render("~/scripts/AddFileFuel")
+<script src="~/Content/Select2/Select2.min.js"></script>
+<script src="~/Content/Js/FuelList/AddFuel.js"></script>
+<style>
+    .add_reminder_style {
+        position: absolute;
+        margin-top: 12px;
+    }
+</style>
+<script>
+    var CarId = '@ViewBag.CarId'
+
+</script>
+<div class="form-group add_note_header_container">
+    <div style="display:none" class="DCarId">@ViewBag.CarId</div>
+    <div style="display:none" class="DId">@Model.Id</div>
+</div>
+<input type="hidden" id="IdVal" value="@Model.Id" />
+<div class="add_opportunity_container">
+    <div class="container-fluid add_note_margin_top">
+        <div class="add_opportunity_header">Daily Fuel</div>
+        <div class="add_opportunity_inner">
+            <div class="form-group clearfix">
+                <span class="span_style">Vehicle</span>
+                @Html.DropDownList("FuelVehicle", (List<SelectListItem>)ViewBag.CarList, new { @class = "form-control dropdown_carfuel" })
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Driver</span>
+                @Html.DropDownList("DriverId", (List<SelectListItem>)ViewBag.DriverList, new { @class = "form-control dropdown_allocation" })
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Fuel System</span>
+
+                @Html.DropDownListFor(x => x.UnitPrice, (List<SelectListItem>)ViewBag.FuelSystemList, new { @class = "form-control", id = "FuelSystem" })
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Unit Price</span>
+                <input type="text" id="unitprice" name="unitprice" data-val="0" placeholder="Unit Price" value="@Model.UnitPrice &#2547;/@Html.Raw(unit)" datarequired="true" class="form-control" readonly="readonly" />
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Fuel Amount</span>
+                <input type="number" id="FuelAmount" name="CC" placeholder="Fuel Amount" value="@Model.FuelAmount" datarequired="true" class="form-control" />
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Odometer</span>
+                <input type="number" id="Odometer" name="Odometer" placeholder="Odometer" value="@Model.Odometer" datarequired="true" class="form-control" />
+                Last Reading : <span class="span_style lastreading">@LastReading</span> mi
+                <label rel="Odometer" class="label hidden red position-relative odometererror">Odometer can't be empty and must be greater than last reading</label>
+            </div>
+            <div class="form-group clearfix">
+                <span class="span_style">Issue Date</span>
+                @Html.TextBoxFor(x => x.IssueDate, "{0:MM/dd/yyyy}", new { @class = "form-control", Placeholder = "Issue Date", id = "IssueDate" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sub-header">
+        Upload Documents
+    </div>
+    <div id="DriverDocuments">
+        <div id="DriverPhoto">
+            <div class="container-fluid">
+                <div class="clearfix">
+                    &nbsp;
+                </div>
+                <div class="form-group clearfix">
+                    <span class="span_style">Documents(max file size: 20 mb)</span><br />
+                </div>
+                <div>
+                    <br />
+                </div>
+                <div class="txt-form Upload_Doc">
+                    <div class="col-md-12 padding-left-0">
+                        <div class="fileborder border_none">
+                            <img id="UploadCustomerFileBtn" class="cursor-pointer custom-file" src="~/Content/Icons/blank_thumb_file.png" />
+                        </div>
+                        @*<input class="deleteDoc" type="image" src="/Content/Icons/cross.png" />*@
+                        <div class="deleteDoc cursor-pointer hidden">
+                            <img src="/Content/Icons/cross-image-delete.png" />
+                        </div>
+                        <div class="change-picture-logo white-color cursor-pointer text-align-center">
+                            <span class="chooseFilebtn"><img src="~/Content/Icons/edit-icon.png" /> Choose File to Upload</span>
+                            <span class="changeFilebtn hidden"><img src="~/Content/Icons/edit-icon.png" /> Change File</span>
+                        </div>
+                        @*<div class="" style="margin-top: 15px;">
+                                <span id="UploadSuccessMessage" class="hidden">File Uploaded Successfully..!</span>
+                            </div>*@
+                        <div class="LoadPreviewDocument hidden">
+                            <div class="show-image PropertyLogoPreviewPic">
+                                <div class="image-delete" data-id="">
+                                    <img src="/Content/Icons/cross-image-delete.png" />
+                                </div>
+                                <img class="Preview_Doc T360image-photo T360image" src="@System.Configuration.ConfigurationManager.AppSettings["SiteDomain"]@Model.DocumentSrc" />
+                            </div>
+                            <div class="change-picture-logo white-color cursor-pointer text-align-center T360image">
+                                <span><img src="~/Content/Icons/edit-icon.png" /> Change File</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 progress-container file-progress" style="display:none; padding-left:0; padding-right:0; margin-top: 15px;">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-success" style="width:0%">
+                                <span> 0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="label red position-relative hidden" id="uploadfileerror">*File required</label>
+                </div>
+            </div>
+            <div class="LoadPreviewDocument hidden">
+                <div class="show-image">
+                    <img id="Preview_Doc" src="" />
+                    <input class="deleteDoc" type="image" title="Close" src="/Content/Icons/cross.png" />
+                </div>
+                <div class="change-picture-logo white-color cursor-pointer text-align-center T360image">
+                    <span><img src="~/Content/Icons/edit-icon.png" /></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="DriverDocumentsNumber">
+            <div class="form-group clearfix">
+                <span class="span_style">Voucher No</span>
+                <input type="text" id="VoucherNo" name="VoucherNo" placeholder="Voucher No" value="@Model.VoucherNo" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="add_opportunity_footer">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i> <input class="btn btn-snote" id="SaveDriver" onclick="SaveDailyFuel()" value="@(Model.Id > 0 ? "Update" : "Save")">
+    </div>
+</div>
+<input type="hidden" id="DCarIdVal" value="@ViewBag.CarId">
+<div class="">
+    <input type="hidden" id="UploadedPath" value="@Model.DocumentSrc" />
+    <input type="file" name="UploadFuelDocuments" class="hidden" id="UploadedFile" accept="image/*" />
+</div>
+

@@ -1,0 +1,323 @@
+﻿
+@model IEnumerable<SFMS.Entity.Drivers>
+@{
+    Layout = null;
+}
+<style>
+    #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        #myImg:hover {
+            opacity: 0.7;
+        }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content (image) */
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* Caption of Modal Image */
+    #caption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    /* Add Animation */
+    .modal-content, #caption {
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @@-webkit-keyframes zoom {
+        from {
+            -webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+    }
+
+    @@keyframes zoom {
+        from {
+            transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+    }
+
+    /* The Close Button */
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    /* 100% Image Width on Smaller Screens */
+    @@media only screen and (max-width: 700px) {
+        .modal-content {
+            width: 100%;
+        }
+    }
+</style>
+<script>
+    var EditDriver = function (id) {
+        OpenTopToBottomModal("/Driver/AddDriver?id=" + id);
+    }
+    var zoomImg = function (src, licenseNo) {
+        var modal = document.getElementById('myModal');
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        modal.style.display = "block";
+        modalImg.src = src;
+        captionText.innerHTML = "License No : " + licenseNo;
+    }
+    $(document).ready(function () {
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        var modal = document.getElementById('myModal');
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    })
+
+</script>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+</div>
+<div class="opportunities_table_container">
+    <table class="opportunities_table">
+        <thead>
+            <tr>
+                <th>
+                    <div>Name</div>
+                    <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/make"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/make"></i></div>
+                </th>
+                <th>
+                    <div>Mobile</div>
+                    <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/regid"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/regid"></i></div>
+                </th>
+                <th>
+                    <div>Email</div>
+                    <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/ligalowner"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/ligalowner"></i></div>
+                </th>
+                <th>
+                    <div>Address</div>
+                    <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/fuelsystem"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/fuelsystem"></i></div>
+                </th>
+                <th>
+                    <div>License Info</div>
+                    <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/fuelsystem"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/fuelsystem"></i></div>
+                </th>
+                <th>
+                    <div>Action</div>
+                    <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/CreatedDate"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/CreatedDate"></i></div>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a id="edit" class="cus-anchor" onclick="EditDriver(@item.Id)">@item.Name</a>
+                    </td>
+
+                    <td>
+                        <span>@item.MobileNumber</span>
+                    </td>
+                    <td>
+                        <span>@item.Email</span>
+                    </td>
+                    <td>
+                        <span>@item.Address</span>
+                    </td>
+                    <td>
+                        <img id="myImg" src="@item.Documents.FileSource" alt="Snow" style="width:100%;max-width:100px" onclick="zoomImg(this.src, @item.DriverLicense)">
+                        <span>@item.DriverLicense</span>
+                    </td>
+                    <td class="cplp_info_allign">
+                        <a class="edit-package-Device" idval="@item.Id" id="" onclick="EditDriver(@item.Id)"><i class="fa fa-edit"></i></a> |
+                        <a class="delete-package-Device" idval="@item.Id" id="" onclick="DeleteUser(@item.Id)"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div class="opportunities_pagination_container">
+    <div class="opportunities_pagination_inner">
+        @if (ViewBag.PageCount == 1)
+        {
+            <div class="paginationMiddleButtondv" id="pagination">
+                <button class="PaginationButtons disabledBtn">Previous</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton activeBtn" onclick="NavigatePageListing(@(ViewBag.PageNumber))">1</button>
+            </div>
+            <div class="paginationRightButtondv" id="pagination">
+                <button class="PaginationButtons disabledBtn" disabled>Next</button>
+            </div>
+        }
+        else if (ViewBag.PageCount == 2)
+        {
+            <div class="paginationMiddleButtondv" id="pagination">
+                <button class="PaginationButtons @(ViewBag.PageNumber == 1 ? "disabledBtn" : "")" onclick="NavigatePageListing(@(ViewBag.PageNumber != 1 ? ViewBag.PageNumber - 1 : ""))">Previous</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 1 ? "activeBtn" : "")" onclick="NavigatePageListing(1)">1</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 2 ? "activeBtn" : "")" onclick="NavigatePageListing(2)">2</button>
+            </div>
+            <div class="paginationRightButtondv" id="pagination">
+                <button disabled="@(ViewBag.PageNumber == 2 ? "disabled" : "")" onclick="NavigatePageListing(@(ViewBag.PageNumber != 2 ? ViewBag.PageNumber + 1 : ""))">Next</button>
+            </div>
+        }
+        else if (ViewBag.PageCount == 3 || (ViewBag.PageNumber == 1 && ViewBag.PageCount == 3))
+        {
+            <div class="paginationMiddleButtondv" id="pagination">
+                <button class="PaginationButtons @(ViewBag.PageNumber == 1 ? "disabledBtn" : "")" onclick="NavigatePageListing(@(ViewBag.PageNumber != 1 ? ViewBag.PageNumber - 1 : ""))">Previous</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 1 ? "activeBtn" : "")" onclick="NavigatePageListing(1)">1</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 2 ? "activeBtn" : "")" onclick="NavigatePageListing(2)">2</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 3 ? "activeBtn" : "")" onclick="NavigatePageListing(3)">3</button>
+            </div>
+            <div class="paginationRightButtondv" id="pagination">
+                <button disabled="PaginationButtons @(ViewBag.PageNumber == 3 ? "disabled" : "")" onclick="NavigatePageListing(@(ViewBag.PageNumber != 3 ? ViewBag.PageNumber + 1 : ""))">Next</button>
+            </div>
+        }
+        else if (ViewBag.PageCount > 3)
+        {
+            if (ViewBag.PageNumber == 1)
+            {
+                <div class="paginationMiddleButtondv" id="pagination">
+                    <button disabled onclick="NavigatePageListing()">Previous</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton activeBtn" onclick="NavigatePageListing(@(ViewBag.PageNumber))">@(ViewBag.PageNumber)</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber + 1))">@(ViewBag.PageNumber + 1)</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber + 2))">@(ViewBag.PageNumber + 2)</button>
+                </div>
+                <div class="paginationRightButtondv" id="pagination">
+                    <button class="PaginationButtons" onclick="NavigatePageListing(@(ViewBag.PageNumber + 1))">Next</button>
+                </div>
+            }
+            else if (ViewBag.PageNumber == ViewBag.PageCount)
+            {
+                <div class="paginationMiddleButtondv">
+                    <button class="PaginationButtons" onclick="NavigatePageListing(@(ViewBag.PageNumber - 1))" id="pagination">Previous</button>
+                </div>
+                <div class="NavigatonButtonsDiv">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber - 2))" id="pagination">@(ViewBag.PageNumber - 2)</button>
+                </div>
+                <div class="NavigatonButtonsDiv">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber - 1))" id="pagination">@(ViewBag.PageNumber - 1)</button>
+                </div>
+                <div class="NavigatonButtonsDiv">
+                    <button class="NavigationButton activeBtn" onclick="NavigatePageListing(@(ViewBag.PageNumber))" id="pagination">@(ViewBag.PageNumber)</button>
+                </div>
+                <div class="paginationRightButtondv" id="pagination">
+                    <button disabled onclick="NavigatePageListing()">Next</button>
+                </div>
+            }
+            else
+            {
+                <div class="paginationMiddleButtondv" id="pagination">
+                    <button class="PaginationButtons" onclick="NavigatePageListing(@(ViewBag.PageNumber - 1))">Previous</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber - 1))">@(ViewBag.PageNumber - 1)</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton activeBtn" onclick="NavigatePageListing(@(ViewBag.PageNumber))">@(ViewBag.PageNumber)</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber + 1))">@(ViewBag.PageNumber + 1)</button>
+                </div>
+                <div class="paginationRightButtondv" id="pagination">
+                    <button class="PaginationButtons" onclick="NavigatePageListing(@(ViewBag.PageNumber + 1))">Next</button>
+                </div>
+
+            }
+        }
+    </div>
+    @*<div class="area_zip_code_pagination_inner">
+            @if (ViewBag.PageCount > 0)
+            {
+                <div class="paginationtextdv">
+                    <span>Showing item @ViewBag.CurrentNumber of @ViewBag.OutOfNumber</span>
+                </div>
+            }
+        </div>*@
+</div>
+
+
+
+
+
+
+
+
+
+
+
