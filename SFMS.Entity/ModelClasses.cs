@@ -18,9 +18,52 @@ namespace SFMS.Entity
         public string Type { get; set; }
         public string status { get; set; }
     }
+    public class ProductsFilter
+    {
+        public int? UnitPerPage { get; set; }
+        public int? PageNumber { get; set; }
+        public string Order { get; set; }
+        public string SearchText { get; set; }
+        public string Type { get; set; }
+        public string status { get; set; }
+    }
+    public class PWMsFilter
+    {
+        public int? UnitPerPage { get; set; }
+        public int? PageNumber { get; set; }
+        public string Order { get; set; }
+        public string SearchText { get; set; }
+        public string Type { get; set; }
+        public string status { get; set; }
+    }
+    public class WarehouseFilter
+    {
+        public int? UnitPerPage { get; set; }
+        public int? PageNumber { get; set; }
+        public string Order { get; set; }
+        public string SearchText { get; set; }
+        public string Type { get; set; }
+        public string status { get; set; }
+    }
     public class UsersModel
     {
         public List<Users> UsersList { get; set; }
+        public int TotalCount { get; set; }
+    }
+
+    public class ProductsModel
+    {
+        public List<Product> ProductsList { get; set; }
+        public int TotalCount { get; set; }
+    }
+    public class PWMsModel
+    {
+        public List<PWMvm> PWMList { get; set; }
+        public int TotalCount { get; set; }
+    }
+    public class WarehouseModel
+    {
+        public List<WareHouse> WareHouseList { get; set; }
         public int TotalCount { get; set; }
     }
     public class DriversModel

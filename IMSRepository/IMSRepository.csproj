@@ -54,10 +54,13 @@
     <Compile Include="EmailTemplateRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="LookUpRepository.cs" />
+    <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PWMRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="UserLoginRepository.cs" />
     <Compile Include="UserRepository.cs" />
+    <Compile Include="WareHouseRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFMS.Entity\SFMS.Entity.csproj">

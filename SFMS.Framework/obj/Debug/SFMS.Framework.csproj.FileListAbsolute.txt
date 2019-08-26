@@ -19,3 +19,4 @@ D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementS
 D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.csproj.CopyComplete
 D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.dll
 D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.pdb
+D:\Clouds\Mega Cloud\Cloud Drive\ClientTask\IMS\Collections\InventoryManagementSystem\SFMS.Framework\obj\Debug\SFMS.Framework.csprojAssemblyReference.cache

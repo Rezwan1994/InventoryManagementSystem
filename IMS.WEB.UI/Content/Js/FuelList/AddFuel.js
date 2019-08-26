@@ -258,7 +258,7 @@ $(document).ready(function () {
         var selectedValue = $("#FuelSystem option:selected").text();
         if (selectedValue == "Octane" || selectedValue == "Diesel") {
             var res = $("#FuelSystem").val() + " ৳/Litre";
-            $("#unitprice").attr("data-val", $("#FuelSystem").val())
+            $("#unitprice").attr("data-val", $("#FuelSystem").val()) 
             $("#unitprice").val(res);
         }
         else {

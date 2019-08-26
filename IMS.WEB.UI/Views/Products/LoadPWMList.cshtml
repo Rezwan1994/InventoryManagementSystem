@@ -1,0 +1,177 @@
+﻿
+@model IEnumerable<SFMS.Entity.PWMvm>
+@{
+    Layout = null;
+}
+
+<table class="opportunities_table">
+    <thead>
+        <tr>
+            <th>
+                <div>Id</div>
+                <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/make"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/make"></i></div>
+            </th>
+            <th>
+                <div>Products</div>
+                <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/make"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/make"></i></div>
+            </th>
+            <th>
+                <div>Warehouse</div>
+                <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/regid"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/regid"></i></div>
+            </th>
+            <th>
+                <div>Quantity</div>
+                <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/fuelsystem"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/fuelsystem"></i></div>
+            </th>
+            <th>
+                <div>Action</div>
+                <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/CreatedDate"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/CreatedDate"></i></div>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <a id="edit" class="cus-anchor" onclick="EditUser(@item.Id)">@item.Id</a>
+            </td>
+            <td>
+                <span>@item.WarehouseName</span>
+            </td>
+            <td>
+                <span>@item.ProductName</span>
+            </td>
+            <td>
+                <span>@item.Quantity</span>
+            </td>
+            <td class="cplp_info_allign">
+                <a class="delete-package-Device" idval="@item.Id" id="" onclick="EditUser(@item.Id)"><i class="fa fa-edit"></i></a> |
+                <a class="delete-package-Device" idval="@item.Id" id="" onclick="DeleteUserConfirm(@item.Id)"><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+
+<div class="opportunities_pagination_container">
+    <div class="opportunities_pagination_inner">
+        @if (ViewBag.PageCount == 1)
+        {
+            <div class="paginationMiddleButtondv" id="pagination">
+                <button class="PaginationButtons disabledBtn">Previous</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton activeBtn" onclick="NavigatePageListing(@(ViewBag.PageNumber))">1</button>
+            </div>
+            <div class="paginationRightButtondv" id="pagination">
+                <button class="PaginationButtons disabledBtn" disabled>Next</button>
+            </div>
+        }
+        else if (ViewBag.PageCount == 2)
+        {
+            <div class="paginationMiddleButtondv" id="pagination">
+                <button class="PaginationButtons @(ViewBag.PageNumber == 1 ? "disabledBtn" : "")" onclick="NavigatePageListing(@(ViewBag.PageNumber != 1 ? ViewBag.PageNumber - 1 : ""))">Previous</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 1 ? "activeBtn" : "")" onclick="NavigatePageListing(1)">1</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 2 ? "activeBtn" : "")" onclick="NavigatePageListing(2)">2</button>
+            </div>
+            <div class="paginationRightButtondv" id="pagination">
+                <button disabled="@(ViewBag.PageNumber == 2 ? "disabled" : "")" onclick="NavigatePageListing(@(ViewBag.PageNumber != 2 ? ViewBag.PageNumber + 1 : ""))">Next</button>
+            </div>
+        }
+        else if (ViewBag.PageCount == 3 || (ViewBag.PageNumber == 1 && ViewBag.PageCount == 3))
+        {
+            <div class="paginationMiddleButtondv" id="pagination">
+                <button class="PaginationButtons @(ViewBag.PageNumber == 1 ? "disabledBtn" : "")" onclick="NavigatePageListing(@(ViewBag.PageNumber != 1 ? ViewBag.PageNumber - 1 : ""))">Previous</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 1 ? "activeBtn" : "")" onclick="NavigatePageListing(1)">1</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 2 ? "activeBtn" : "")" onclick="NavigatePageListing(2)">2</button>
+            </div>
+            <div class="NavigatonButtonsDiv" id="pagination">
+                <button class="NavigationButton @(ViewBag.PageNumber == 3 ? "activeBtn" : "")" onclick="NavigatePageListing(3)">3</button>
+            </div>
+            <div class="paginationRightButtondv" id="pagination">
+                <button disabled="PaginationButtons @(ViewBag.PageNumber == 3 ? "disabled" : "")" onclick="NavigatePageListing(@(ViewBag.PageNumber != 3 ? ViewBag.PageNumber + 1 : ""))">Next</button>
+            </div>
+        }
+        else if (ViewBag.PageCount > 3)
+        {
+            if (ViewBag.PageNumber == 1)
+            {
+                <div class="paginationMiddleButtondv" id="pagination">
+                    <button disabled onclick="NavigatePageListing()">Previous</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton activeBtn" onclick="NavigatePageListing(@(ViewBag.PageNumber))">@(ViewBag.PageNumber)</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber + 1))">@(ViewBag.PageNumber + 1)</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber + 2))">@(ViewBag.PageNumber + 2)</button>
+                </div>
+                <div class="paginationRightButtondv" id="pagination">
+                    <button class="PaginationButtons" onclick="NavigatePageListing(@(ViewBag.PageNumber + 1))">Next</button>
+                </div>
+            }
+            else if (ViewBag.PageNumber == ViewBag.PageCount)
+            {
+                <div class="paginationMiddleButtondv">
+                    <button class="PaginationButtons" onclick="NavigatePageListing(@(ViewBag.PageNumber - 1))" id="pagination">Previous</button>
+                </div>
+                <div class="NavigatonButtonsDiv">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber - 2))" id="pagination">@(ViewBag.PageNumber - 2)</button>
+                </div>
+                <div class="NavigatonButtonsDiv">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber - 1))" id="pagination">@(ViewBag.PageNumber - 1)</button>
+                </div>
+                <div class="NavigatonButtonsDiv">
+                    <button class="NavigationButton activeBtn" onclick="NavigatePageListing(@(ViewBag.PageNumber))" id="pagination">@(ViewBag.PageNumber)</button>
+                </div>
+                <div class="paginationRightButtondv" id="pagination">
+                    <button disabled onclick="NavigatePageListing()">Next</button>
+                </div>
+            }
+            else
+            {
+                <div class="paginationMiddleButtondv" id="pagination">
+                    <button class="PaginationButtons" onclick="NavigatePageListing(@(ViewBag.PageNumber - 1))">Previous</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber - 1))">@(ViewBag.PageNumber - 1)</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton activeBtn" onclick="NavigatePageListing(@(ViewBag.PageNumber))">@(ViewBag.PageNumber)</button>
+                </div>
+                <div class="NavigatonButtonsDiv" id="pagination">
+                    <button class="NavigationButton" onclick="NavigatePageListing(@(ViewBag.PageNumber + 1))">@(ViewBag.PageNumber + 1)</button>
+                </div>
+                <div class="paginationRightButtondv" id="pagination">
+                    <button class="PaginationButtons" onclick="NavigatePageListing(@(ViewBag.PageNumber + 1))">Next</button>
+                </div>
+
+            }
+        }
+    </div>
+    @*<div class="area_zip_code_pagination_inner">
+            @if (ViewBag.PageCount > 0)
+            {
+                <div class="paginationtextdv">
+                    <span>Showing item @ViewBag.CurrentNumber of @ViewBag.OutOfNumber</span>
+                </div>
+            }
+        </div>*@
+</div>
+
+
+
