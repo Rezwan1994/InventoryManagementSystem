@@ -175,6 +175,11 @@
     <Content Include="Content\datatable\jquery.dataTables.min.js" />
     <Content Include="Content\FontAwesome\css\font-awesome.css" />
     <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Icons\blank_thumb_file.png" />
+    <Content Include="Content\Icons\blank_thumb_file_without_border.png" />
+    <Content Include="Content\Icons\cross-image-delete.png" />
+    <Content Include="Content\Icons\cross.png" />
+    <Content Include="Content\Icons\edit-icon.png" />
     <Content Include="Content\Icons\logo.jpg" />
     <Content Include="Content\Icons\logo.png" />
     <Content Include="Content\Img\2.jpg" />
@@ -219,6 +224,10 @@
     <Content Include="Content\Js\Modals\Modals.js" />
     <Content Include="Content\Js\modernizr.custom.86080.js" />
     <Content Include="Content\Js\PackageSetup\bootstrap-toggle.min.js" />
+    <Content Include="Content\Js\Products\AddProducts.js" />
+    <Content Include="Content\Js\Products\AddPWM.js" />
+    <Content Include="Content\Js\Products\AddWarehouse.js" />
+    <Content Include="Content\Js\Products\ProductDocuments.js" />
     <Content Include="Content\Js\Site\Validation.js" />
     <Content Include="Content\Js\Users\AddUser.js" />
     <Content Include="Content\Js\Users\Users.js" />
@@ -311,12 +320,22 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\LoadUsersList.cshtml" />
     <Content Include="Views\Users\UsersList.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\ProductsPartial.cshtml" />
+    <Content Include="Views\Products\LoadProductList.cshtml" />
+    <Content Include="Views\Products\AddProduct.cshtml" />
+    <Content Include="Views\Products\LoadWarehouseList.cshtml" />
+    <Content Include="Views\Products\AddWarehouse.cshtml" />
+    <Content Include="Views\Products\LoadWarehousePartial.cshtml" />
+    <Content Include="Views\Products\LoadProductPartial.cshtml" />
+    <Content Include="Views\Products\LoadPWMPartial.cshtml" />
+    <Content Include="Views\Products\LoadPWMList.cshtml" />
+    <Content Include="Views\Products\AddPWM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Js\App_LocalResources\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -19,6 +19,9 @@ namespace SFMS.Entity
         public string SubCategory { get; set; }
         public int Quantity { get; set; }
         public string ImageUrl { get; set; }
+
+        [NotMapped]
+        public int RemainQantity { get; set; }
     }
     
 }

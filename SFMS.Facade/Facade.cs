@@ -34,6 +34,14 @@ namespace SFMS.Facade
 
         public int Update(TEntity entity)
         {
+            try
+            {
+                var val = repo.Update(entity);
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
             return repo.Update(entity);
         }
 

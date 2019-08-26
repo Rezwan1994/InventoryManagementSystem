@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+@model SFMS.Entity.WareHouse
+
+
+
+<link href="~/Content/Select2/select2.css" rel="stylesheet" />
+<script src="~/Content/Select2/Select2.min.js"></script>
+<link href="~/Content/Css/Car/AddCar.css" rel="stylesheet" />
+
+<script src="~/Content/Js/Products/AddWarehouse.js"></script>
+
+<div class="add_opportunity_header">Add Warehouse</div>
+<div class="container-fluid">
+    <div class="form-group clearfix">
+        <label>Warehouse Name *</label>
+        @Html.TextBoxFor(x => x.WarehouseName, new { @class = "form-control", datarequired = "true", type = "text" })
+        <label rel="Name" class="label hidden red position-absolute">*Name required</label>
+    </div>
+    <div class="form-group clearfix">
+        <label>Address *</label>
+        @Html.TextBoxFor(x => x.Address, new { @class = "form-control", type = "text" })
+        <label rel="Mobile" class="label hidden red position-absolute">* Please Enter Address</label>
+    </div>
+
+    <div class="form-group clearfix">
+        <label>Description</label>
+        @Html.TextBoxFor(x => x.Description, new { @class = "form-control", type = "text" })
+        <label rel="Email" class="label hidden red position-absolute">* Please Enter Desc.</label>
+    </div>
+
+    <input type="hidden" id="IdVal" value="@Model.Id">
+    <input type="hidden" id="UserIdVal" value="@Model.WarehouseId">
+
+</div>
+
+<section class="footer-section">
+    <footer class="footer">
+        <div class="save-package-div">
+            <button class="btn-save-package-device" id="saveUsers">@(Model.Id > 0 ? "Update" : "Save")</button>
+        </div>
+    </footer>
+</section>
+
+

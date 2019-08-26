@@ -11,7 +11,7 @@ namespace SFMS.Entity
     {
  
         public Guid WarehouseId { get; set; }
-        public Guid WarehouseName { get; set; }
+        public string WarehouseName { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
     }

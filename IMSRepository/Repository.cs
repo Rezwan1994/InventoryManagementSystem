@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -31,10 +32,17 @@ namespace IMSRepository
 
         public int Update(TEntity entity)
         {
-            //context.Entry<TEntity>(entity).State = EntityState.Modified;
-            context.Set<TEntity>().AddOrUpdate(entity);
-          
-            return context.SaveChanges();
+            try
+            {
+                context.Entry<TEntity>(entity).State = EntityState.Modified;
+                //context.Set<TEntity>().AddOrUpdate(entity);
+
+                return context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
         }
 
         public int Delete(int id)

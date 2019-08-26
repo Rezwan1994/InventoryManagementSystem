@@ -170,12 +170,12 @@ namespace HS.Web.UI.Controllers
             return Json(new { isUploaded = isUploaded, filePath = filePath, FullFilePath = FullFilePath, exception = exception }, "text/html");
         }
 
-        public ActionResult UploadFuelDocuments()
+        public ActionResult UploadProductDocuments()
         {
             bool isUploaded = false;
             HttpPostedFileBase httpPostedFileBase = Request.Files["UploadFuelDocuments"];
 
-            string tempFolderName = ConfigurationManager.AppSettings["File.UploadFuelDocuments"];
+            string tempFolderName = ConfigurationManager.AppSettings["File.UploadProductDocuments"];
 
             tempFolderName = string.Format(tempFolderName, DateTime.Now.ToString("MM-dd-yy"));
 

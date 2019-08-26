@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+@model SFMS.Entity.ProductWarehouseMap
+
+
+
+<link href="~/Content/Select2/select2.css" rel="stylesheet" />
+<script src="~/Content/Select2/Select2.min.js"></script>
+<link href="~/Content/Css/Car/AddCar.css" rel="stylesheet" />
+
+<script src="~/Content/Js/Products/AddPWM.js"></script>
+
+<div class="add_opportunity_header">Map Product Warehouse</div>
+<div class="container-fluid">
+    <div class="form-group clearfix">
+        <span class="span_style">Warehouses</span>
+        @Html.DropDownList("Warehouses", (List<SelectListItem>)ViewBag.WarehouseList, new { @class = "form-control dropdown_WarehouseList" })
+    </div>
+    <div class="form-group clearfix">
+        <span class="span_style">Products</span>
+        @Html.DropDownList("Products", (List<SelectListItem>)ViewBag.ProductList, new { @class = "form-control dropdown_ProductList" })
+    </div>
+
+    <div class="form-group clearfix">
+        <label>Quantity</label>
+        @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", type = "number" })
+        <label rel="Email" class="label hidden red position-absolute">* Please Enter Desc.</label>
+    </div>
+
+    <input type="hidden" id="IdVal" value="@Model.Id">
+    <input type="hidden" id="UserIdVal" value="@Model.WarehouseId">
+
+</div>
+
+<section class="footer-section">
+    <footer class="footer">
+        <div class="save-package-div">
+            <button class="btn-save-package-device" id="saveUsers">@(Model.Id > 0 ? "Update" : "Save")</button>
+        </div>
+    </footer>
+</section>
+
+
+

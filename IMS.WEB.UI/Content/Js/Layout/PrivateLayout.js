@@ -77,6 +77,12 @@ var LoadVehicle= function (reload) {
     LoadUrlContents(loadurl, seturl, reload);
 }
 
+var LoadProducts = function (reload) {
+    var loadurl = "/Products/Index";
+    var seturl = "/Vehicles";
+    LoadUrlContents(Products, seturl, reload);
+}
+
 var LoadDrivers = function (reload) {
     var loadurl = "/Driver/Index";
     var seturl = "/Drivers";
