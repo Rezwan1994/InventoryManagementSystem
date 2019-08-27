@@ -2,53 +2,156 @@
     Layout = null;
 }
 <link href="~/Content/Css/Car/car.css" rel="stylesheet" />
-<script src="~/Content/Js/Users/Users.js"></script>
+<style>
+    .LoadCustomerTab {
+        border: 1px solid #ddd;
+        background-color: cadetblue;
+        padding: 6px;
+        width: 116px;
+        color: white;
+    }
+
+    .LoadVendorTab {
+        border: 1px solid #ddd;
+        background-color: cadetblue;
+        padding: 6px;
+        width: 116px;
+        color: white;
+    }
+
+    .active {
+        background-color: #00467A;
+    }
+
+    .sub-list:not(:first-child) {
+        padding-left: 10px;
+    }
+
+    .FilterImage {
+        width: 10%;
+        position: absolute;
+        top: -20px;
+    }
+
+    #Download {
+        float: right;
+    }
+
+    .item1:hover {
+        background-color: #DADADA;
+ 
+    }
+
+    .item2:hover {
+        background-color: #DADADA;
+        ;
+    }
+
+    #searchbardiv {
+        margin-bottom: 10px;
+    }
+</style>
 <script>
 
+    var TabsLoaderText = "<div class='invoice-loader'><div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>";
+
+    var EditUsers = function (id) {
+    OpenTopToBottomModal("/Users/AddUser?id=" + id);
+
+    }
+
+    $(document).ready(function () {
+
+        $("#AddUser").click(function () {
+            console.log("dd")
+        OpenRightToLeftModal("/Users/AddUser");
+            //$("#RightToLeftModal").click();
+
+    })
+        $(".LoaderWorkingDiv").hide();
+        $("#LoadCustomerList").html(TabsLoaderText);
+        $("#LoadCustomerList").load("/Users/LoadUsersList");
+
+        if ($("#LoadVendorTab").hasClass("active")) {
+            $(".export1").show();
+            $(".export2").hide();
+            $(".CustomerFilter").show();
+            $(".VendorFilter").hide();
+        }
+        else {
+            $(".export2").show();
+            $(".export1").hide();
+            $(".CustomerFilter").hide();
+            $(".VendorFilter").show();
+        }
+        $("#LoadCustomerTab").addClass("active");
+        $(".LoadCustomerTab").click(function () {
+            $("#LoadCustomerTab").html(TabsLoaderText);
+            $("#LoadCustomerTab").load("/Users/LoadUsersList");
+            if ($("#LoadVendorTab").hasClass("active")) {
+                $("#LoadVendorTab").removeClass("active");
+            }
+            $("#LoadCustomerTab").addClass("active");
+            $(".export1").show();
+            $(".export2").hide();
+            $(".CustomerFilter").show();
+            $(".VendorFilter").hide();
+        });
+        $(".LoadVendorTab").click(function () {
+            $("#LoadVendorTab").html(TabsLoaderText);
+            $("#LoadVendorTab").load("/Vendor/LoadVendorSystemList");
+            if ($("#LoadCustomerTab").hasClass("active")) {
+                $("#LoadCustomerTab").removeClass("active");
+            }
+            $("#LoadVendorTab").addClass("active");
+
+            $(".export2").show();
+            $(".export1").hide();
+            $(".CustomerFilter").hide();
+            $(".VendorFilter").show();
+        });
+        $(".opportunity_filter_list").hide();
+     
+
+    });
+
 </script>
-<div class="container-fluid opportunities_container">
-    <div class="opportunities_fixed_header">
-        <div class="main_header"><h2>Users</h2></div>
+<link href="~/Content/Css/Report/Report.css" rel="stylesheet" />
+<div class="ReportsTitle">Users</div>
 
-
-        @*<div class="dropdown">
-                <button class="btn addView_button dropdown-toggle" data-toggle="dropdown"><i class="fa fa-plus"></i></button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <button class="btn" id="ExcelImport">@Localize.T("Excel")</button>
-                    </li>
-                    <li>
-                        <button class="btn" id="PdfImport">@Localize.T("Pdf")</button>
-                    </li>
-                </ul>
-            </div>*@
-        <div>
-            <button class="btn customer-new" id="AddUser" type="button">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> New
-            </button>
-        </div>
-    </div>
-    <div style="margin-top:50px;">
+<div class="col-xs-12 Report-Tabs">
+    <div class="nav-detail-contents">
         <div class="">
-            <div id="searchbardiv">
-                <input class="form-control srch-term" placeholder="Find Users" type="text">
-                <button class="btn btn-default custom-btn SearchUsers" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-
-                <button title="Filter" class="btn-filter btn_customerlist_filter">
-                    <span class="glyphicon glyphicon-filter"></span>
-                </button>
+            <div id="searchbardiv" class="row">
+                <div class="col-md-6">
+                    <input class="form-control srch-term" placeholder="Find Customer" type="text">
+                </div>
 
             </div>
-
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="AddUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Add User
+            </button>
 
         </div>
-        <div class="ListContents">
 
+
+        <ul class="nav nav-tabs reports-tabs" id="myTab">
+            <li class="active LoadCustomerTab"
+                <a data-target="#LoadCustomerTab  .active" data-toggle="tab">Customer</a>
+            </li>
+            <li class="LoadVendorTab"
+                <a data-target="#LoadVendorTab  .active" data-toggle="tab">Vendor</a>
+            </li>
+
+        </ul>
+        <div class="tab-content reports_tab_content">
+            <div class="tab-pane active" id="LoadCustomerList">
+
+            </div>
+            <div class="tab-pane active" id="LoadVendorList">
+
+            </div>
         </div>
     </div>
+
 </div>
-
-
-
-
-

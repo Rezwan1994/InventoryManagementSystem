@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Customer Details";
+    Layout = "~/Views/Shared/_PrivateLayout.cshtml";
+
+}
+@model SFMS.Entity.Users
+@Styles.Render("~/styles/UserDetails")
+
+  
+<script>
+    var CustomerGuid = '@Model.UserId';
+   var TabsLoaderText = "<div class='invoice-loader'><div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>";
+    
+     var EditUser = function (id) {
+        OpenRightToLeftModal("/Users/AddUser?id=" + id);
+    }
+
+    var OpenInvoiceTab = function () {
+   
+
+    $(".InvoiceTab_Load").html(TabsLoaderText);
+
+    $(".InvoiceTab_Load").load("/Invoice/InvoicePartial/?CustomerId=" + CustomerGuid);
+
+}
+
+
+
+    $(document).ready(function () {
+        $(".LoaderWorkingDiv").hide();
+    
+    });
+</script>
+<link href="~/Content/Css/Users/CustomerDetails.css" rel="stylesheet" />
+<link href="~/Content/Css/Users/CustomerDetailsCustom.css" rel="stylesheet" />
+<div class="main-container-customer-detail">
+
+    <div class="detail-contents">
+        <div class="nav-detail-contents">
+            <ul class="nav nav-tabs customer-options-tabs customer_detail_tab_style customer_detail_tab_list" id="myTab">
+
+                <li class="active CustomerDetailTab">
+                    <a tabname="#CustomerDetailTab" data-target=".CustomerDetailTab_Load" data-toggle="tab" onclick="OpenCustomerDetailTab()" @*OpenDefaultTab()*@ href="javascript:void(0)">Customer Overview</a>
+                </li>
+                <li class="TicketTab">
+                    <a tabname="#InvoiceTab" idval="@Model.UserId" data-target=".InvoiceTab_Load" data-toggle="tab" onclick="OpenInvoiceTab()">
+                        Invoice
+
+                    </a>
+                </li>
+
+
+            </ul>
+            <div class="tab-content tab_Content_customer_items">
+                <div class="tab-pane active CustomerDetailTab_Load" id="CustomerDetailTab">
+                    <div class="Customer-detailstabcontent">
+                        <div class="Customer-details-info-left">
+                            <div class="customer-subTab-left-content">
+
+
+                                <div class="ci_block">
+                                    <div class="ci_header clearfix">
+                                        <div style="float:left;">Customer Information</div>
+                                        <button type="button" style="float: right;" onclick="EditUser('@Model.Id')" idval="@Model.Id" class="btn edit-button editCustomerCustomerDetailsHeader">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <div class="ci_info">
+                                        <table class="width-100p ci_table">
+
+
+                                            <tr class="info-table-tr">
+                                                <td class="tr-title">Customer ID<span>:</span></td>
+                                                <td class="tr-data">@Model.Id
+                                                <td>
+                                            </tr>
+
+
+                                            <tr class="info-table-tr">
+                                                <td class="tr-title">Name<span>:</span></td>
+                                                <td class="tr-data">@Model.Name
+                                            </tr>
+
+                                            <tr class="info-table-tr">
+                                                @*<td class="tr-title">@Localize.T("Email")</td>*@
+
+                                                <td class="tr-title red-tooltip" id="isVerifyEmail" data-placement="right">Email<span>:</span></td>
+
+                                                <td class="tr-data">@Model.Email</td>
+                                            </tr>
+
+
+                                            <tr class="info-table-tr">
+                                                <td class="tr-title">Phone No<span>:</span></td>
+                                                <td class="tr-data">@Model.Mobile</td>
+                                            </tr>
+
+                                            <tr class="info-table-tr">
+                                                <td class="tr-title">Address<span>:</span></td>
+                                                <td class="tr-data">@Model.Address</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane ScheduleTab_Load">
+
+                </div>
+                <div class="tab-pane InvoiceTab_Load" id="InvoiceTab">
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>

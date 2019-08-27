@@ -1,0 +1,252 @@
+﻿
+@{
+    Layout = null;
+    string Currency = "$";
+}
+@model SFMS.Entity.SalesOrder
+
+
+<script src="~/Content/Js/AddInvoice/Addinvoice2.js"></script>
+<script>
+ 
+</script>
+
+
+<link href="~/Content/Css/Invoice/AddInvoice.css" rel="stylesheet" />
+
+
+<button class="settings-invoice" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i></button>
+
+<div class="add-invoice-container">
+    <div class="div-header clearfix">
+        <div class="header-title">
+            <span class="custom-title-span">
+
+            </span>
+        </div>
+    </div>
+    <div class="invoie_contents_scroll">
+        <div class="invoice_info_container">
+            <div class="width_100p">
+
+                <div class="invoice-info-left-70p invoice_owner_info">
+                    <div class="clearfix width-25p customer_name_insert_div add_invoice_info_div_device">
+                        <span class="span-style">Select a customer</span>
+
+
+                        <input type="text" class="form-control" id="CustomerList" />
+
+
+                        <div class='tt-menu'>
+                            <div class='tt-dataset tt-dataset-autocomplete'> </div>
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix width-25p">
+                        <span class="span-style">Status</span>
+                        <input type="text" class="form-control" id="Status" />
+                    </div>
+
+                </div>
+
+                <div class="balance-info balance_info_for_desktop">
+                    <div>
+                        <span class="span-style balance-info-due">Balance due</span>
+                        @*<span class="span-style balance-info-paid">Balance paid</span>*@
+               
+                    </div>
+                    <span class="amount amount-span-style big-amount-top amount-big"></span>
+
+                    @*<div class="balance-info-paid PaidDivClass">
+                        <span>PAID</span>
+                    </div>*@
+                    <div class="balance-info-Cancel CancelDivClass">
+                        <span></span>
+                    </div>
+                </div>
+
+
+                <div class="invoice-info-left-70p top_pad_for_add_invoice invoice_billing_info">
+
+
+
+                </div>
+                <div class="invoice-make-payment-div hidden">
+                    <button type="button" class="btn btn-default invoice-make-poayment">Receive Payment</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="div-body-contents">
+            <div class="invoice-informations">
+                <div class="add_invoice_table_style">
+                    <table class="CustomerInvoiceTab" id="CustomerInvoiceTab">
+                        <thead>
+                            <tr>
+                                <th class="thead-th-style1 tab-index">
+                                    <span>
+
+                                    </span>
+                                </th>
+                                <th class="thead-th-style1 tab-Product">
+                                    <span>
+                                        Product/Service
+                                    </span>
+                                </th>
+                                <th class="thead-th-style2 tab-Desc">
+                                    <span>
+                                        Description
+                                    </span>
+                                </th>
+                                <th class="thead-th-style2 tab-Quantity">
+                                    <span>
+                                        QTY
+                                    </span>
+                                </th>
+                                <th class="thead-th-style2 tab-Rate">
+                                    <span>
+                                        Rate
+                                    </span>
+                                </th>
+                                <th class="thead-th-style2 tab-Amount">
+                                    <span>
+                                        Amount
+                                    </span>
+                                </th>
+                                <th class="thead-th-style2 tab-Action">
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td valign="top"></td>
+                                <td valign="top">
+                                    <input type="text" class="ProductName" onkeydown="SearchKeyDown(this,event)" onkeyup="SearchKeyUp(this,event)" />
+                                    <div class='tt-menu'><div class='tt-dataset tt-dataset-autocomplete'> </div> </div>
+                                    <span class="spnProductName"></span>
+                                </td>
+                                <td valign="top">
+                                    <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductDesc" />
+                                    <span class="spnProductDesc"></span>
+                                </td>
+                                <td valign="top">
+                                    <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductQuantity" />
+                                    <span class="spnProductQuantity"></span>
+                                </td>
+                                <td valign="top">
+                                    <div class="C_S I_G">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">@Currency</div>
+                                        </div>
+                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" />
+                                    </div>
+
+                                    <span class="spnProductRate"></span>
+                                </td>
+                                <td valign="top">
+                                    <div class="C_S I_G">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">@Currency</div>
+                                        </div>
+                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" />
+                                    </div>
+
+                                    <span class="spnProductAmount"></span>
+                                </td>
+                                <td valign="top" class="tableActions">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top"></td>
+                                <td valign="top">
+                                    <input type="text" class="ProductName" onkeydown="SearchKeyDown(this,event)" onkeyup="SearchKeyUp(this,event)" />
+                                    <div class='tt-menu'><div class='tt-dataset tt-dataset-autocomplete'> </div> </div>
+                                    <span class="spnProductName"></span>
+                                </td>
+                                <td valign="top">
+                                    <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductDesc" />
+                                    <span class="spnProductDesc"></span>
+                                </td>
+                                <td valign="top">
+                                    <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductQuantity" />
+                                    <span class="spnProductQuantity"></span>
+                                </td>
+                                <td valign="top">
+                                    <div class="C_S I_G">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">@Currency</div>
+                                        </div>
+                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" />
+                                    </div>
+
+                                    <span class="spnProductRate"></span>
+                                </td>
+                                <td valign="top">
+                                    <div class="C_S I_G">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">@Currency</div>
+                                        </div>
+                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" />
+                                    </div>
+
+                                    <span class="spnProductAmount"></span>
+                                </td>
+                                <td valign="top" class="tableActions">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="OtherInfos">
+
+                    <div class="col-md-12">
+                        <div class="invoive_description_container add_invoice_bootom_left">
+
+                            <div class="row">
+                                <div class="InvNotesContainer">
+
+                                    <div class="addNewInvoiceNoteDiv">
+                                        <div class="billing_text_align">
+                                            <span>Notes for invoice</span>
+                                        </div>
+                                        <textarea rows="5" id="InvoiceNote" class="InvoiceNotTxt"></textarea>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="invoice-footer col-md-12">
+
+    <div class="SaveaButtonsDiv">
+        <button class="btnInv InvoiceSaveButton">Create</button>
+    </div>
+</div>
+<div class="AddInvoiceLoader hidden">
+    <div class='invoice-loader'><div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>
+</div>
+
+
+
+
+
