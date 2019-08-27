@@ -6,6 +6,7 @@
     @Styles.Render("~/styles/privatelayout")
     @RenderSection("PrivateStyles", required: false)
     <link href="~/Content/JQueryFileUpload/jquery.fileupload.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <script src="~/Content/Js/Layout/Device.js"></script>
 }
 @section scripts{
@@ -84,22 +85,22 @@
             <span class="icon-bar"></span>
         </button>
         <ul class="nav navbar-nav  navbar-top-links GlobalSearchNavbarUl">
-                <li class="GlobalEstInvCustSearchDiv">
-                    <div class="input-group">
-                        <input type="text" onkeyup="GlobalSearchKeyUp(this, event)" onkeydown="GlobalSearchKeyDown(this,event)" class="GlobalSearchInp src-cls" style="padding:7px;" placeholder="Search for.." />
-                        <div class='tt-menu'>
-                            <div class='tt-dataset tt-dataset-autocomplete'>
-                            </div>
+            <li class="GlobalEstInvCustSearchDiv">
+                <div class="input-group">
+                    <input type="text" onkeyup="GlobalSearchKeyUp(this, event)" onkeydown="GlobalSearchKeyDown(this,event)" class="GlobalSearchInp src-cls" style="padding:7px;" placeholder="Search for.." />
+                    <div class='tt-menu'>
+                        <div class='tt-dataset tt-dataset-autocomplete'>
                         </div>
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary src-logo left_things main_search" id="GlobalSearchButton" type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
                     </div>
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary src-logo left_things main_search" id="GlobalSearchButton" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
 
-                </li>
-            </ul>
+            </li>
+        </ul>
         <!-- /.navbar-top-links -->
     </nav>
     <div class="SideContent">
@@ -107,7 +108,7 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a class="custom_color" href="/Dashboard" id="LoadDashBoard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a class="custom_color" href="/dashboards" id="LoadDashBoard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
                         <a class="custom_color" href="/Users" id="LoadUsers" onclick="LoadUsers(true)"><i class="fa fa-address-book fa-fw"></i> Users</a>
@@ -137,26 +138,26 @@
             </div>
         </div>
     </div>
-   <div class="MiddleContent">
-       <div class="flyout-overlay">
-       </div>
-       <div id="page-wrapper">
-           <div class="LoaderWorkingDiv">
-               @*<div class='uil-ring-css' style='transform:scale(1);'>
-                    <div></div>
-                </div>*@
-               <div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
-               <div>
-                   <h3>Please wait</h3>
-                   <h4>We are fetching your data</h4>
-               </div>
-           </div>
-           <div class="page-wrapper-contents">
-               @RenderBody()
-           </div>
-       </div>
-   </div>
-   
+    <div class="MiddleContent">
+        <div class="flyout-overlay">
+        </div>
+        <div id="page-wrapper">
+            <div class="LoaderWorkingDiv">
+                @*<div class='uil-ring-css' style='transform:scale(1);'>
+                        <div></div>
+                    </div>*@
+                <div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+                <div>
+                    <h3>Please wait</h3>
+                    <h4>We are fetching your data</h4>
+                </div>
+            </div>
+            <div class="page-wrapper-contents">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
 
     @RenderPage("~/Views/Shared/_Modals.cshtml")
 </div>

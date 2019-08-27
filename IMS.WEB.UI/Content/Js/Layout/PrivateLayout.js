@@ -67,8 +67,8 @@ var getDateOfISOWeek = function (w, y) {
     return ISOweekStart;
 }
 var LoadDashboard = function (reload) {
-    var loadurl = "/Home/Dashboard";
-    var seturl = "/Dashboard";
+    var loadurl = "/Home/Index";
+    var seturl = "/dashboards";
     LoadUrlContents(loadurl, seturl, reload);
 }
 var LoadVehicle= function (reload) {

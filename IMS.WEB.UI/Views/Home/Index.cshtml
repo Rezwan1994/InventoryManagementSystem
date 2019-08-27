@@ -1,3 +1,17 @@
-﻿<div>
-    <h1>FUCK!!!!!</h1>
-</div>
+﻿@{
+    Layout = "~/Views/Shared/_PrivateLayout.cshtml";
+
+}
+<script>
+    $(document).ready(function () {
+        $(".LoaderWorkingDiv").hide();
+    })
+</script>
+@{
+    string url = Request.Url.AbsolutePath.ToLower();
+    if (url.IndexOf("/dashboards") == 0)
+    {
+        ViewBag.Title = "Dashboard";
+        Html.RenderAction("DashboardPartial", "Home");
+    }
+}
