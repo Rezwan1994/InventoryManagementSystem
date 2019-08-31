@@ -350,6 +350,8 @@
     <Content Include="Views\Products\LoadPWMList.cshtml" />
     <Content Include="Views\Products\AddPWM.cshtml" />
     <Content Include="Views\Home\DashboardPartial.cshtml" />
+    <Content Include="Views\Invoice\AddInvoice.cshtml" />
+    <Content Include="Views\Invoice\InvoicePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
