@@ -1,0 +1,98 @@
+﻿
+@{
+    Layout = null;
+
+}
+
+<link href="~/Content/Css/Invoice/InvoicePartial.css" rel="stylesheet" />
+<script>
+    var StartDateDatepicker;
+    var EndDateDatepicker;
+    var CustomerLoadId = '@ViewBag.CustomerId';
+    var CustomerLoadGuid = '@ViewBag.CustomerId';
+    var SetLoaderText = function () {
+        $(".AllUnPaidInvoice_Load").html(TabsLoaderText);
+        $(".AllPaidInvoice_Load").html(TabsLoaderText);
+    }
+    $(document).ready(function () {
+        ////var LoadCustomerDiv = "#customer_tab_" + CustomerLoadId + " ";
+        ////$(".AllUnPaidInvoice_Load").load("/Invoice/InvoiceListPartial/?CustomerId=" + CustomerLoadGuid + "&InvoiceType=" + InvoiceType);
+
+        ////$(".AllPaidInvoice").click(function () {
+        ////    InvoiceType = "Paid";
+        ////    SetLoaderText();
+        ////    $(LoadCustomerDiv+".AllPaidInvoice_Load").load("/Invoice/InvoiceListPartial/?CustomerId=" + CustomerLoadGuid + "&InvoiceType=" + InvoiceType);
+        ////});
+
+        ////$(".AllUnPaidInvoice").click(function () {
+        ////    InvoiceType = "Unpaid";
+        ////    SetLoaderText();
+        ////    $(LoadCustomerDiv+".AllUnPaidInvoice_Load").load("/Invoice/InvoiceListPartial/?CustomerId=" + CustomerLoadGuid + "&InvoiceType=" + InvoiceType);
+        ////});
+        $(".btn-add-invoice").click(function () {
+            OpenTopToBottomModal("/Invoice/AddInvoice/?CustomerId=" + CustomerLoadId);
+        });
+    });
+</script>
+
+
+
+
+
+<div class="all_invoices_partial_container">
+    <div class="invoices_tabs_header">
+        <ul class="nav nav-tabs invoices-tabs" id="myInvoicesTab">
+            <li class="active AllUnPaidInvoice">
+                <a data-target=".AllUnPaidInvoice_Load" data-toggle="tab">Unpaid</a>
+            </li>
+            <li class="AllPaidInvoice">
+                <a data-target=".AllPaidInvoice_Load" data-toggle="tab">Paid</a>
+            </li>
+
+
+        
+            <li style="float:right;border:none!important;">
+             
+                <button class="btn btn-primary btn-add-invoice" @*id="AddInvoice"*@ type="button">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;New
+                </button>
+              
+            </li>
+   
+
+        </ul>
+    </div>
+    <div class="all_invoice_partial_search">
+        <span id="PayrollStartDate">
+            <input type="text" value="" placeholder="Start Date" class="form-control border-radius-0 InvoiceFilterStartDate" />
+        </span>
+        <span id="PayrollEndDate">
+            <input type="text" value="" placeholder="End Date" class="form-control border-radius-0 InvoiceFilterEndDate" />
+        </span> 
+
+        <div class="input-group-btn time_clock_filter_btn">
+            <button class="btn PayrollFilterBtn">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="invoices-tabs">
+        <div class="nav-detail-contents">
+            <div class="tab-content">
+                <div class="tab-pane active AllUnPaidInvoice_Load" @*id="AllUnPaidInvoice"*@>
+
+                </div>
+                <div class="tab-pane AllPaidInvoice_Load" @*id="AllPaidInvoice"*@>
+
+                </div>
+                <div class="tab-pane AllDeclinedInvoice_Load" @*id="AllPaidInvoice"*@>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

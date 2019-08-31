@@ -25,6 +25,14 @@ namespace SmartFleetManagementSystem
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            #region Users
+
+            bundles.Add(new StyleBundle("~/styles/UserDetails").Include(
+                      "~/Content/Css/Users/CustomerDetails.css",
+                      "~/Content/Css/Users/CustomerDetailsCustom.css"
+                  )); 
+            #endregion
             #region Layout
             bundles.Add(new StyleBundle("~/styles/layout").Include(
                        "~/Content/Css/Shared/Header.css",

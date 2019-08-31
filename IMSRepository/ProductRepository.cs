@@ -64,6 +64,47 @@ namespace IMSRepository
             return productsModel;
         }
 
+
+        public List<Product> GetProductsByKey(string Key)
+        {
+            string searchTextQuery = "";
+        
+            string CountTextQuery = "";
+
+            if (!string.IsNullOrWhiteSpace(Key))
+            {
+                searchTextQuery = " c.ProductName like '%" + Key + "%' or c.Category like '%" + Key + "%' or c.SubCategory like '%" + Key + "%' or c.Quantity like '%" + Key + "%' ";
+              
+            }
+
+            string rawQuery = @" 
+                                select * FROM Products c
+                           
+                                where  {0}
+                               ";
+
+            string CountQuery = string.Format("Select * from Products c {0}", CountTextQuery);
+
+            rawQuery = string.Format(rawQuery,searchTextQuery);
+            int TotalCount = 0;
+            List<Product> dsResult = new List<Product>();
+            try
+            {
+                var ctx = DataContext.getInstance();
+                dsResult = ctx.Product.SqlQuery(rawQuery).ToList();
+                TotalCount = ctx.Product.SqlQuery(CountQuery).ToList().Count;
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            List<Product> ProductsList = new List<Product>();
+            ProductsList = dsResult;
+
+        
+            return ProductsList;
+        }
         public PWMsModel GetPWM(PWMsFilter filter)
         {
             string searchTextQuery = "";

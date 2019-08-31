@@ -20,14 +20,9 @@ namespace IMS.WEB.UI
         }
         public ActionResult Index()
         {
-            if (Session["login_user"] == null)
-            {
-                return PartialView("~/Views/Shared/_AccessDenied.cshtml");
-            }
-            else
-            {
+            
                 return View();
-            }
+            
         }
 
         public ActionResult UsersList()
@@ -92,11 +87,13 @@ namespace IMS.WEB.UI
                 if (Users.Id > 0)
                 {
                     var oldUsers = usersFacade.Get(Users.Id);
-                    Users.UserId = oldUsers.UserId;
-                    Users.CreatedDate = oldUsers.CreatedDate;
-                    Users.ImgSrc = oldUsers.ImgSrc;
-                    Users.IsActive = oldUsers.IsActive;
-                    if (usersFacade.Update(Users) > 0)
+                    oldUsers.Name = Users.Name;
+                    oldUsers.Email = Users.Email;
+                    oldUsers.Address = Users.Address;
+                    oldUsers.Mobile = Users.Mobile;
+                    oldUsers.UserType = Users.UserType;
+                  
+                    if (usersFacade.Update(oldUsers) > 0)
                     {
                         result = true;
                     }
@@ -116,6 +113,15 @@ namespace IMS.WEB.UI
             return Json(new { result = result });
         }
 
+        public ActionResult LoadUserDetails(int id)
+        {
+            Users user = new Users();
+            if(id > 0 )
+            {
+                user = usersFacade.Get(id);
+            }
         
+            return View(user);
+        }
     }
 }

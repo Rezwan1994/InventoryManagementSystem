@@ -1,10 +1,6 @@
 ﻿using IMSRepository;
 using SFMS.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SFMS.Facade
 {
@@ -19,7 +15,10 @@ namespace SFMS.Facade
         {
             return productRepository.GetProducts(filter);
         }
-
+        public List<Product> GetProductsByKey(string key)
+        {
+            return productRepository.GetProductsByKey(key);
+        }
         public PWMsModel GetPWM(PWMsFilter filter)
         {
             return productRepository.GetPWM(filter);

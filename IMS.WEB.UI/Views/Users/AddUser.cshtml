@@ -8,33 +8,38 @@
 <link href="~/Content/Select2/select2.css" rel="stylesheet" />
 <script src="~/Content/Select2/Select2.min.js"></script>
 <link href="~/Content/Css/Car/AddCar.css" rel="stylesheet" />
-
-<script src="~/Content/Js/Users/Users.js"></script>
 <script src="~/Content/Js/Users/AddUser.js"></script>
 
 <div class="add_opportunity_header">Add User</div>
 <div class="container-fluid">
+   <input type="hidden" value="@Model.Id" id="IdVal">
     <div class="form-group clearfix">
         <label>Name *</label>
-        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", datarequired = "true", type = "text" })
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control Name", datarequired = "true", type = "text" })
         <label rel="Name" class="label hidden red position-absolute">*Name required</label>
     </div>
     <div class="form-group clearfix">
         <label>Cell/Phone No *</label>
-        @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control", type = "text" })
+        @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control Mobile", type = "text" })
         <label rel="Mobile" class="label hidden red position-absolute">* Please Enter Phone Number</label>
     </div>
 
     <div class="form-group clearfix">
         <label>Email</label>
-        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", type = "text" })
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control Email", type = "text" })
         <label rel="Email" class="label hidden red position-absolute">* Please Enter Email</label>
     </div>
 
     <div class="form-group clearfix">
         <label>Address</label>
-        @Html.TextBoxFor(x => x.Address, new { @class = "form-control", type = "text" })
+        @Html.TextBoxFor(x => x.Address, new { @class = "form-control Address", type = "text" })
         <label rel="Address" class="label hidden red position-absolute">* Please Enter Address</label>
+    </div>
+
+    <div class="form-group clearfix">
+        <label>User Type</label>
+        @Html.TextBoxFor(x => x.Address, new { @class = "form-control UserType", type = "text" })
+        <label rel="Address" class="label hidden red position-absolute">* Please Enter user type</label>
     </div>
 
     <input type="hidden" id="IdVal" value="@Model.Id">

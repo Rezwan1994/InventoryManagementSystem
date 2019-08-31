@@ -1,4 +1,5 @@
 ﻿using IMSRepository;
+using Newtonsoft.Json;
 using SFMS.Entity;
 using SFMS.Facade;
 using System;
@@ -484,6 +485,24 @@ namespace IMS.WEB.UI.Controllers
         }
         #endregion
 
+
+        #region ProductByKey
+
+        public JsonResult GetEquipmentListByKey(string key)
+        {
+            string result = "[]";
+            if (!string.IsNullOrWhiteSpace(key))
+            {
+
+                List<Product> EqList = productsFacade.GetProductsByKey(key);
+                if (EqList.Count > 0)
+                    result = JsonConvert.SerializeObject(EqList);
+            }
+
+            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
+
+        }
+        #endregion
 
     }
 }
