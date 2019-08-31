@@ -21,7 +21,7 @@
             success: function (data) {
                 if(data.result == true)
                 {
-                    window.location.href = "/Home/DashBoard";
+                    window.location.href = "/dashboards";
                 }
                 else
                 {

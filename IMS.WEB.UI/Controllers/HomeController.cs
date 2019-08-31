@@ -8,32 +8,44 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using IMSRepository;
+using IMS.WEB.UI.Models;
 
-namespace SmartFleetManagementSystem.Controllers
+namespace IMS.WEB.UI.Controllers
 {
     public class HomeController : Controller
     {
         UserFacade userFacade = null;
         //FuelBillFacade fuelBillFacade = null;
         UserLoginFacade userlogin = null;
+        ProductsFacade productsFacade = null;
+        WareHouseFacade wareHouseFacade = null;
         public HomeController()
         {
             DataContext Context = DataContext.getInstance();
             userFacade = new UserFacade(Context);
             userlogin = new UserLoginFacade(Context);
+            wareHouseFacade = new WareHouseFacade(Context);
+            productsFacade = new ProductsFacade(Context);
         }
         public ActionResult Index()
         {
-            //if (Session["login_user"] == null)
-            //{
-            //    return PartialView("~/Views/Shared/_AccessDenied.cshtml");
-            //}
-            //else
-            //{
-                List<UserLogin> userlist = userlogin.GetAll();
+            if (Session["login_user"] == null)
+            {
+                return PartialView("~/Views/Shared/_AccessDenied.cshtml");
+            }
+            else
+            {
                 return View();
-            //}
-          
+            }
+        }
+
+        public ActionResult DashboardPartial()
+        {
+            DashboardViewModel dashboardViewModel = new DashboardViewModel();
+            dashboardViewModel.products_count = productsFacade.GetAll().Count();
+            dashboardViewModel.warehouses_count = wareHouseFacade.GetAll().Count();
+            dashboardViewModel.users_count = userFacade.GetAll().Count();
+            return View(dashboardViewModel);
         }
 
         public ActionResult Login()
@@ -42,22 +54,17 @@ namespace SmartFleetManagementSystem.Controllers
         }
         public ActionResult LoginAjax(UserLogin user)
         {
-            List<UserLogin> userlist = userlogin.GetAll();
+            List<UserLogin> userlist = new List<UserLogin>();
+            userlist = userlogin.GetAll().Where(x=>x.UserName == user.UserName && x.Password == user.Password).ToList();
             bool result = false;
-            if(!string.IsNullOrEmpty(user.UserName) || !string.IsNullOrEmpty(user.Password))
+            if(userlist.Count()>0)
             {
-                foreach(var item in userlist)
-                {
-                    if((item.UserName == user.UserName) && (item.Password == user.Password))
-                    {
-                        result = true;
-                        Session["login_user"] = user.UserName;
-                    }
-                    else
-                    {
-                        result = false;
-                    }
-                }
+                result = true;
+                Session["login_user"] = user.UserName;
+            }
+            else
+            {
+                result = false;
             }
             return Json(new { result = result});
         }
