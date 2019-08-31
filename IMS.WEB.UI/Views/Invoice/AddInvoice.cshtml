@@ -3,12 +3,14 @@
     Layout = null;
     string Currency = "$";
 }
-@model SFMS.Entity.SalesOrder
+@model SFMS.Entity.SalesOrderModel
 
 
 <script src="~/Content/Js/AddInvoice/Addinvoice2.js"></script>
 <script>
- 
+    var SalesOrderId = '@Model.SalesOrder.SalesOrderId';
+    var CustomerId = '@ViewBag.CustomerId';
+    var SalesOrderIdInt = '@Model.SalesOrder.Id';
 </script>
 
 
@@ -31,7 +33,7 @@
 
                 <div class="invoice-info-left-70p invoice_owner_info">
                     <div class="clearfix width-25p customer_name_insert_div add_invoice_info_div_device">
-                        <span class="span-style">Select a customer</span>
+                        <span class="span-style">Customer</span>
 
 
                         <input type="text" class="form-control" id="CustomerList" />
@@ -43,11 +45,12 @@
                     </div>
 
 
-                    <div class="clearfix width-25p">
-                        <span class="span-style">Status</span>
-                        <input type="text" class="form-control" id="Status" />
-                    </div>
-
+                </div>
+                <div>
+                    <span class="span-style">Order Date</span>
+                    <input type="text" value="@Model.SalesOrder.OrderDate" class="form-control OrderDate" />
+                    <span class="span-style">Delivery Date</span>
+                    <input type="text" value="@Model.SalesOrder.DelivaryDate" class="form-control DeliveryDate" />
                 </div>
 
                 <div class="balance-info balance_info_for_desktop">
@@ -56,7 +59,7 @@
                         @*<span class="span-style balance-info-paid">Balance paid</span>*@
                
                     </div>
-                    <span class="amount amount-span-style big-amount-top amount-big"></span>
+                    <span class="amount amount-span-style big-amount-top amount-big">@Model.SalesOrder.Amount</span>
 
                     @*<div class="balance-info-paid PaidDivClass">
                         <span>PAID</span>
@@ -121,85 +124,131 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr>
-                                <td valign="top"></td>
-                                <td valign="top">
-                                    <input type="text" class="ProductName" onkeydown="SearchKeyDown(this,event)" onkeyup="SearchKeyUp(this,event)" />
-                                    <div class='tt-menu'><div class='tt-dataset tt-dataset-autocomplete'> </div> </div>
-                                    <span class="spnProductName"></span>
-                                </td>
-                                <td valign="top">
-                                    <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductDesc" />
-                                    <span class="spnProductDesc"></span>
-                                </td>
-                                <td valign="top">
-                                    <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductQuantity" />
-                                    <span class="spnProductQuantity"></span>
-                                </td>
-                                <td valign="top">
-                                    <div class="C_S I_G">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">@Currency</div>
+                            @if (Model.SalesOrderDetailList.Count > 0)
+                            {
+                                foreach (var item in Model.SalesOrderDetailList)
+                                {
+                                    <tr data-id="@item.ProductId" class="HasItem">
+                                        <td valign="top"></td>
+                                        <td valign="top">
+                                            <input type="text" class="ProductName" value="@item.ProductName" onkeydown="SearchKeyDown(this,event)" onkeyup="SearchKeyUp(this,event)" />
+                                            <div class='tt-menu'><div class='tt-dataset tt-dataset-autocomplete'> </div> </div>
+                                            <span class="spnProductName">@item.ProductName</span>
+                                        </td>
+                                        <td valign="top">
+                                            <input type="text" onkeydown='OthersKeyDown(this,event)' value="@item.Quantity" class="txtProductDesc" />
+                                            <span class="spnProductDesc">@item.Quantity</span>
+                                        </td>
+                                        <td valign="top">
+                                            <input type="text" onkeydown='OthersKeyDown(this,event)' value="@item.Quantity" class="txtProductQuantity" />
+                                            <span class="spnProductQuantity">@item.Quantity</span>
+                                        </td>
+                                        <td valign="top">
+                                            <div class="C_S I_G">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">@Currency</div>
+                                                </div>
+                                                <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" value="@item.Price" />
+                                            </div>
+                                            <span class="spnProductRate">@Currency@item.Amount</span>
+                                        </td>
+                                        <td valign="top">
+                                            <div class="C_S I_G">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">@Currency</div>
+                                                </div>
+                                                <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" value="@item.Total" />
+                                            </div>
+                                            <span class="spnProductAmount">@item.Total</span>
+                                        </td>
+                                        <td valign="top" class="tableActions">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td valign="top"></td>
+                                    <td valign="top">
+                                        <input type="text" class="ProductName" onkeydown="SearchKeyDown(this,event)" onkeyup="SearchKeyUp(this,event)" />
+                                        <div class='tt-menu'><div class='tt-dataset tt-dataset-autocomplete'> </div> </div>
+                                        <span class="spnProductName"></span>
+                                    </td>
+                                    <td valign="top">
+                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductDesc" />
+                                        <span class="spnProductDesc"></span>
+                                    </td>
+                                    <td valign="top">
+                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductQuantity" />
+                                        <span class="spnProductQuantity"></span>
+                                    </td>
+                                    <td valign="top">
+                                        <div class="C_S I_G">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">@Currency</div>
+                                            </div>
+                                            <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" />
                                         </div>
-                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" />
-                                    </div>
 
-                                    <span class="spnProductRate"></span>
-                                </td>
-                                <td valign="top">
-                                    <div class="C_S I_G">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">@Currency</div>
+                                        <span class="spnProductRate"></span>
+                                    </td>
+                                    <td valign="top">
+                                        <div class="C_S I_G">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">@Currency</div>
+                                            </div>
+                                            <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" />
                                         </div>
-                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" />
-                                    </div>
 
-                                    <span class="spnProductAmount"></span>
-                                </td>
-                                <td valign="top" class="tableActions">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top"></td>
-                                <td valign="top">
-                                    <input type="text" class="ProductName" onkeydown="SearchKeyDown(this,event)" onkeyup="SearchKeyUp(this,event)" />
-                                    <div class='tt-menu'><div class='tt-dataset tt-dataset-autocomplete'> </div> </div>
-                                    <span class="spnProductName"></span>
-                                </td>
-                                <td valign="top">
-                                    <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductDesc" />
-                                    <span class="spnProductDesc"></span>
-                                </td>
-                                <td valign="top">
-                                    <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductQuantity" />
-                                    <span class="spnProductQuantity"></span>
-                                </td>
-                                <td valign="top">
-                                    <div class="C_S I_G">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">@Currency</div>
+                                        <span class="spnProductAmount"></span>
+                                    </td>
+                                    <td valign="top" class="tableActions">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"></td>
+                                    <td valign="top">
+                                        <input type="text" class="ProductName" onkeydown="SearchKeyDown(this,event)" onkeyup="SearchKeyUp(this,event)" />
+                                        <div class='tt-menu'><div class='tt-dataset tt-dataset-autocomplete'> </div> </div>
+                                        <span class="spnProductName"></span>
+                                    </td>
+                                    <td valign="top">
+                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductDesc" />
+                                        <span class="spnProductDesc"></span>
+                                    </td>
+                                    <td valign="top">
+                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductQuantity" />
+                                        <span class="spnProductQuantity"></span>
+                                    </td>
+                                    <td valign="top">
+                                        <div class="C_S I_G">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">@Currency</div>
+                                            </div>
+                                            <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" />
                                         </div>
-                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" />
-                                    </div>
 
-                                    <span class="spnProductRate"></span>
-                                </td>
-                                <td valign="top">
-                                    <div class="C_S I_G">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">@Currency</div>
+                                        <span class="spnProductRate"></span>
+                                    </td>
+                                    <td valign="top">
+                                        <div class="C_S I_G">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">@Currency</div>
+                                            </div>
+                                            <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" />
                                         </div>
-                                        <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" />
-                                    </div>
 
-                                    <span class="spnProductAmount"></span>
-                                </td>
-                                <td valign="top" class="tableActions">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </td>
-                            </tr>
+                                        <span class="spnProductAmount"></span>
+                                    </td>
+                                    <td valign="top" class="tableActions">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                            }
+
 
                         </tbody>
                     </table>
@@ -208,26 +257,21 @@
                 <div class="OtherInfos">
 
                     <div class="col-md-12">
-                        <div class="invoive_description_container add_invoice_bootom_left">
-
-                            <div class="row">
-                                <div class="InvNotesContainer">
-
-                                    <div class="addNewInvoiceNoteDiv">
-                                        <div class="billing_text_align">
-                                            <span>Notes for invoice</span>
-                                        </div>
-                                        <textarea rows="5" id="InvoiceNote" class="InvoiceNotTxt"></textarea>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      
-
+                       
                     <div class="row">
                         <div class="col-md-12">
-
+                            <div class="Discount discount-amount-div row margin-TB-5p" style="float:right;">
+                                <div class="col-xs-3">
+                                  
+                                    <span class="discount_text_custom">Discount(%) </span>
+                                </div>
+                                <div class="col-xs-6">
+                                  
+                                        <input type="text" id="discountAmount" value="@Model.SalesOrder.DiscountAmount" class="float-right form-control" />
+                                
+                                </div>
+                              
+                            </div>
                         </div>
                     </div>
                 </div>

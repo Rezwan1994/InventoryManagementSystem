@@ -17,12 +17,24 @@ namespace SFMS.Entity
         public double Amount { get; set; }
         public double SubTotal { get; set; }
         public double Freight { get; set; }
-   
+        public double DiscountAmount { get; set; }
+
+        public double TaxAmount { get; set; }
         public double Total { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime DelivaryDate { get; set; }
         public DateTime CreatedDate { get; set; }
      
+    }
+    [NotMapped]
+
+
+    public class SalesOrderModel
+    {
+        [NotMapped]
+        public List<SalesOrderDetail> SalesOrderDetailList { get; set; }
+        [NotMapped]
+        public SalesOrder SalesOrder { get; set; }
     }
 }
 

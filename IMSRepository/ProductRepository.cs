@@ -65,7 +65,7 @@ namespace IMSRepository
         }
 
 
-        public List<Product> GetProductsByKey(string Key)
+        public List<Product> GetProductsByKey(string Key,string ExistEquipment)
         {
             string searchTextQuery = "";
         
@@ -80,12 +80,17 @@ namespace IMSRepository
             string rawQuery = @" 
                                 select * FROM Products c
                            
-                                where  {0}
+                                where  ({0}){1}
                                ";
+            var EqpExist = "";
+            if (!string.IsNullOrEmpty(ExistEquipment))
+            {
+                EqpExist = string.Format(" AND (c.ProductId not in {0})", ExistEquipment);
+            }
 
             string CountQuery = string.Format("Select * from Products c {0}", CountTextQuery);
 
-            rawQuery = string.Format(rawQuery,searchTextQuery);
+            rawQuery = string.Format(rawQuery,searchTextQuery, EqpExist);
             int TotalCount = 0;
             List<Product> dsResult = new List<Product>();
             try

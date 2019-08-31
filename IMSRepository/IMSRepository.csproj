@@ -58,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWMRepository.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="SalesOrderDetailsRepository.cs" />
     <Compile Include="SalesOrderRepository.cs" />
     <Compile Include="UserLoginRepository.cs" />
     <Compile Include="UserRepository.cs" />

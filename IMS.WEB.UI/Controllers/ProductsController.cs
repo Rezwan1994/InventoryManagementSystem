@@ -488,13 +488,13 @@ namespace IMS.WEB.UI.Controllers
 
         #region ProductByKey
 
-        public JsonResult GetEquipmentListByKey(string key)
+        public JsonResult GetEquipmentListByKey(string key,string ExistEquipment)
         {
             string result = "[]";
             if (!string.IsNullOrWhiteSpace(key))
             {
 
-                List<Product> EqList = productsFacade.GetProductsByKey(key);
+                List<Product> EqList = productsFacade.GetProductsByKey(key,ExistEquipment);
                 if (EqList.Count > 0)
                     result = JsonConvert.SerializeObject(EqList);
             }
