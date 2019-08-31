@@ -6,7 +6,7 @@
     @Styles.Render("~/styles/privatelayout")
     @RenderSection("PrivateStyles", required: false)
     <link href="~/Content/JQueryFileUpload/jquery.fileupload.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    @*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">*@
     <script src="~/Content/Js/Layout/Device.js"></script>
 }
 @section scripts{
@@ -86,7 +86,7 @@
         </button>
         <ul class="nav navbar-nav  navbar-top-links GlobalSearchNavbarUl">
             <li class="GlobalEstInvCustSearchDiv">
-                <div class="input-group">
+                @*<div class="input-group">
                     <input type="text" onkeyup="GlobalSearchKeyUp(this, event)" onkeydown="GlobalSearchKeyDown(this,event)" class="GlobalSearchInp src-cls" style="padding:7px;" placeholder="Search for.." />
                     <div class='tt-menu'>
                         <div class='tt-dataset tt-dataset-autocomplete'>
@@ -97,7 +97,7 @@
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
-                </div>
+                </div>*@
 
             </li>
         </ul>

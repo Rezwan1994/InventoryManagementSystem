@@ -49,6 +49,7 @@ namespace SmartFleetManagementSystem
             #endregion
             #region PrivateLayout
             bundles.Add(new StyleBundle("~/styles/privatelayout").Include(
+                       //"~/Content/Css/Layout/morris.css",
                       "~/Content/Css/Layout/startmin.css",
                       "~/Content/Css/Layout/Loader.css",
                       "~/Content/Css/Layout/PrivateLayout.css",
