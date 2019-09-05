@@ -12,12 +12,14 @@ namespace IMS.WEB.UI.Controllers
         // GET: Invoice
 
         SalesOrderFacade salesFacade = null;
+        PaymentFacade payFacade = null;
         SalesOrderDetailsFacade salesDetailFacade = null;
         public InvoiceController()
         {
             DataContext Context = DataContext.getInstance();
             salesFacade = new SalesOrderFacade(Context);
             salesDetailFacade = new SalesOrderDetailsFacade(Context);
+            payFacade = new PaymentFacade(Context);
 
         }
         public ActionResult Index()
@@ -30,6 +32,14 @@ namespace IMS.WEB.UI.Controllers
             ViewBag.CustomerId = CustomerId;
             return View();
         }
+        public ActionResult InvoiceListPartial(Guid CustomerId,string InvoiceType)
+        {
+            ViewBag.CustomerId = CustomerId;
+            List<PaymentReceive> PaymentList = new List<PaymentReceive>();
+            PaymentList = payFacade.GetAllPaymentReceiveByCustomerId(CustomerId);
+            return View(PaymentList);
+        }
+        
         public ActionResult AddInvoice(Guid CustomerId,Guid? SalesOrderId)
         {
             
@@ -41,7 +51,7 @@ namespace IMS.WEB.UI.Controllers
                 salesOrder = salesFacade.GetSalesOrderBySalesOrderId(SalesOrderId.Value);
                 if (salesOrder != null)
                 {
-                    List<SalesOrderDetail> salesDetailList = salesDetailFacade.GetAllSalesDetailsBySaleOrderId(salesOrder.SalesOrderId);
+                    List<SalesOrderDetailVM> salesDetailList = salesDetailFacade.GetAllSalesDetailsBySaleOrderId(salesOrder.SalesOrderId);
                     salesOrderModel.SalesOrder = salesOrder;
                     salesOrderModel.SalesOrderDetailList = salesDetailList;
                 }
@@ -49,7 +59,7 @@ namespace IMS.WEB.UI.Controllers
             else
             {
                 salesOrderModel.SalesOrder = salesOrder;
-                salesOrderModel.SalesOrderDetailList = new List<SalesOrderDetail>();
+                salesOrderModel.SalesOrderDetailList = new List<SalesOrderDetailVM>();
             }
         
     
@@ -69,8 +79,9 @@ namespace IMS.WEB.UI.Controllers
                 {
                     SalesOrderModel.SalesOrder.SalesOrderId = Guid.NewGuid();
                     SalesOrderModel.SalesOrder.CreatedDate = DateTime.Now;
-                    SalesOrderModel.SalesOrder.WarehouseId = new Guid();
-
+                    SalesOrderModel.SalesOrder.WarehouseId = Guid.NewGuid();
+                    SalesOrderModel.SalesOrder.OrderDate = DateTime.Now;
+                    SalesOrderModel.SalesOrder.DelivaryDate = DateTime.Now;
                     salesFacade.Insert(SalesOrderModel.SalesOrder);
                     if (SalesOrderModel.SalesOrderDetailList.Count > 0)
                     {
@@ -83,6 +94,17 @@ namespace IMS.WEB.UI.Controllers
                         }
                     }
 
+                    PaymentReceive payment = new PaymentReceive();
+                    payment.PaymentId = Guid.NewGuid();
+                    payment.SalesOrderId = SalesOrderModel.SalesOrder.SalesOrderId;
+                    payment.BalanceDue = SalesOrderModel.SalesOrder.Total;
+                    payment.PaymentAmount = SalesOrderModel.SalesOrder.Amount;
+
+                    payment.PaymentStatus = "UnPaid";
+                    payment.PaymentDate = DateTime.Now;
+                    payFacade.Insert(payment);
+
+
                 }
                 else
                 {
@@ -92,21 +114,31 @@ namespace IMS.WEB.UI.Controllers
                     sales.DiscountAmount = SalesOrderModel.SalesOrder.DiscountAmount;
                     sales.Amount = SalesOrderModel.SalesOrder.Amount;
                     sales.Total = SalesOrderModel.SalesOrder.Total;
-                    List<SalesOrderDetail> salesdetaillist = salesDetailFacade.GetAllSalesDetailsBySaleOrderId(sales.SalesOrderId);
+                    salesFacade.Update(sales);
+                    List<SalesOrderDetailVM> salesdetaillist = salesDetailFacade.GetAllSalesDetailsBySaleOrderId(sales.SalesOrderId);
                     if (SalesOrderModel.SalesOrderDetailList.Count > 0)
                     {
+                        SalesOrderDetail tempSalesOrderDetail = new SalesOrderDetail();
                         foreach (var item in salesdetaillist)
                         {
                             salesDetailFacade.Delete(item.Id);
                         }
                         foreach (var item in SalesOrderModel.SalesOrderDetailList)
                         {
-                            item.SalesOrderDetailId = Guid.NewGuid();
-                            item.SalesOrderId = SalesOrderModel.SalesOrder.SalesOrderId;
+                            tempSalesOrderDetail.Price = item.Price;
+                            tempSalesOrderDetail.ProductId = item.ProductId;
+                            tempSalesOrderDetail.Quantity = item.Quantity;
+                            tempSalesOrderDetail.SalesOrderDetailId = Guid.NewGuid();
+                            tempSalesOrderDetail.SalesOrderId = SalesOrderModel.SalesOrder.SalesOrderId;
+                            tempSalesOrderDetail.SubTotal = item.SubTotal;
+                            tempSalesOrderDetail.Total = item.Total;
+                            tempSalesOrderDetail.Amount = item.Amount;
 
-                            salesDetailFacade.Insert(item);
+                            salesDetailFacade.Insert(tempSalesOrderDetail);
                         }
                     }
+
+                  
 
                 }
                 result = true;

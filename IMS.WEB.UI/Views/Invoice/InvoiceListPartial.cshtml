@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SFMS.Entity.PaymentReceive>
+@{ 
+    Layout = null;
+}
+<script>
+    var CustomerLoadId = '@ViewBag.CustomerId';
+    var OpenInvoice = function (SalesOrderId) {
+        OpenTopToBottomModal("/Invoice/AddInvoice/?CustomerId=" + CustomerLoadId + "&SalesOrderId=" + SalesOrderId);
+    }
+    $(document).ready(function () {
+
+        
+      
+    })
+</script>
+<table class="table">
+    <tr>
+    
+        <th>
+            @Html.DisplayNameFor(model => model.SalesOrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BalanceDue)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+      
+        <td>
+            <a class="OpenInvoice" onclick="OpenInvoice('@item.SalesOrderId')"> @Html.DisplayFor(modelItem => item.SalesOrderId)</a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BalanceDue)
+        </td>
+       
+    </tr>
+}
+
+</table>

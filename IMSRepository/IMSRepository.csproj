@@ -54,6 +54,7 @@
     <Compile Include="EmailTemplateRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="LookUpRepository.cs" />
+    <Compile Include="PaymentRepository.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWMRepository.cs" />

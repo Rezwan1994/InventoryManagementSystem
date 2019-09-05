@@ -54,6 +54,7 @@
     <Compile Include="Facade.cs" />
     <Compile Include="IFacade.cs" />
     <Compile Include="LookUpFacade.cs" />
+    <Compile Include="PaymentFacade.cs" />
     <Compile Include="ProductsFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWMFacade.cs" />

@@ -19,5 +19,10 @@ namespace SFMS.Facade
         {
             return salesorderRepository.GetSalesOrderBySalesOrderId(SalesOrderId);
         }
+
+        public SalesOrder GetSalesOrderByCustomerId(Guid CustomerId)
+        {
+            return salesorderRepository.GetSalesOrderBySalesOrderId(CustomerId);
+        }
     }
 }

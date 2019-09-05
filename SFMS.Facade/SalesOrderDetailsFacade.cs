@@ -15,7 +15,7 @@ namespace SFMS.Facade
         {
             salesorderRepository = new SalesOrderDetailsRepository(dataContext);
         }
-        public List<SalesOrderDetail> GetAllSalesDetailsBySaleOrderId(Guid SalesOrderId)
+        public List<SalesOrderDetailVM> GetAllSalesDetailsBySaleOrderId(Guid SalesOrderId)
         {
             return salesorderRepository.GetAllSalesDetailsBySaleOrderId(SalesOrderId);
         }

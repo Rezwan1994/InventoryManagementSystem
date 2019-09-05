@@ -20,7 +20,7 @@ namespace SFMS.Entity
 
         public double Total { get; set; }
 
- 
+
     }
     [NotMapped]
     public class SalesOrderDetailVM : SalesOrderDetail

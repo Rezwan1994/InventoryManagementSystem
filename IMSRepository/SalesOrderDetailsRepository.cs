@@ -12,20 +12,27 @@ namespace IMSRepository
             this.context = dataContext;
         }
 
-        public List<SalesOrderDetail> GetAllSalesDetailsBySaleOrderId(Guid SalesOrderId)
+        public List<SalesOrderDetailVM> GetAllSalesDetailsBySaleOrderId(Guid SalesOrderId)
         {
-            List<SalesOrderDetail> ConcernList = new List<SalesOrderDetail>();
+            List<SalesOrderDetailVM> dsResult = new List<SalesOrderDetailVM>();
 
             string rawQuery = @"  
                                 select  so.*,p.ProductName as ProductName FROM SalesOrderdetails so
                                 left join Products p on p.ProductId = so.ProductId
-                                where  so.SalesOrderId = '{0}'
-                               ";
+                                where  so.SalesOrderId = CONVERT(uniqueidentifier, '{0}')
+                                ";
 
             string sqlQuery = string.Format(rawQuery, SalesOrderId);
-            List<SalesOrderDetailVM> dsResult1 = context.Database.SqlQuery<SalesOrderDetailVM>(rawQuery, new object[] { }).ToList<SalesOrderDetailVM>();
+            //List<SalesOrderDetailVM> dsResult = context.Database.SqlQuery<SalesOrderDetailVM>(rawQuery, new object[] { }).ToList<SalesOrderDetailVM>();
+            try
+            {
+                var ctx = DataContext.getInstance();
+                dsResult = ctx.Database.SqlQuery<SalesOrderDetailVM>(sqlQuery, new object[] { }).ToList();
 
-            List<SalesOrderDetail> dsResult = context.Database.SqlQuery<SalesOrderDetailVM>(rawQuery, new object[] { }).ToList<SalesOrderDetail>();
+            }
+            catch (Exception ex) {
+
+            }
             return dsResult;
         }
     }

@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -211,6 +212,8 @@
     <Content Include="Content\Js\AddFile\DriverDocuments.js" />
     <Content Include="Content\Js\AddFile\FuelDocuments.js" />
     <Content Include="Content\Js\AddFile\VehicleDocuments.js" />
+    <Content Include="Content\Js\AddInvoice\AddInvoice.js" />
+    <Content Include="Content\Js\AddInvoice\Addinvoice2.js" />
     <Content Include="Content\Js\Car\AddCar.js" />
     <Content Include="Content\Js\Car\AddDriver.js" />
     <Content Include="Content\Js\Car\Car.js" />
@@ -348,6 +351,9 @@
     <Content Include="Views\Products\LoadPWMList.cshtml" />
     <Content Include="Views\Products\AddPWM.cshtml" />
     <Content Include="Views\Home\DashboardPartial.cshtml" />
+    <Content Include="Views\Invoice\AddInvoice.cshtml" />
+    <Content Include="Views\Invoice\InvoicePartial.cshtml" />
+    <Content Include="Views\Invoice\InvoiceListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,6 +29,7 @@ namespace SFMS.Facade
 
         public int Insert(TEntity entity)
         {
+            
             return repo.Insert(entity);
         }
 

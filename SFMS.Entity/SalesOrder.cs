@@ -21,18 +21,19 @@ namespace SFMS.Entity
 
         public double TaxAmount { get; set; }
         public double Total { get; set; }
-        public DateTime OrderDate { get; set; }
-        public DateTime DelivaryDate { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public DateTime? DelivaryDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
      
     }
+
     [NotMapped]
-
-
     public class SalesOrderModel
     {
         [NotMapped]
-        public List<SalesOrderDetail> SalesOrderDetailList { get; set; }
+        public List<SalesOrderDetailVM> SalesOrderDetailList { get; set; }
+        [NotMapped]
+        public List<SalesOrderDetail> SalesOrderDetails { get; set; }
         [NotMapped]
         public SalesOrder SalesOrder { get; set; }
     }
