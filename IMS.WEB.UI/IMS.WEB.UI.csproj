@@ -143,6 +143,7 @@
     </Compile>
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
+    <Compile Include="Models\SessionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -37,12 +37,14 @@
         <th>
             @Html.DisplayNameFor(model => model.BalanceDue)
         </th>
-        <th></th>
+        <th>
+            Pay Bill
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-      
+
         <td>
             <a class="OpenInvoice" onclick="OpenInvoice('@item.SalesOrderId')"> @Html.DisplayFor(modelItem => item.SalesOrderId)</a>
         </td>
@@ -64,7 +66,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.BalanceDue)
         </td>
-       
+        <td>
+            <input type="button" name="name" value="Payment" class="btn btn-primary" />
+        </td>
+
     </tr>
 }
 

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using IMSRepository;
 using IMS.WEB.UI.Models;
+using System.Web.Security;
 
 namespace IMS.WEB.UI.Controllers
 {
@@ -19,6 +20,7 @@ namespace IMS.WEB.UI.Controllers
         UserLoginFacade userlogin = null;
         ProductsFacade productsFacade = null;
         WareHouseFacade wareHouseFacade = null;
+        SessionContext sessionContext = null;
         public HomeController()
         {
             DataContext Context = DataContext.getInstance();
@@ -26,17 +28,21 @@ namespace IMS.WEB.UI.Controllers
             userlogin = new UserLoginFacade(Context);
             wareHouseFacade = new WareHouseFacade(Context);
             productsFacade = new ProductsFacade(Context);
+            sessionContext = new SessionContext();
         }
+
+        [Authorize]
         public ActionResult Index()
         {
-            if (Session["login_user"] == null)
-            {
-                return PartialView("~/Views/Shared/_AccessDenied.cshtml");
-            }
-            else
-            {
-                return View();
-            }
+            //if (Session["login_user"] == null)
+            //{
+            //    return PartialView("~/Views/Shared/_AccessDenied.cshtml");
+            //}
+            //else
+            //{
+            //    return View();
+            //}
+            return View();
         }
 
         public ActionResult DashboardPartial()
@@ -54,13 +60,13 @@ namespace IMS.WEB.UI.Controllers
         }
         public ActionResult LoginAjax(UserLogin user)
         {
-            List<UserLogin> userlist = new List<UserLogin>();
-            userlist = userlogin.GetAll().Where(x=>x.UserName == user.UserName && x.Password == user.Password).ToList();
+            UserLogin authenticatedUser = userlogin.GetAll().Where(x=>x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
             bool result = false;
-            if(userlist.Count()>0)
+            if(authenticatedUser != null)
             {
                 result = true;
-                Session["login_user"] = user.UserName;
+                //Session["login_user"] = user.UserName;
+                sessionContext.SetAuthenticationToken(authenticatedUser.UserId.ToString(), false, authenticatedUser);
             }
             else
             {
@@ -70,7 +76,7 @@ namespace IMS.WEB.UI.Controllers
         }
         public ActionResult Logout()
         {
-            Session.Clear();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Home");
         }
 
