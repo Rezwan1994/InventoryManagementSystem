@@ -363,7 +363,18 @@ var SaveInvoice = function () {
         dataType: "json",
         cache: false,
         success: function (data) {
-            OpenSuccessMessageNew("Success!", data.message, function () {  });
+            if (data.result == true) {
+                OpenSuccessMessageNew("Success!", data.message, function () {
+                    CloseTopToBottomModal();
+                    $(".AllUnPaidInvoice_Load").load("/Invoice/InvoiceListPartial/?CustomerId=" + CustomerId + "&InvoiceType=unpaid");
+                });
+            }
+            else {
+                OpenErrorMessageNew("", data.message, function () {
+                    CloseTopToBottomModal();
+                })
+            }
+         
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);

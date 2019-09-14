@@ -17,14 +17,26 @@ namespace IMSRepository
             List<SalesOrder> SalesOrderList = new List<SalesOrder>();
             SalesOrder salesOrder = new SalesOrder();
             string rawQuery = @"  
-                                select  * FROM SalesOrders 
-                                where  SalesOrderId = '{0}'
+                                select so.*,pr.PaymentAmount as PaymentAmount,pr.BalanceDue as BalanceDue from SalesOrders so 
+                                left join PaymentReceives pr on pr.SalesOrderId = so.SalesOrderId where so.SalesOrderId ='{0}'
                                ";
 
       
 
             string sqlQuery = string.Format(rawQuery, SalesOrderId);
-            SalesOrderList = context.Set<SalesOrder>().SqlQuery(sqlQuery).ToList();
+
+            try
+            {
+                var ctx = DataContext.getInstance();
+                
+                SalesOrderList = ctx.Database.SqlQuery<SalesOrderVM>(sqlQuery, new object[] { }).ToList<SalesOrder>();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+          
             if(SalesOrderList != null)
             {
                 salesOrder = SalesOrderList.FirstOrDefault();

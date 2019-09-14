@@ -32,6 +32,16 @@ namespace SFMS.Entity
         public DateTime? PaymentDate { get; set; }
         [NotMapped]
         public double PaymentAmount { get; set; }
+     
+        [NotMapped]
+
+        public double BalanceDue { get; set; }
+    }
+
+    [NotMapped]
+    public class SalesOrderVM : SalesOrder
+    {
+       
     }
 
     [NotMapped]

@@ -78,7 +78,7 @@ namespace IMS.WEB.UI.Controllers
                 if (SalesOrderModel.SalesOrder.Id == 0)
                 {
 
-                    if (SalesOrderModel.SalesOrder.PaymentAmount >= 0 && SalesOrderModel.SalesOrder.Total <= SalesOrderModel.SalesOrder.PaymentAmount)
+                    if (SalesOrderModel.SalesOrder.PaymentAmount >= 0 && SalesOrderModel.SalesOrder.Total >= SalesOrderModel.SalesOrder.PaymentAmount)
                     {
 
                         SalesOrderModel.SalesOrder.SalesOrderId = Guid.NewGuid();
@@ -104,15 +104,15 @@ namespace IMS.WEB.UI.Controllers
                         PaymentReceive payment = new PaymentReceive();
                         payment.PaymentId = Guid.NewGuid();
                         payment.SalesOrderId = SalesOrderModel.SalesOrder.SalesOrderId;
-                        payment.BalanceDue = SalesOrderModel.SalesOrder.Total;
-                        payment.PaymentAmount = SalesOrderModel.SalesOrder.Amount;
-                        if (SalesOrderModel.SalesOrder.PaymentAmount == 0)
-                        {
-                            payment.PaymentStatus = "Unpaid";
-                        }
-                        else if (SalesOrderModel.SalesOrder.PaymentAmount == SalesOrderModel.SalesOrder.Total)
+                        payment.BalanceDue = SalesOrderModel.SalesOrder.Amount - SalesOrderModel.SalesOrder.PaymentAmount;
+                        payment.PaymentAmount = SalesOrderModel.SalesOrder.PaymentAmount;
+                        if (payment.BalanceDue == 0)
                         {
                             payment.PaymentStatus = "Paid";
+                        }
+                        else if (payment.BalanceDue == SalesOrderModel.SalesOrder.Amount)
+                        {
+                            payment.PaymentStatus = "UnPaid";
                         }
                         else
                         {
@@ -134,13 +134,14 @@ namespace IMS.WEB.UI.Controllers
                 }
                 else
                 {
-                    if (SalesOrderModel.SalesOrder.PaymentAmount >= 0 && SalesOrderModel.SalesOrder.Total <= SalesOrderModel.SalesOrder.PaymentAmount)
+                    if (SalesOrderModel.SalesOrder.PaymentAmount >= 0 && SalesOrderModel.SalesOrder.Amount >= SalesOrderModel.SalesOrder.PaymentAmount)
                     {
                         SalesOrder sales = salesFacade.Get(SalesOrderModel.SalesOrder.Id);
                         sales.OrderDate = SalesOrderModel.SalesOrder.OrderDate;
                         sales.DelivaryDate = SalesOrderModel.SalesOrder.DelivaryDate;
                         sales.DiscountAmount = SalesOrderModel.SalesOrder.DiscountAmount;
                         sales.Amount = SalesOrderModel.SalesOrder.Amount;
+                      
                         sales.Total = SalesOrderModel.SalesOrder.Total;
                         salesFacade.Update(sales);
                         List<SalesOrderDetailVM> salesdetaillist = salesDetailFacade.GetAllSalesDetailsBySaleOrderId(sales.SalesOrderId);
@@ -170,15 +171,19 @@ namespace IMS.WEB.UI.Controllers
 
                         PaymentReceive oldPayment = payFacade.GetPaymentBySOId(SalesOrderModel.SalesOrder.SalesOrderId);
 
-                        oldPayment.BalanceDue = SalesOrderModel.SalesOrder.Total - SalesOrderModel.SalesOrder.PaymentAmount;
-                        oldPayment.PaymentAmount = SalesOrderModel.SalesOrder.Amount;
-                        if (SalesOrderModel.SalesOrder.PaymentAmount == 0)
-                        {
-                            oldPayment.PaymentStatus = "Unpaid";
-                        }
-                        else if (SalesOrderModel.SalesOrder.PaymentAmount == SalesOrderModel.SalesOrder.Amount)
+                        oldPayment.BalanceDue = SalesOrderModel.SalesOrder.Amount - SalesOrderModel.SalesOrder.PaymentAmount;
+                        oldPayment.PaymentAmount = (oldPayment.PaymentAmount + SalesOrderModel.SalesOrder.PaymentAmount);
+                        oldPayment.BalanceDue = SalesOrderModel.SalesOrder.Amount - oldPayment.PaymentAmount;
+                        sales.SubTotal = oldPayment.BalanceDue;
+                        salesFacade.Update(sales);
+
+                        if (oldPayment.BalanceDue == 0)
                         {
                             oldPayment.PaymentStatus = "Paid";
+                        }
+                        else if (oldPayment.BalanceDue == SalesOrderModel.SalesOrder.Amount)
+                        {
+                            oldPayment.PaymentStatus = "UnPaid";
                         }
                         else
                         {
@@ -196,8 +201,6 @@ namespace IMS.WEB.UI.Controllers
                         return Json(new { result = result, message = massege });
                     }
                     #endregion
-
-
 
                 }
                 result = true;
