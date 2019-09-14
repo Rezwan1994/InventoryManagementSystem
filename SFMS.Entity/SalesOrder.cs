@@ -24,7 +24,14 @@ namespace SFMS.Entity
         public DateTime? OrderDate { get; set; }
         public DateTime? DelivaryDate { get; set; }
         public DateTime? CreatedDate { get; set; }
-     
+
+        [NotMapped]
+        public string PaymentNote { get; set; }
+
+        [NotMapped]
+        public DateTime? PaymentDate { get; set; }
+        [NotMapped]
+        public double PaymentAmount { get; set; }
     }
 
     [NotMapped]
@@ -36,6 +43,7 @@ namespace SFMS.Entity
         public List<SalesOrderDetail> SalesOrderDetails { get; set; }
         [NotMapped]
         public SalesOrder SalesOrder { get; set; }
+
     }
 }
 

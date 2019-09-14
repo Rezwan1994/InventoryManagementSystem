@@ -11,6 +11,11 @@
     var SalesOrderId = '@Model.SalesOrder.SalesOrderId';
     var CustomerId = '@ViewBag.CustomerId';
     var SalesOrderIdInt = '@Model.SalesOrder.Id';
+    var BalanceDue = 0;
+    @if(Model.SalesOrder.Id> 0)
+    {
+        var BalanceDue = Model.SalesOrder.Amount;
+    }
 </script>
 
 
@@ -29,29 +34,52 @@
     </div>
     <div class="invoie_contents_scroll">
         <div class="invoice_info_container">
+            <table class="table-responsive width-100p infotable">
+                <thead>
+                    <tr>
+                        <th>Invoice Info</th>
+                        <th class="Gap"></th>
+                        <th>Payment Info</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="span-style">Customer</span>
+                            <input type="text" class="form-control" id="CustomerList" />
+                        </td>
+                        <td></td>
+                        <td>
+                            <span class="span-style">Payment Date</span>
+                            <input type="text" class="form-control" id="paymentdate" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="span-style">Order Date</span>
+                            <input type="text" value="@Model.SalesOrder.OrderDate" class="form-control OrderDate" />
+                        </td>
+                        <td></td>
+                        <td>
+                            <span class="span-style">Payment Amount</span>
+                            <input type="text" class="form-control" id="paymentamount" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="span-style">Delivery Date</span>
+                            <input type="text" value="@Model.SalesOrder.DelivaryDate" class="form-control DeliveryDate" />
+                        </td>
+                        <td></td>
+                        <td>
+                            <span class="span-style">Note</span>
+                            <input type="text" class="form-control" id="paymentnote" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <div class="width_100p">
-
-                <div class="invoice-info-left-70p invoice_owner_info">
-                    <div class="clearfix width-25p customer_name_insert_div add_invoice_info_div_device">
-                        <span class="span-style">Customer</span>
-
-
-                        <input type="text" class="form-control" id="CustomerList" />
-
-
-                        <div class='tt-menu'>
-                            <div class='tt-dataset tt-dataset-autocomplete'> </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div>
-                    <span class="span-style">Order Date</span>
-                    <input type="text" value="@Model.SalesOrder.OrderDate" class="form-control OrderDate" />
-                    <span class="span-style">Delivery Date</span>
-                    <input type="text" value="@Model.SalesOrder.DelivaryDate" class="form-control DeliveryDate" />
-                </div>
 
                 <div class="balance-info balance_info_for_desktop">
                     <div>
@@ -59,7 +87,7 @@
                         @*<span class="span-style balance-info-paid">Balance paid</span>*@
                
                     </div>
-                    <span class="amount amount-span-style big-amount-top amount-big">@Model.SalesOrder.Amount</span>
+                    <span class="amount amount-span-style big-amount-top amount-big">@Model.SalesOrder.Amount </span>
 
                     @*<div class="balance-info-paid PaidDivClass">
                         <span>PAID</span>
@@ -75,9 +103,7 @@
 
 
                 </div>
-                <div class="invoice-make-payment-div hidden">
-                    <button type="button" class="btn btn-default invoice-make-poayment">Receive Payment</button>
-                </div>
+             
             </div>
 
         </div>
@@ -258,23 +284,61 @@
 
                     <div class="col-md-12">
                        
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="Discount discount-amount-div row margin-TB-5p" style="float:right;">
-                                <div class="col-xs-3">
-                                  
-                                    <span class="discount_text_custom">Discount(%) </span>
-                                </div>
-                                <div class="col-xs-6">
-                                  
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="Discount discount-amount-div row margin-TB-5p" style="float:right;">
+                                    <div class="col-xs-3">
+
+                                        <span class="discount_text_custom">Discount(%) </span>
+                                    </div>
+                                    <div class="col-xs-6">
+
                                         <input type="text" id="discountAmount" value="@Model.SalesOrder.DiscountAmount" class="float-right form-control" />
-                                
+
+                                    </div>
+
                                 </div>
-                              
                             </div>
+                            @if (Model.SalesOrder.Id > 0)
+                            {
+                                <div class="col-md-12">
+                                    <div class="col-xs-3">
+
+                                        <span class="Subtotal_text_custom">Sub Total</span>
+                                    </div>
+                                    <div class="col-xs-6">
+
+                                        <span>@Model.SalesOrder.SubTotal</span>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-xs-3">
+
+                                        <span class="Paid_text_custom">Paid</span>
+                                    </div>
+                                    <div class="col-xs-6">
+
+                                        <span>@Model.SalesOrder.Amount</span>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-xs-3">
+
+                                        <span class="Total_text_custom">Total</span>
+                                    </div>
+                                    <div class="col-xs-6">
+
+                                        <span>@Model.SalesOrder.Amount</span>
+
+                                    </div>
+                                </div>
+                            }
                         </div>
-                    </div>
-                </div>
+                            </div>
             </div>
         </div>
 

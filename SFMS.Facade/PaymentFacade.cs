@@ -21,5 +21,10 @@ namespace SFMS.Facade
         {
             return PaymentRepository.GetAllPaymentReceiveByCustomerId(CustomerId);
         }
+
+        public PaymentReceive GetPaymentBySOId(Guid SalesOrderId)
+        {
+            return PaymentRepository.GetPaymentBySOId(SalesOrderId);
+        }
     }
 }

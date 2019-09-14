@@ -160,6 +160,9 @@
     <Content Include="Content\Css\Car\car.css" />
     <Content Include="Content\Css\demo.css" />
     <Content Include="Content\Css\FuelList\FuelList.css" />
+    <Content Include="Content\Css\Invoice\AddInvoice.css" />
+    <Content Include="Content\Css\Invoice\Invoice.css" />
+    <Content Include="Content\Css\Invoice\InvoicePartial.css" />
     <Content Include="Content\Css\Layout\all-themes.css" />
     <Content Include="Content\Css\Layout\animate.css" />
     <Content Include="Content\Css\Layout\Loader.css" />

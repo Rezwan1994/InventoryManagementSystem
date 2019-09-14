@@ -3,7 +3,7 @@ var FinalTotal = 0;/*FinalTotal: Invoice Table -> TotalAmount*/
 var DiscountAmount = 0;
 var ShippingAmount = 0;
 var DepositAmount = 0;
-var BalanceDue = 0;
+
 var DiscountDBPercent = 0;
 var DiscountDBAmount = 0;
 var TaxAmount = 0;
@@ -347,7 +347,11 @@ var SaveInvoice = function () {
         "SalesOrder.OrderDate": $(".OrderDate").val(),
         "SalesOrder.DelivaryDate": $(".DeliveryDate").val(),
         "SalesOrder.DiscountAmount": DiscountDBAmount,
-        SalesOrderDetailList: DetailList
+
+        "SalesOrder.PaymentAmount": $("#paymentamount").val(),
+        "SalesOrder.PaymentNote": $("#paymentnote").val(),
+        "SalesOrder.PaymentDate": $("#paymentdate").val(),
+        SalesOrderDetails : DetailList
     });
 
     $.ajax({

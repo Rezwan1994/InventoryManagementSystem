@@ -28,5 +28,10 @@ namespace IMSRepository
             PaymentReceiveList = context.Set<PaymentReceive>().SqlQuery(sqlQuery).ToList();
             return PaymentReceiveList;
         }
+
+        public PaymentReceive GetPaymentBySOId(Guid SalesOrderId)
+        {
+            return context.Set<PaymentReceive>().Where(x=>x.SalesOrderId == SalesOrderId).FirstOrDefault();
+        }
     }
 }

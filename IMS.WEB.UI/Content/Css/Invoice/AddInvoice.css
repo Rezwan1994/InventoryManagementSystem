@@ -985,6 +985,13 @@ border-radius: 3px;
  .SaveaButtonsDiv button {
      padding:6px;
  }
+ .infotable th:first-child,.infotable th:last-child{
+     text-align:center;
+     border-bottom:1px solid;
+ }
+ .Gap{
+     min-width:30px;
+ }
  .SaveaButtonsDiv .estimate_btn_style {
      padding-right:5px;
  }
