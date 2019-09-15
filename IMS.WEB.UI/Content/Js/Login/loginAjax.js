@@ -7,7 +7,7 @@
             "Password": $("#Pass").val(),
           
         };
-
+        $(".LoaderLoginDiv").show();
 
         var url = "/Home/LoginAjax";
         $.ajax({
@@ -22,16 +22,19 @@
                 if(data.result == true)
                 {
                     window.location.href = "/dashboards";
+                    $(".LoaderLoginDiv").hide();
                 }
                 else
                 {
                     alert("Incorrect username or password!")
+                    $(".LoaderLoginDiv").hide();
                 }
                
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(errorThrown);
+                $(".LoaderLoginDiv").hide();
             }
         });
     }
