@@ -14,5 +14,10 @@ namespace IMSRepository
         {
             this.context = dataContext;
         }
+
+        public ProductWarehouseMap GetByWarehouseId(Guid WarehouseId)
+        {
+            return context.Set<ProductWarehouseMap>().Where(x => x.WarehouseId == WarehouseId).FirstOrDefault();
+        }
     }
 }

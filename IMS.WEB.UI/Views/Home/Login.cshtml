@@ -68,156 +68,131 @@
 
 <body id="page" data-gr-c-s-loaded="true" style="background-color: #6b3535">
     <div class="lds-css ng-scope">
-        <div style="width:100%;height:100%;display:none" class="LoaderLoginDiv lds-double-ring"><div></div><div></div><div><div></div></div><div><div></div></div></div>
+        <div class="lds-spinner LoaderLoginDiv" style="width:100%;height:100%;display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <style type="text/css">
-            @@keyframes lds-double-ring {
+            @@keyframes lds-spinner {
                 0% {
-                    -webkit-transform: rotate(0);
-                    transform: rotate(0);
+                    opacity: 1;
                 }
 
                 100% {
-                    -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
+                    opacity: 0;
                 }
             }
 
-            @@-webkit-keyframes lds-double-ring {
+            @@-webkit-keyframes lds-spinner {
                 0% {
-                    -webkit-transform: rotate(0);
-                    transform: rotate(0);
+                    opacity: 1;
                 }
 
                 100% {
-                    -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
+                    opacity: 0;
                 }
             }
 
-            @@keyframes lds-double-ring_reverse {
-                0% {
-                    -webkit-transform: rotate(0);
-                    transform: rotate(0);
-                }
-
-                100% {
-                    -webkit-transform: rotate(-360deg);
-                    transform: rotate(-360deg);
-                }
-            }
-
-            @@-webkit-keyframes lds-double-ring_reverse {
-                0% {
-                    -webkit-transform: rotate(0);
-                    transform: rotate(0);
-                }
-
-                100% {
-                    -webkit-transform: rotate(-360deg);
-                    transform: rotate(-360deg);
-                }
-            }
-
-            .lds-double-ring {
+            .lds-spinner {
                 position: relative;
             }
 
-                .lds-double-ring div {
-                    box-sizing: border-box;
-                }
-
-                .lds-double-ring > div {
+                .lds-spinner div {
+                    left: 94px;
+                    top: 48px;
                     position: absolute;
-                    width: 168px;
-                    height: 168px;
-                    top: 16px;
-                    left: 16px;
-                    border-radius: 50%;
-                    border: 8px solid #000;
-                    border-color: #408545 transparent #408545 transparent;
-                    -webkit-animation: lds-double-ring 1.5s linear infinite;
-                    animation: lds-double-ring 1.5s linear infinite;
+                    -webkit-animation: lds-spinner linear 1s infinite;
+                    animation: lds-spinner linear 1s infinite;
+                    background: #0055a5;
+                    width: 12px;
+                    height: 24px;
+                    border-radius: 40%;
+                    -webkit-transform-origin: 6px 52px;
+                    transform-origin: 6px 52px;
                 }
 
-                    .lds-double-ring > div:nth-child(2),
-                    .lds-double-ring > div:nth-child(4) {
-                        width: 148px;
-                        height: 148px;
-                        top: 26px;
-                        left: 26px;
-                        -webkit-animation: lds-double-ring_reverse 1.5s linear infinite;
-                        animation: lds-double-ring_reverse 1.5s linear infinite;
+                    .lds-spinner div:nth-child(1) {
+                        -webkit-transform: rotate(0deg);
+                        transform: rotate(0deg);
+                        -webkit-animation-delay: -0.916666666666667s;
+                        animation-delay: -0.916666666666667s;
                     }
 
-                    .lds-double-ring > div:nth-child(2) {
-                        border-color: transparent #0dde3c transparent #0dde3c;
+                    .lds-spinner div:nth-child(2) {
+                        -webkit-transform: rotate(30deg);
+                        transform: rotate(30deg);
+                        -webkit-animation-delay: -0.833333333333333s;
+                        animation-delay: -0.833333333333333s;
                     }
 
-                    .lds-double-ring > div:nth-child(3) {
-                        border-color: transparent;
+                    .lds-spinner div:nth-child(3) {
+                        -webkit-transform: rotate(60deg);
+                        transform: rotate(60deg);
+                        -webkit-animation-delay: -0.75s;
+                        animation-delay: -0.75s;
                     }
 
-                        .lds-double-ring > div:nth-child(3) div {
-                            position: absolute;
-                            width: 100%;
-                            height: 100%;
-                            -webkit-transform: rotate(45deg);
-                            transform: rotate(45deg);
-                        }
-
-                            .lds-double-ring > div:nth-child(3) div:before,
-                            .lds-double-ring > div:nth-child(3) div:after {
-                                content: "";
-                                display: block;
-                                position: absolute;
-                                width: 8px;
-                                height: 8px;
-                                top: -8px;
-                                left: 72px;
-                                background: #408545;
-                                border-radius: 50%;
-                                box-shadow: 0 160px 0 0 #408545;
-                            }
-
-                            .lds-double-ring > div:nth-child(3) div:after {
-                                left: -8px;
-                                top: 72px;
-                                box-shadow: 160px 0 0 0 #408545;
-                            }
-
-                    .lds-double-ring > div:nth-child(4) {
-                        border-color: transparent;
+                    .lds-spinner div:nth-child(4) {
+                        -webkit-transform: rotate(90deg);
+                        transform: rotate(90deg);
+                        -webkit-animation-delay: -0.666666666666667s;
+                        animation-delay: -0.666666666666667s;
                     }
 
-                        .lds-double-ring > div:nth-child(4) div {
-                            position: absolute;
-                            width: 100%;
-                            height: 100%;
-                            -webkit-transform: rotate(45deg);
-                            transform: rotate(45deg);
-                        }
+                    .lds-spinner div:nth-child(5) {
+                        -webkit-transform: rotate(120deg);
+                        transform: rotate(120deg);
+                        -webkit-animation-delay: -0.583333333333333s;
+                        animation-delay: -0.583333333333333s;
+                    }
 
-                            .lds-double-ring > div:nth-child(4) div:before,
-                            .lds-double-ring > div:nth-child(4) div:after {
-                                content: "";
-                                display: block;
-                                position: absolute;
-                                width: 8px;
-                                height: 8px;
-                                top: -8px;
-                                left: 62px;
-                                background: #0dde3c;
-                                border-radius: 50%;
-                                box-shadow: 0 140px 0 0 #0dde3c;
-                            }
+                    .lds-spinner div:nth-child(6) {
+                        -webkit-transform: rotate(150deg);
+                        transform: rotate(150deg);
+                        -webkit-animation-delay: -0.5s;
+                        animation-delay: -0.5s;
+                    }
 
-                            .lds-double-ring > div:nth-child(4) div:after {
-                                left: -8px;
-                                top: 62px;
-                                box-shadow: 140px 0 0 0 #0dde3c;
-                            }
+                    .lds-spinner div:nth-child(7) {
+                        -webkit-transform: rotate(180deg);
+                        transform: rotate(180deg);
+                        -webkit-animation-delay: -0.416666666666667s;
+                        animation-delay: -0.416666666666667s;
+                    }
 
-            .lds-double-ring {
+                    .lds-spinner div:nth-child(8) {
+                        -webkit-transform: rotate(210deg);
+                        transform: rotate(210deg);
+                        -webkit-animation-delay: -0.333333333333333s;
+                        animation-delay: -0.333333333333333s;
+                    }
+
+                    .lds-spinner div:nth-child(9) {
+                        -webkit-transform: rotate(240deg);
+                        transform: rotate(240deg);
+                        -webkit-animation-delay: -0.25s;
+                        animation-delay: -0.25s;
+                    }
+
+                    .lds-spinner div:nth-child(10) {
+                        -webkit-transform: rotate(270deg);
+                        transform: rotate(270deg);
+                        -webkit-animation-delay: -0.166666666666667s;
+                        animation-delay: -0.166666666666667s;
+                    }
+
+                    .lds-spinner div:nth-child(11) {
+                        -webkit-transform: rotate(300deg);
+                        transform: rotate(300deg);
+                        -webkit-animation-delay: -0.083333333333333s;
+                        animation-delay: -0.083333333333333s;
+                    }
+
+                    .lds-spinner div:nth-child(12) {
+                        -webkit-transform: rotate(330deg);
+                        transform: rotate(330deg);
+                        -webkit-animation-delay: 0s;
+                        animation-delay: 0s;
+                    }
+
+            .lds-spinner {
                 width: 200px !important;
                 height: 200px !important;
                 -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);

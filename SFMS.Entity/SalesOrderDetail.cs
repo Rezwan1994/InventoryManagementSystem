@@ -19,7 +19,6 @@ namespace SFMS.Entity
         public double SubTotal { get; set; }
 
         public double Total { get; set; }
-        [NotMapped]
         public Guid WarehouseId { get; set; }
     }
     [NotMapped]

@@ -24,5 +24,10 @@ namespace SFMS.Facade
         {
             return wareHouseRepository.GetAllWarehousesbyQuery(query);
         }
+
+        public WareHouse GetByWarehouseId(Guid WarehouseId)
+        {
+            return wareHouseRepository.GetByWarehouseId(WarehouseId);
+        }
     }
 }

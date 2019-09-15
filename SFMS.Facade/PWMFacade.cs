@@ -15,5 +15,11 @@ namespace SFMS.Facade
         {
             pwmRepository = new PWMRepository(dataContext);
         }
+
+        public ProductWarehouseMap GetByWarehouseId(Guid WarehouseId)
+        {
+            //return context.Set<WareHouse>().Where(x => x.WarehouseId == WarehouseId).FirstOrDefault();
+            return pwmRepository.GetByWarehouseId(WarehouseId);
+        }
     }
 }

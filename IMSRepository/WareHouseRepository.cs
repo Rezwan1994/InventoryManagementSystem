@@ -77,5 +77,10 @@ namespace IMSRepository
             List<WareHouse> dsResult = context.Set<WareHouse>().SqlQuery(sqlQuery).ToList();
             return dsResult;
         }
+
+        public WareHouse GetByWarehouseId(Guid WarehouseId)
+        {
+            return context.Set<WareHouse>().Where(x => x.WarehouseId == WarehouseId).FirstOrDefault();
+        }
     }
 }
