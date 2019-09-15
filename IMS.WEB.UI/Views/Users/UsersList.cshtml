@@ -54,7 +54,11 @@
 <script>
 
     var TabsLoaderText = "<div class='invoice-loader'><div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>";
-
+    var NavigatePageListing = function (pagenumber, order) {
+    console.log("fff")
+    var searchText = $(".srch-term").val();
+    $(".ListContents").load("/Users/LoadUsersList", { PageNumber: pagenumber, SearchText:searchText});
+}
     var EditUsers = function (id) {
     OpenTopToBottomModal("/Users/AddUser?id=" + id);
 
@@ -67,7 +71,11 @@
         OpenRightToLeftModal("/Users/AddUser");
             //$("#RightToLeftModal").click();
 
-    })
+        })
+
+        $(".srch-term").keyup(function () {
+            NavigatePageListing(1);
+        })
         $(".LoaderWorkingDiv").hide();
         $("#LoadCustomerList").html(TabsLoaderText);
         $("#LoadCustomerList").load("/Users/LoadUsersList");
@@ -124,7 +132,7 @@
         <div class="">
             <div id="searchbardiv" class="row">
                 <div class="col-md-6">
-                    <input class="form-control srch-term" placeholder="Find Customer" type="text" value="&nbsp;">
+                    <input class="form-control srch-term" placeholder="Find Customer" type="text" value="">
                 </div>
 
             </div>
@@ -139,16 +147,9 @@
             <li class="active LoadCustomerTab"
                 <a data-target="#LoadCustomerTab  .active" data-toggle="tab">Customer</a>
             </li>
-            <li class="LoadVendorTab"
-                <a data-target="#LoadVendorTab  .active" data-toggle="tab">Vendor</a>
-            </li>
-
         </ul>
         <div class="tab-content reports_tab_content">
             <div class="tab-pane active" id="LoadCustomerList">
-
-            </div>
-            <div class="tab-pane active" id="LoadVendorList">
 
             </div>
         </div>

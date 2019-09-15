@@ -4,6 +4,7 @@ using IMSRepository;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace IMS.WEB.UI
 {
@@ -11,12 +12,12 @@ namespace IMS.WEB.UI
     {
         // GET: Users
         UserFacade usersFacade = null;
-
+        LookUpFacade lookupFacade = null;
         public UsersController()
         {
             DataContext Context = DataContext.getInstance();
             usersFacade = new UserFacade(Context);
-           
+            lookupFacade = new LookUpFacade(Context);
         }
         public ActionResult Index()
         {
@@ -74,6 +75,14 @@ namespace IMS.WEB.UI
             {
                 model = usersFacade.Get(id.Value);
             }
+
+            ViewBag.CustomerType = lookupFacade.GetLookupByKey("CustomerType").Select(x =>
+              new SelectListItem()
+              {
+                  Text = x.DisplayText.ToString(),
+                  Value = x.DataValue.ToString()
+              }).ToList();
+
             return View(model);
         }
 
@@ -82,6 +91,7 @@ namespace IMS.WEB.UI
         {
 
             var result = false;
+
             if (Users != null)
             {
                 if (Users.Id > 0)
@@ -110,7 +120,7 @@ namespace IMS.WEB.UI
                     }
                 }
             }
-            return Json(new { result = result });
+            return Json(new { result = result ,UserId = Users.Id});
         }
 
         public ActionResult LoadUserDetails(int id)

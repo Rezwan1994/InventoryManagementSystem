@@ -151,7 +151,8 @@ namespace IMS.WEB.UI.Controllers
                 }
                 else
                 {
-                    if (SalesOrderModel.SalesOrder.PaymentAmount >= 0 && SalesOrderModel.SalesOrder.Amount >= SalesOrderModel.SalesOrder.PaymentAmount)
+                    PaymentReceive oldPayment = payFacade.GetPaymentBySOId(SalesOrderModel.SalesOrder.SalesOrderId);
+                    if (SalesOrderModel.SalesOrder.PaymentAmount >= 0 && SalesOrderModel.SalesOrder.Amount >= (oldPayment.PaymentAmount + SalesOrderModel.SalesOrder.PaymentAmount))
                     {
                         SalesOrder sales = salesFacade.Get(SalesOrderModel.SalesOrder.Id);
                         sales.OrderDate = SalesOrderModel.SalesOrder.OrderDate;
@@ -196,7 +197,7 @@ namespace IMS.WEB.UI.Controllers
 
                         #region PaymentReceive
 
-                        PaymentReceive oldPayment = payFacade.GetPaymentBySOId(SalesOrderModel.SalesOrder.SalesOrderId);
+                       
 
                         oldPayment.BalanceDue = SalesOrderModel.SalesOrder.Amount - SalesOrderModel.SalesOrder.PaymentAmount;
                         oldPayment.PaymentAmount = (oldPayment.PaymentAmount + SalesOrderModel.SalesOrder.PaymentAmount);

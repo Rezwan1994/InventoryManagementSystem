@@ -3,7 +3,7 @@ var SaveUsers = function () {
     console.log($("#UserIdVal").val());
         var Param = {
             "Id": $("#IdVal").val(),
-            "UserType": $(".UserType").val(),
+            "UserType": $("#UserType").val(),
             "Mobile": $(".Mobile").val(),
             "Email": $(".Email").val(),
             "Address": $(".Address").val(),
@@ -23,8 +23,8 @@ var SaveUsers = function () {
                 console.log(data);
                 if (data.result == true) {
                     OpenSuccessMessageNew("Success !", "User saved successfully", function () {
-                   
-                        location.href = "/Users/LoadUserDetails?id=" + $("#IdVal").val();
+
+                        location.href = "/Users/LoadUserDetails?id=" + data.UserId;
                     });
                 }
 
@@ -45,5 +45,7 @@ $(document).ready(function () {
             SaveUsers();
         }
     })
+
+  
 
 });

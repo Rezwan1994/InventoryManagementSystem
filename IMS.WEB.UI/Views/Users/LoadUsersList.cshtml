@@ -60,7 +60,7 @@
                     <div class="cus-anchor"><a href="/Users/LoadUserDetails?id=">Name</a></div>
                     <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/make"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/make"></i></div>
                 </th>
-               
+
                 <th>
                     <div>Mobile</div>
                     <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/regid"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/regid"></i></div>
@@ -74,34 +74,41 @@
                     <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/fuelsystem"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/fuelsystem"></i></div>
                 </th>
                 <th>
-                    <div>Action</div>
-                    <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/CreatedDate"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/CreatedDate"></i></div>
+                    <div>User Type</div>
+                    <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/fuelsystem"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/fuelsystem"></i></div>
                 </th>
+                @*<th>
+            <div>Action</div>
+            <div><i class="fa fa-angle-up icon_sort_timeclock" data-val="ascending/CreatedDate"></i> <i class="fa fa-angle-down icon_sort_timeclock" data-val="descending/CreatedDate"></i></div>
+        </th>*@
             </tr>
         </thead>
 
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        <a id="edit" class="cus-anchor" href="/Users/LoadUserDetails?id=@item.Id">@item.Name</a>
-                    </td>
-                  
-                    <td>
-                        <span>@item.Mobile</span>
-                    </td>
-                    <td>
-                        <span>@item.Email</span>
-                    </td>
-                    <td>
-                        <span>@item.Address</span>
-                    </td>
-                    <td class="cplp_info_allign">
-                        <a class="delete-package-Device" idval="@item.Id" id="" onclick="EditUser(@item.Id)"><i class="fa fa-edit"></i></a> |
-                        <a class="delete-package-Device" idval="@item.Id" id="" onclick="DeleteUserConfirm(@item.Id)"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <a id="edit" class="cus-anchor" href="/Users/LoadUserDetails?id=@item.Id">@item.Name</a>
+                </td>
+
+                <td>
+                    <span>@item.Mobile</span>
+                </td>
+                <td>
+                    <span>@item.Email</span>
+                </td>
+                <td>
+                    <span>@item.Address</span>
+                </td>
+                <td>
+                    <span>@item.UserType</span>
+                </td>
+                @*<td class="cplp_info_allign">
+            <a class="delete-package-Device" idval="@item.Id" id="" onclick="EditUser(@item.Id)"><i class="fa fa-edit"></i></a> |
+            <a class="delete-package-Device" idval="@item.Id" id="" onclick="DeleteUserConfirm(@item.Id)"><i class="fa fa-trash-o"></i></a>
+        </td>*@
+            </tr>
             }
         </tbody>
 
