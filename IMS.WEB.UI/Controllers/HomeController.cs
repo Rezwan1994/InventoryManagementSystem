@@ -21,6 +21,7 @@ namespace IMS.WEB.UI.Controllers
         ProductsFacade productsFacade = null;
         WareHouseFacade wareHouseFacade = null;
         SessionContext sessionContext = null;
+        PaymentFacade paymentFacade = null;
         public HomeController()
         {
             DataContext Context = DataContext.getInstance();
@@ -29,6 +30,7 @@ namespace IMS.WEB.UI.Controllers
             wareHouseFacade = new WareHouseFacade(Context);
             productsFacade = new ProductsFacade(Context);
             sessionContext = new SessionContext();
+            paymentFacade = new PaymentFacade(Context);
         }
 
         [Authorize]
@@ -51,6 +53,10 @@ namespace IMS.WEB.UI.Controllers
             dashboardViewModel.products_count = productsFacade.GetAll().Count();
             dashboardViewModel.warehouses_count = wareHouseFacade.GetAll().Count();
             dashboardViewModel.users_count = userFacade.GetAll().Count();
+            List<Product> FinishedProduct = productsFacade.GetAll().Where(x => x.Quantity <= 5).ToList();
+            List<PaymentReceive> UnpaidInvoices = paymentFacade.GetAll().Where(x => x.PaymentStatus == "Unpaid" || x.PaymentStatus== "Partially Paid").Take(5).ToList();
+            dashboardViewModel.FinishedProducts = FinishedProduct;
+            dashboardViewModel.UnpaidInvoices = UnpaidInvoices;
             return View(dashboardViewModel);
         }
 
