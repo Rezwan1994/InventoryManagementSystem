@@ -22,8 +22,19 @@ namespace SFMS.Entity
 
         [NotMapped]
         public int RemainQantity { get; set; }
+        [NotMapped]
+        public int QuantityOnHand { get; set; }
+        [NotMapped]
+        public string WarehouseName { get; set; }
+        [NotMapped]
+        public Guid WarehouseId { get; set; }
+        
     }
-    
+    [NotMapped]
+    public class ProductVM : Product
+    {
+
+    }
 }
 
 

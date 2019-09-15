@@ -4,6 +4,7 @@ using IMSRepository;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace IMS.WEB.UI.Controllers
 {
@@ -14,13 +15,14 @@ namespace IMS.WEB.UI.Controllers
         SalesOrderFacade salesFacade = null;
         PaymentFacade payFacade = null;
         SalesOrderDetailsFacade salesDetailFacade = null;
+        WareHouseFacade wareHouseFacade = null;
         public InvoiceController()
         {
             DataContext Context = DataContext.getInstance();
             salesFacade = new SalesOrderFacade(Context);
             salesDetailFacade = new SalesOrderDetailsFacade(Context);
             payFacade = new PaymentFacade(Context);
-
+            wareHouseFacade = new WareHouseFacade(Context);
         }
         public ActionResult Index()
         {
@@ -61,7 +63,16 @@ namespace IMS.WEB.UI.Controllers
                 salesOrderModel.SalesOrder = salesOrder;
                 salesOrderModel.SalesOrderDetailList = new List<SalesOrderDetailVM>();
             }
-
+            #region Viewbag
+            List<SelectListItem> WarehouseList = new List<SelectListItem>();
+            WarehouseList.AddRange(wareHouseFacade.GetAll().Select(x => new SelectListItem()
+            {
+                Text = x.WarehouseName,
+                Value = x.WarehouseId.ToString()
+            }).ToList());
+            //ViewBag.LeadUserList = SalesList;
+            ViewBag.WarehouseList = WarehouseList;
+            #endregion
 
             ViewBag.CustomerId = CustomerId;
             return View(salesOrderModel);

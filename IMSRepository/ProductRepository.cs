@@ -65,7 +65,7 @@ namespace IMSRepository
         }
 
 
-        public List<Product> GetProductsByKey(string Key,string ExistEquipment)
+        public List<Product> GetProductsByKey(string Key,string ExistEquipment,Guid Warehouse)
         {
             string searchTextQuery = "";
         
@@ -78,9 +78,11 @@ namespace IMSRepository
             }
 
             string rawQuery = @" 
-                                select * FROM Products c
-                           
-                                where  ({0}){1}
+                                select c.*,pm.Quantity as QuantityOnHand , wh.WarehouseName as WarehouseName,wh.WarehouseId as WarehouseId
+                                from Products c 
+                                left join ProductWarehouseMaps pm on c.ProductId = pm.ProductId
+                                left join WareHouses wh on wh.WarehouseId = pm.WarehouseId
+                                where  pm.WarehouseId = '{2}' and ({0}){1}
                                ";
             var EqpExist = "";
             if (!string.IsNullOrEmpty(ExistEquipment))
@@ -90,13 +92,13 @@ namespace IMSRepository
 
             string CountQuery = string.Format("Select * from Products c {0}", CountTextQuery);
 
-            rawQuery = string.Format(rawQuery,searchTextQuery, EqpExist);
+            rawQuery = string.Format(rawQuery,searchTextQuery, EqpExist, Warehouse);
             int TotalCount = 0;
             List<Product> dsResult = new List<Product>();
             try
             {
                 var ctx = DataContext.getInstance();
-                dsResult = ctx.Product.SqlQuery(rawQuery).ToList();
+                dsResult = ctx.Database.SqlQuery<ProductVM>(rawQuery, new object[] { }).ToList<Product>();
                 TotalCount = ctx.Product.SqlQuery(CountQuery).ToList().Count;
             }
             catch (Exception ex)

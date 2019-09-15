@@ -148,7 +148,7 @@ var InvoiceEqSuggestionclickbind = function (item) {
         var spnItemRate = $(item).parent().parent().find('.spnProductDesc');
         $(spnItemRate).text($(this).attr('data-description'));
         var txtItemRate = $(item).parent().parent().find('.txtProductDesc');
-        $(txtItemRate).val($(this).attr('data-description'));
+        $(txtItemRate).val($(this).attr('data-WarehouseId'));
         /*Item Quantity Set*/
         var spnItemRate = $(item).parent().parent().find('.spnProductQuantity');
         $(spnItemRate).text(1);
@@ -245,7 +245,7 @@ var SearchKeyDown = function (item, event) {
 }
 
 var PropertyUserSuggestiontemplate =
-    "<div class='tt-suggestion tt-selectable' style = 'display:block' data-select='{1}' data-price='{2}' data-type='{5}' data-id='{0}' data-description='{6}'>"
+    "<div class='tt-suggestion tt-selectable' style = 'display:block' data-select='{1}' data-price='{2}' data-type='{5}' data-id='{0}' data-description='{4}' data-WarehouseId='{5}'  >"
     /*
     *For Equipment Image
     *+ "<img src='{7}' class='EquipmentImage'>"*/
@@ -272,7 +272,8 @@ var SearchKeyUp = function (item, event) {
         url: "/Products/GetEquipmentListByKey",
         data: {
             key: $(item).val(),
-            ExistEquipment: ExistEquipment
+            ExistEquipment: ExistEquipment,
+            Warehouse: $("#warehouse").val()
         },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -287,8 +288,10 @@ var SearchKeyUp = function (item, event) {
                         /*0*/resultparse[i].ProductId,
                         /*1*/ resultparse[i].ProductName,
                         /*2*/ resultparse[i].SellingPrice,
-                        ///*3*/resultparse[i].Reorderpoint,
-                        /*4*/ resultparse[i].Quantity);
+                       
+                        /*3*/ resultparse[i].QuantityOnHand,
+                      /*4*/resultparse[i].WarehouseName,
+                    /*4*/resultparse[i].WarehouseId);
                 }
                 searchresultstring += "</div>";
                 var ttdom = $($(item).parent()).find('.tt-menu');
@@ -334,7 +337,7 @@ var SaveInvoice = function () {
             Quantity: $(this).find('.txtProductQuantity').val(),
             Price: $(this).find('.txtProductRate').val().trim().replaceAll(',', ''),
             Total: ($(this).find('.txtProductQuantity').val() * parseFloat($(this).find('.txtProductRate').val().trim().replaceAll(',', ''))).toString(),
-
+            WarehouseId: $(this).find('.txtProductDesc').val()
         });
     });
     var url = "/Invoice/AddInvoice";

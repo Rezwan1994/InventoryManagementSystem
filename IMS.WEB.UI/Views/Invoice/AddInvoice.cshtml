@@ -75,6 +75,15 @@
                             <input type="text" class="form-control" id="paymentnote" />
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group clearfix width-50p">
+                                <span class="span-style">Warehouse Name</span>
+                                @Html.DropDownList("warehouse", ViewBag.WarehouseList as List<SelectListItem>, new { @class = "form-control"})
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
             <div class="width_100p">
@@ -124,7 +133,7 @@
                                 </th>
                                 <th class="thead-th-style2 tab-Desc">
                                     <span>
-                                        Description
+                                        Warehouse
                                     </span>
                                 </th>
                                 <th class="thead-th-style2 tab-Quantity">

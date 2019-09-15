@@ -1,5 +1,6 @@
 ﻿using IMSRepository;
 using SFMS.Entity;
+using System;
 using System.Collections.Generic;
 
 namespace SFMS.Facade
@@ -15,9 +16,9 @@ namespace SFMS.Facade
         {
             return productRepository.GetProducts(filter);
         }
-        public List<Product> GetProductsByKey(string key,string ExistEquipment)
+        public List<Product> GetProductsByKey(string key,string ExistEquipment,Guid Warehouse)
         {
-            return productRepository.GetProductsByKey(key,ExistEquipment);
+            return productRepository.GetProductsByKey(key,ExistEquipment, Warehouse);
         }
         public PWMsModel GetPWM(PWMsFilter filter)
         {
