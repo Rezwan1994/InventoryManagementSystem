@@ -21,11 +21,13 @@
             success: function (data) {
                 if(data.result == true)
                 {
+                    $("#Pass").val('');
                     window.location.href = "/dashboards";
-                    $(".LoaderLoginDiv").hide();
+                    //$(".LoaderLoginDiv").hide();
                 }
                 else
                 {
+                    $("#Pass").val('');
                     alert("Incorrect username or password!")
                     $(".LoaderLoginDiv").hide();
                 }
@@ -34,6 +36,7 @@
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(errorThrown);
+                $("#Pass").val('');
                 $(".LoaderLoginDiv").hide();
             }
         });
@@ -41,6 +44,14 @@
 }
 
 $(document).ready(function () {
+    $('#Pass').keypress(function (event) {
+
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            DoLogin();
+        }
+        event.stopPropagation();
+    });
     $("#Login").click(function () {
         DoLogin();
     })

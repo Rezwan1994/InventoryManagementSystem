@@ -23,6 +23,7 @@
     }
 
     $(document).ready(function () {
+        $(".srch-term").val('');
         $(".loadProductlist").load("/Products/LoadProductList");
         $("#AddUser").click(function () {
             OpenRightToLeftModal("/Products/AddProduct");
@@ -68,7 +69,7 @@
 
 <div class="opportunities_table_container">
     <div class="input-group" style="float:left;width:50%">
-        <input class="form-control srch-term" placeholder="Find Product" type="text" autocomplete="off">
+        <input class="form-control srch-term" placeholder="Find Product" type="text" autocomplete="off" value="&nbsp">
         <span class="input-group-btn">
             <button class="btn btn-secondary src-logo left_things main_search" type="button">
                 <i class="glyphicon glyphicon-search"></i>

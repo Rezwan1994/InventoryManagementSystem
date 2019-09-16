@@ -166,8 +166,6 @@ namespace IMSRepository
             return pwmsModel;
         }
 
-        
-
         public List<Product> GetAllProductsbyQuery(string query)
         {
             List<Product> ConcernList = new List<Product>();
@@ -180,6 +178,11 @@ namespace IMSRepository
             string sqlQuery = string.Format(rawQuery, query);
             List<Product> dsResult = context.Set<Product>().SqlQuery(sqlQuery).ToList();
             return dsResult;
+        }
+
+        public Product GetByProductId(Guid ProductId)
+        {
+            return context.Set<Product>().Where(x => x.ProductId == ProductId).FirstOrDefault();
         }
     }
 }

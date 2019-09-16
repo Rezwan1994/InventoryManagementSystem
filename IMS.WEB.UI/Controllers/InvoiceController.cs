@@ -17,6 +17,7 @@ namespace IMS.WEB.UI.Controllers
         SalesOrderDetailsFacade salesDetailFacade = null;
         WareHouseFacade wareHouseFacade = null;
         PWMFacade pWMFacade = null;
+        ProductsFacade productsFacade = null;
         public InvoiceController()
         {
             DataContext Context = DataContext.getInstance();
@@ -25,6 +26,7 @@ namespace IMS.WEB.UI.Controllers
             payFacade = new PaymentFacade(Context);
             wareHouseFacade = new WareHouseFacade(Context);
             pWMFacade = new PWMFacade(Context);
+            productsFacade = new ProductsFacade(Context);
         }
         public ActionResult Index()
         {
@@ -111,6 +113,10 @@ namespace IMS.WEB.UI.Controllers
                                 ProductWarehouseMap checkWarehouseProduct = pWMFacade.GetByWarehouseId(item.WarehouseId);
                                 checkWarehouseProduct.Quantity = checkWarehouseProduct.Quantity - item.Quantity;
                                 pWMFacade.Update(checkWarehouseProduct);
+
+                                Product oldProduct = productsFacade.GetByProductId(checkWarehouseProduct.ProductId);
+                                oldProduct.Quantity = oldProduct.Quantity - item.Quantity;
+                                productsFacade.Update(oldProduct);
                                 #endregion
                                 salesDetailFacade.Insert(item);
                             }
@@ -172,6 +178,10 @@ namespace IMS.WEB.UI.Controllers
                                 productWarehouseMap.Quantity = productWarehouseMap.Quantity + item.Quantity;
                                 pWMFacade.Update(productWarehouseMap);
 
+                                Product oldProduct = productsFacade.GetByProductId(productWarehouseMap.ProductId);
+                                oldProduct.Quantity = oldProduct.Quantity + item.Quantity;
+                                productsFacade.Update(oldProduct);
+
                                 salesDetailFacade.Delete(item.Id);
                             }
                             foreach (var item in SalesOrderModel.SalesOrderDetails)
@@ -185,10 +195,15 @@ namespace IMS.WEB.UI.Controllers
                                 tempSalesOrderDetail.Total = item.Total;
                                 tempSalesOrderDetail.Amount = item.Amount;
                                 tempSalesOrderDetail.WarehouseId = item.WarehouseId;
+
                                 #region Product Deduct
                                 ProductWarehouseMap checkWarehouseProduct = pWMFacade.GetByWarehouseId(item.WarehouseId);
                                 checkWarehouseProduct.Quantity = checkWarehouseProduct.Quantity - item.Quantity;
                                 pWMFacade.Update(checkWarehouseProduct);
+
+                                Product oldProduct = productsFacade.GetByProductId(checkWarehouseProduct.ProductId);
+                                oldProduct.Quantity = oldProduct.Quantity - item.Quantity;
+                                productsFacade.Update(oldProduct);
                                 #endregion
 
                                 salesDetailFacade.Insert(tempSalesOrderDetail);

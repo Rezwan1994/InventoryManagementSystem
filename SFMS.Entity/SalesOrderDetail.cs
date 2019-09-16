@@ -25,6 +25,7 @@ namespace SFMS.Entity
     public class SalesOrderDetailVM : SalesOrderDetail
     {
         public string ProductName { get; set; }
+        public string WarehouseName { get; set; }
     }
 }
 

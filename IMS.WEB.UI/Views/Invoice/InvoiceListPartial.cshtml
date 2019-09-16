@@ -17,7 +17,7 @@
         <tr>
 
             <th>
-                @Html.DisplayNameFor(model => model.SalesOrderId)
+                Invoice Id
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PaymentStatus)
@@ -42,9 +42,11 @@
 
         @foreach (var item in Model) {
         <tr>
-
+            @{ 
+                var InvoicId = "INV-" + $"{item.Id:000000}";
+            }
             <td>
-                <a class="OpenInvoice" onclick="OpenInvoice('@item.SalesOrderId')">INV@item.Id</a>
+                <a class="OpenInvoice" style="cursor:pointer" onclick="OpenInvoice('@item.SalesOrderId')">@InvoicId</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PaymentStatus)

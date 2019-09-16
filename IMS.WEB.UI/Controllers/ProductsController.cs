@@ -407,8 +407,15 @@ namespace IMS.WEB.UI.Controllers
         public JsonResult SavePWM(ProductWarehouseMap newPWM)
         {
             var result = false;
+            var message = "";
             if (newPWM != null)
             {
+                Product tempProduct = productsFacade.GetByProductId(newPWM.ProductId);
+                if (tempProduct.Quantity < newPWM.Quantity)
+                {
+                    message = "Quantity must be less or equal to thre remaining product";
+                    return Json(new { result = result, message= message });
+                }
                 if (newPWM.Id > 0)
                 {
                     var oldPWM = pWMFacade.Get(newPWM.Id);

@@ -17,8 +17,9 @@ namespace IMSRepository
             List<SalesOrderDetailVM> dsResult = new List<SalesOrderDetailVM>();
 
             string rawQuery = @"  
-                                select  so.*,p.ProductName as ProductName FROM SalesOrderdetails so
+                                select  so.*,p.ProductName as ProductName, w.WarehouseName FROM SalesOrderdetails so
                                 left join Products p on p.ProductId = so.ProductId
+                                left join WareHouses w on w.WarehouseId = so.WarehouseId
                                 where  so.SalesOrderId = CONVERT(uniqueidentifier, '{0}')
                                 ";
 

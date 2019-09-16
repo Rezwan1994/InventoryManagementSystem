@@ -2,6 +2,7 @@
 @{
     Layout = null;
     var i = 0;
+    var InvoicId = "";
 }
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -243,10 +244,11 @@
                                     {
                                         {
                                             i++;
+                                            InvoicId = "INV-" + $"{item.Id:000000}";
                                         }
                                         <tr>
                                             <td>@i</td>
-                                            <td><span class="bg-danger">This Invoice-@item.Id is still <span class="bg-success">@item.PaymentStatus</span> <a href="/users"> more info..</a></span></td>
+                                            <td><span class="bg-danger">This @InvoicId is still <span class="bg-success">@item.PaymentStatus</span> <a href="/users"> more info..</a></span></td>
                                         </tr>
                                     }
                                 </tbody>

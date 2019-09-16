@@ -99,7 +99,7 @@ var SaveUsers = function () {
             }
 
             else {
-                OpenErrorMessageNew("Error!", "Please check your given input.");
+                OpenErrorMessageNew("Error!", data.message);
                 //CloseTopToBottomModal();
             }
         },

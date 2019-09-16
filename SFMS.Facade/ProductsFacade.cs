@@ -20,6 +20,10 @@ namespace SFMS.Facade
         {
             return productRepository.GetProductsByKey(key,ExistEquipment, Warehouse);
         }
+        public Product GetByProductId(Guid ProductId)
+        {
+            return productRepository.GetByProductId(ProductId);
+        }
         public PWMsModel GetPWM(PWMsFilter filter)
         {
             return productRepository.GetPWM(filter);
