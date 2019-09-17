@@ -158,9 +158,10 @@ namespace IMS.WEB.UI.Controllers
                 else
                 {
                     PaymentReceive oldPayment = payFacade.GetPaymentBySOId(SalesOrderModel.SalesOrder.SalesOrderId);
-                    if (SalesOrderModel.SalesOrder.PaymentAmount >= 0 && SalesOrderModel.SalesOrder.Amount >= (oldPayment.PaymentAmount + SalesOrderModel.SalesOrder.PaymentAmount))
+                    SalesOrder sales = salesFacade.Get(SalesOrderModel.SalesOrder.Id);
+                    if (SalesOrderModel.SalesOrder.PaymentAmount >= 0 && sales.Amount >= (oldPayment.PaymentAmount + SalesOrderModel.SalesOrder.PaymentAmount))
                     {
-                        SalesOrder sales = salesFacade.Get(SalesOrderModel.SalesOrder.Id);
+                      
                         sales.OrderDate = SalesOrderModel.SalesOrder.OrderDate;
                         sales.DelivaryDate = SalesOrderModel.SalesOrder.DelivaryDate;
                         sales.DiscountAmount = SalesOrderModel.SalesOrder.DiscountAmount;
