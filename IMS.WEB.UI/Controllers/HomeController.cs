@@ -50,13 +50,15 @@ namespace IMS.WEB.UI.Controllers
         public ActionResult DashboardPartial()
         {
             DashboardViewModel dashboardViewModel = new DashboardViewModel();
-            dashboardViewModel.products_count = productsFacade.GetAll().Count();
+            dashboardViewModel.products_count = productsFacade.GetAll().Sum(x=>x.Quantity);
             dashboardViewModel.warehouses_count = wareHouseFacade.GetAll().Count();
             dashboardViewModel.users_count = userFacade.GetAll().Count();
             List<Product> FinishedProduct = productsFacade.GetAll().Where(x => x.Quantity <= 5).ToList();
-            List<PaymentReceive> UnpaidInvoices = paymentFacade.GetAll().Where(x => x.PaymentStatus == "Unpaid" || x.PaymentStatus== "Partially Paid").Take(5).ToList();
+            List<PaymentReceive> paymentReceives = paymentFacade.GetAll();
+            dashboardViewModel.UnpaidInvoices = paymentFacade.GetAll().Where(x => x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid").Take(5).ToList();
+            dashboardViewModel.UnpaidInvoiceAmount = dashboardViewModel.UnpaidInvoices.Sum(x => x.BalanceDue);
+            dashboardViewModel.PaidInvoiceAmount = paymentReceives.Where(x => x.PaymentStatus == "Paid").ToList().Sum(x => x.PaymentAmount);
             dashboardViewModel.FinishedProducts = FinishedProduct;
-            dashboardViewModel.UnpaidInvoices = UnpaidInvoices;
             return View(dashboardViewModel);
         }
 

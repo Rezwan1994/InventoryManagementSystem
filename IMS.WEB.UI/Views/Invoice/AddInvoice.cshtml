@@ -1,7 +1,7 @@
 ﻿
 @{
     Layout = null;
-    string Currency = "$";
+    string Currency = "৳";
 }
 @model SFMS.Entity.SalesOrderModel
 
@@ -12,19 +12,30 @@
     var CustomerId = '@ViewBag.CustomerId';
     var SalesOrderIdInt = '@Model.SalesOrder.Id';
     var BalanceDue = '@Model.SalesOrder.Amount';
-  
-    
+
+
 </script>
 
 
 <link href="~/Content/Css/Invoice/AddInvoice.css" rel="stylesheet" />
+<style>
+    .invoie_contents_scroll {
+        overflow-y: scroll;
+        height: 630px;
+    }
+    td, th{
+        padding:5px;
+    }
+    tr.spaceUnder > td {
+        padding-bottom: 1em;
+    }
+</style>
 
-
-<button class="settings-invoice" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i></button>
+@*<button class="settings-invoice" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i></button>*@
 
 <div class="add-invoice-container">
     <div class="div-header clearfix">
-        <div class="header-title">
+        <div class="header-title" style="background-color:#9e3532;color:white">
             <span class="custom-title-span">
 
             </span>
@@ -35,70 +46,86 @@
             <table class="table-responsive width-100p infotable">
                 <thead>
                     <tr>
-                        <th>Invoice Info</th>
-                        <th class="Gap"></th>
-                        <th>Payment Info</th>
+                        @*<th>Invoice Info</th>*@
+                        <th width="15%"></th>
+                        <th width="20%"></th>
+                        <th width="30%"></th>
+                        @*<th>Payment Info</th>*@
+                        <th width="15%"></th>
+                        <th width="20%"></th>
                     </tr>
 
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            <span class="span-style">Customer</span>
-                            <input type="text" class="form-control" id="CustomerList" />
+                            <label>Customer</label>
                         </td>
+                        <td> : Mark Henry</td>
                         <td></td>
+                        <td style="padding-left:35px">
+                            <label>Payment Date</label>
+                        </td>
                         <td>
-                            <span class="span-style">Payment Date</span>
                             <input type="text" class="form-control" id="paymentdate" />
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span class="span-style">Order Date</span>
+                        </td>
+                        <td>
                             <input type="text" value="@Model.SalesOrder.OrderDate" class="form-control OrderDate" />
                         </td>
                         <td></td>
-                        <td>
+                        <td style="padding-left:35px">
                             <span class="span-style">Payment Amount</span>
+                        </td>
+                        <td>
                             <input type="text" class="form-control" id="paymentamount" />
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="border-bottom: 1px dashed;" class="spaceUnder">
                         <td>
                             <span class="span-style">Delivery Date</span>
+                        </td>
+                        <td>
                             <input type="text" value="@Model.SalesOrder.DelivaryDate" class="form-control DeliveryDate" />
                         </td>
                         <td></td>
-                        <td>
+                        <td style="padding-left:35px">
                             <span class="span-style">Note</span>
+                        </td>
+                        <td>
                             <input type="text" class="form-control" id="paymentnote" />
                         </td>
                     </tr>
-                    <tr>
-                        <td>
+                    <tr style="padding-top:35px; border-bottom:1px dashed">
+                        <td colspan="2" align="right">
                             <div class="form-group clearfix width-50p">
                                 <span class="span-style">Warehouse Name</span>
-                                @Html.DropDownList("warehouse", ViewBag.WarehouseList as List<SelectListItem>, new { @class = "form-control"})
                             </div>
+                        </td>
+                        <td colspan="2">
+                            @Html.DropDownList("warehouse", ViewBag.WarehouseList as List<SelectListItem>, new { @class = "form-control" })
                         </td>
                         <td></td>
                     </tr>
                 </tbody>
             </table>
-            <div class="width_100p">
+            @*<div class="width_100p">
 
                 <div class="balance-info balance_info_for_desktop">
                     <div>
                         <span class="span-style balance-info-due">Total</span>
-                        @*<span class="span-style balance-info-paid">Balance paid</span>*@
-               
+                        @*<span class="span-style balance-info-paid">Balance paid</span>
+
                     </div>
                     <span class="amount amount-span-style big-amount-top amount-big">@Model.SalesOrder.Amount </span>
 
                     @*<div class="balance-info-paid PaidDivClass">
-                        <span>PAID</span>
-                    </div>*@
+                            <span>PAID</span>
+                        </div>
                     <div class="balance-info-Cancel CancelDivClass">
                         <span></span>
                     </div>
@@ -110,8 +137,8 @@
 
 
                 </div>
-             
-            </div>
+
+            </div>*@
 
         </div>
 
@@ -119,7 +146,7 @@
             <div class="invoice-informations">
                 <div class="add_invoice_table_style">
                     <table class="CustomerInvoiceTab" id="CustomerInvoiceTab">
-                        <thead>
+                        <thead style="background-color:#9e3532;color:white">
                             <tr>
                                 <th class="thead-th-style1 tab-index">
                                     <span>
@@ -178,21 +205,21 @@
                                         </td>
                                         <td valign="top">
                                             <div class="C_S I_G">
+                                                <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" value="@item.Price" />
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">@Currency</div>
                                                 </div>
-                                                <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductRate" value="@item.Price" />
                                             </div>
-                                            <span class="spnProductRate">@Currency@item.Price</span>
+                                            <span class="spnProductRate">@item.Price @Currency</span>
                                         </td>
                                         <td valign="top">
                                             <div class="C_S I_G">
+                                                <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" value="@item.Total" />
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">@Currency</div>
                                                 </div>
-                                                <input type="text" onkeydown='OthersKeyDown(this,event)' class="txtProductAmount" value="@item.Total" />
                                             </div>
-                                            <span class="spnProductAmount">@item.Total</span>
+                                            <span class="spnProductAmount">@item.Total @Currency</span>
                                         </td>
                                         <td valign="top" class="tableActions">
                                             <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -290,9 +317,9 @@
                 <div class="OtherInfos">
 
                     <div class="col-md-12">
-                       
-                        <div class="row">
-                            <div class="col-md-12">
+
+                        @*<div class="row">*@
+                            @*<div class="col-md-12">
                                 <div class="Discount discount-amount-div row margin-TB-5p" style="float:right;">
                                     <div class="col-xs-3">
 
@@ -305,10 +332,11 @@
                                     </div>
 
                                 </div>
-                            </div>
-                            @if (Model.SalesOrder.Id > 0)
-                            {
-                                <div class="col-md-12">
+                            </div>*@
+
+                            @*@if (Model.SalesOrder.Id > 0)
+                            {*@
+                                @*<div class="col-md-12">
                                     <div class="col-xs-3">
 
                                         <span class="span-style Subtotal_text_custom">Sub Total</span>
@@ -342,24 +370,108 @@
                                         <span>@Model.SalesOrder.Amount</span>
 
                                     </div>
-                                </div>
-                            }
+                                </div>*@
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th width="15%"></th>
+                                            <th width="20%"></th>
+                                            <th width="30%"></th>
+                                            <th width="15%"></th>
+                                            <th width="20%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="span-style Subtotal_text_custom">Sub Total</span>
+                                            </td>
+                                            <td align="right">
+                                                <span>@Model.SalesOrder.SubTotal</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="float:left">
+                                                <span class="span-style discount_text_custom">Discount(%) </span>
+                                            </td>
+                                            <td align="right">
+                                                <input type="text" id="discountAmount" value="@Model.SalesOrder.DiscountAmount" class="float-right form-control" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="span-style Subtotal_text_custom">
+                                                    Sub Total Less Discount
+                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <span>@Model.SalesOrder.SubTotal</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="span-style Subtotal_text_custom">
+                                                    Shipping/Handling
+                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <span>@Model.SalesOrder.Freight</span>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom:1px dashed">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="span-style Subtotal_text_custom">Paid</span>
+                                            </td>
+                                            <td align="right">
+                                                <span>@Model.SalesOrder.PaymentAmount</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="span-style Subtotal_text_custom">Balance Due</span>
+                                            </td>
+                                            <td align="right">
+                                                <span class="amount amount-span-style big-amount-top amount-big">@Model.SalesOrder.Amount </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            @*}*@
                         </div>
-                            </div>
+                    @*</div>*@
+                </div>
             </div>
+
         </div>
-
     </div>
-</div>
-<div class="invoice-footer col-md-12">
+    <div class="invoice-footer col-md-12" style="background-color:#9e3532;color:white">
 
-    <div class="SaveaButtonsDiv">
-        <button class="btnInv InvoiceSaveButton">Create</button>
+        <div class="SaveaButtonsDiv">
+            <button class="btnInv InvoiceSaveButton">Create</button>
+        </div>
     </div>
-</div>
-<div class="AddInvoiceLoader hidden">
-    <div class='invoice-loader'><div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>
-</div>
+    <div class="AddInvoiceLoader hidden">
+        <div class='invoice-loader'><div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>
+    </div>
 
 
 
