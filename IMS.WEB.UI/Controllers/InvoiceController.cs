@@ -172,7 +172,6 @@ namespace IMS.WEB.UI.Controllers
                         List<SalesOrderDetailVM> salesdetaillist = salesDetailFacade.GetAllSalesDetailsBySaleOrderId(sales.SalesOrderId);
                         if (SalesOrderModel.SalesOrderDetails.Count > 0)
                         {
-                            SalesOrderDetail tempSalesOrderDetail = new SalesOrderDetail();
                             foreach (var item in salesdetaillist)
                             {
                                 ProductWarehouseMap productWarehouseMap = pWMFacade.GetByWarehouseId(item.WarehouseId);
@@ -187,6 +186,7 @@ namespace IMS.WEB.UI.Controllers
                             }
                             foreach (var item in SalesOrderModel.SalesOrderDetails)
                             {
+                                SalesOrderDetail tempSalesOrderDetail = new SalesOrderDetail();
                                 tempSalesOrderDetail.Price = item.Price;
                                 tempSalesOrderDetail.ProductId = item.ProductId;
                                 tempSalesOrderDetail.Quantity = item.Quantity;

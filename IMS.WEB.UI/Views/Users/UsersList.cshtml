@@ -39,7 +39,6 @@
 
     .item1:hover {
         background-color: #DADADA;
- 
     }
 
     .item2:hover {
@@ -54,13 +53,13 @@
 
     //var TabsLoaderText = "<div class='invoice-loader'><div class='uil-squares-css' style='transform:scale(1); margin:auto;'><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>";
     var TabsLoaderText = "";
-    var NavigatePageListing = function (pagenumber, order) {
-    console.log("fff")
-    var searchText = $(".srch-term").val();
-    $(".ListContents").load("/Users/LoadUsersList", { PageNumber: pagenumber, SearchText:searchText});
-}
+    var NavigatePageListing = function (pagenumber, order, userType) {
+        console.log("fff")
+        var searchText = $(".srch-term").val();
+        $("#LoadCustomerList").load("/Users/LoadUsersList", { PageNumber: pagenumber, SearchText: searchText, Order: order, Type: userType });
+    }
     var EditUsers = function (id) {
-    OpenTopToBottomModal("/Users/AddUser?id=" + id);
+        OpenTopToBottomModal("/Users/AddUser?id=" + id);
 
     }
 
@@ -68,17 +67,30 @@
 
         $("#AddUser").click(function () {
             console.log("dd")
-        OpenRightToLeftModal("/Users/AddUser");
+            OpenRightToLeftModal("/Users/AddUser");
             //$("#RightToLeftModal").click();
 
         })
 
         $(".srch-term").keyup(function () {
-            NavigatePageListing(1);
+            console.log()
+            var userType = "Vendor";
+            if ($("#chk_user_type").prop("checked") == false) {
+                userType = "Customer"
+            }
+            NavigatePageListing(1, null, userType);
+        })
+        $("#chk_user_type").change(function () {
+            console.log(this.checked)
+            var userType = "Vendor";
+            if (this.checked == false) {
+                userType = "Customer"
+            }
+            NavigatePageListing(1, null, userType);
         })
         $(".LoaderWorkingDiv").hide();
         $("#LoadCustomerList").html(TabsLoaderText);
-        $("#LoadCustomerList").load("/Users/LoadUsersList");
+        $("#LoadCustomerList").load("/Users/LoadUsersList", { Type: "Customer" });
 
         if ($("#LoadVendorTab").hasClass("active")) {
             $(".export1").show();
@@ -119,12 +131,13 @@
             $(".VendorFilter").show();
         });
         $(".opportunity_filter_list").hide();
-     
+
 
     });
 
 </script>
 <link href="~/Content/Css/Report/Report.css" rel="stylesheet" />
+<link href="~/Content/Css/Layout/materialize.css" rel="stylesheet" />
 <div class="ReportsTitle">Users</div>
 
 <div class="col-xs-12 Report-Tabs">
@@ -134,7 +147,14 @@
                 <div class="col-md-6">
                     <input class="form-control srch-term" placeholder="Find Customer" type="text" value="">
                 </div>
-
+                <!-- Material switch -->
+                <div class="switch">
+                    <label>
+                        Customer
+                        <input type="checkbox" id="chk_user_type">
+                        <span class="lever"></span> Vendor
+                    </label>
+                </div>
             </div>
             <button class="btn btn-secondary dropdown-toggle" type="button" id="AddUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Add User
@@ -143,11 +163,11 @@
         </div>
 
 
-        <ul class="nav nav-tabs reports-tabs" id="myTab">
-            <li class="active LoadCustomerTab"
-                <a data-target="#LoadCustomerTab  .active" data-toggle="tab">Customer</a>
-            </li>
-        </ul>
+        @*<ul class="nav nav-tabs reports-tabs" id="myTab">
+                <li class="active LoadCustomerTab"
+                    <a data-target="#LoadCustomerTab  .active" data-toggle="tab">Customer</a>
+                </li>
+            </ul>*@
         <div class="tab-content reports_tab_content">
             <div class="tab-pane active" id="LoadCustomerList">
 

@@ -19,8 +19,8 @@ namespace IMSRepository
 
             if (!string.IsNullOrWhiteSpace(filter.SearchText))
             {
-                searchTextQuery = " c.Name like '%" + filter.SearchText + "%' or c.Mobile like '%" + filter.SearchText + "%' or c.Email like '%" + filter.SearchText + "%' or c.Address like '%" + filter.SearchText + "%' and ";
-                CountTextQuery = " where c.Name like '%" + filter.SearchText + "%' or c.Mobile like '%" + filter.SearchText + "%' or c.Email like '%" + filter.SearchText + "%' or c.Address like '%" + filter.SearchText + "%' and ";
+                searchTextQuery = " (c.Name like '%" + filter.SearchText + "%' or c.Mobile like '%" + filter.SearchText + "%' or c.Email like '%" + filter.SearchText + "%' or c.Address like '%" + filter.SearchText + "%') and ";
+                CountTextQuery = " where c.Name like '%" + filter.SearchText + "%' or c.Mobile like '%" + filter.SearchText + "%' or c.Email like '%" + filter.SearchText + "%' or c.Address like '%" + filter.SearchText + "%' ";
             }
 
             List<Users> OpportunityList = new List<Users>();
@@ -34,12 +34,9 @@ namespace IMSRepository
                                 set @pagestart=(@pageno-1)* @pagesize  
                                 select  TOP (@pagesize) c.* FROM Users c
                            
-                                where {1}{2}  c.Id NOT IN(Select TOP (@pagestart) Id from Users {0})
-                                {0}
-                               ";
+                                where {1}{2} c.UserType like '" + filter.Type + "' and c.Id NOT IN(Select TOP (@pagestart) Id from Users {0})";
 
             string CountQuery = string.Format("Select * from Users c {0}", CountTextQuery);
-
             rawQuery = string.Format(rawQuery, subquery, searchTextQuery, filterQuery);
             int TotalCount = 0;
             List<Users> dsResult = new List<Users>();

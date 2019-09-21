@@ -413,7 +413,7 @@ namespace IMS.WEB.UI.Controllers
                 Product tempProduct = productsFacade.GetByProductId(newPWM.ProductId);
                 if (tempProduct.Quantity < newPWM.Quantity)
                 {
-                    message = "Quantity must be less or equal to thre remaining product";
+                    message = "Quantity must be less or equal to the remaining product";
                     return Json(new { result = result, message= message });
                 }
                 if (newPWM.Id > 0)
