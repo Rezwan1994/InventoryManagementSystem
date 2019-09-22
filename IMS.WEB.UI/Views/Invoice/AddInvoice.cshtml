@@ -391,7 +391,7 @@
                                                 <span class="span-style Subtotal_text_custom">Sub Total</span>
                                             </td>
                                             <td align="right">
-                                                <span>@Model.SalesOrder.SubTotal</span>
+                                                <span class="amount">@Model.SalesOrder.Total</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -405,22 +405,14 @@
                                                 <input type="text" id="discountAmount" value="@Model.SalesOrder.DiscountAmount" class="float-right form-control" />
                                             </td>
                                         </tr>
+                                   
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
                                             <td>
-                                                <span class="span-style Subtotal_text_custom">
-                                                    Sub Total Less Discount
-                                                </span>
+                                                <span class="span-style Subtotal_text_custom" style="color:red;width:122px;">Unpaid Amount</span>
                                             </td>
-                                            <td align="right">
+                                            <td>
                                                 <span>@Model.SalesOrder.SubTotal</span>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
                                             <td></td>
                                             <td>
                                                 <span class="span-style Subtotal_text_custom">
@@ -428,12 +420,29 @@
                                                 </span>
                                             </td>
                                             <td align="right">
-                                                <span>@Model.SalesOrder.Freight</span>
+                                                <input type="text" value="@Model.SalesOrder.Freight" class="float-right form-control" id="shippingCost">
+                                            </td>
+                                        </tr>
+                                             <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="span-style Subtotal_text_custom">
+                                                    Sub Total
+                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <span class="balanceDueAmount">@Model.SalesOrder.Amount</span>
                                             </td>
                                         </tr>
                                         <tr style="border-bottom:1px dashed">
-                                            <td></td>
-                                            <td></td>
+                                            <td>
+                                              
+                                            </td>
+                                            <td>
+                                            
+                                            </td>
                                             <td></td>
                                             <td>
                                                 <span class="span-style Subtotal_text_custom">Paid</span>
@@ -442,17 +451,7 @@
                                                 <span>@Model.SalesOrder.PaymentAmount</span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <span class="span-style Subtotal_text_custom">Balance Due</span>
-                                            </td>
-                                            <td align="right">
-                                                <span class="amount amount-span-style big-amount-top amount-big">@Model.SalesOrder.Amount </span>
-                                            </td>
-                                        </tr>
+                                 
                                     </tbody>
                                 </table>
                             @*}*@

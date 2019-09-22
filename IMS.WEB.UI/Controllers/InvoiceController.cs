@@ -166,7 +166,7 @@ namespace IMS.WEB.UI.Controllers
                         sales.DelivaryDate = SalesOrderModel.SalesOrder.DelivaryDate;
                         sales.DiscountAmount = SalesOrderModel.SalesOrder.DiscountAmount;
                         sales.Amount = SalesOrderModel.SalesOrder.Amount;
-                      
+                        sales.Freight = SalesOrderModel.SalesOrder.Freight;
                         sales.Total = SalesOrderModel.SalesOrder.Total;
                         salesFacade.Update(sales);
                         List<SalesOrderDetailVM> salesdetaillist = salesDetailFacade.GetAllSalesDetailsBySaleOrderId(sales.SalesOrderId);

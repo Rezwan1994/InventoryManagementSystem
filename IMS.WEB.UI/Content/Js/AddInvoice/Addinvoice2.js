@@ -78,6 +78,8 @@ var CalculateNewAmount = function () {
         var a = 0;
         var Fval = 0;
         var discountAmount = 0;
+        var shippingCost = 0;
+        var AmountWithDiscount = 0;
         if ($("#discountAmount").length > 0) {
             if ($("#discountAmount").val() == "") {
                 discountAmount = 0;
@@ -86,6 +88,17 @@ var CalculateNewAmount = function () {
                 discountAmount = $("#discountAmount").val();
             }
         }
+        if ($("#shippingCost").length > 0) {
+        if ($("#shippingCost").val() == "") {
+            shippingCost = 0;
+            }
+            else {
+            shippingCost = $("#shippingCost").val();
+            }
+
+            console.log(shippingCost);
+        }
+
         Fdiscountamount = TotalAmount - ((amount / 100) * discountAmount);
         if (discountAmount != "" && Fdiscountamount > 0) {
             var discountAmountPercent = parseFloat(discountAmount);
@@ -111,17 +124,20 @@ var CalculateNewAmount = function () {
     var DA = 0;
 
     if ($("#discountAmount").val() != "") {
-        BalanceDue = parseFloat(Fdiscountamount) + parseFloat(TaxAmount) + parseFloat(ShippingAmount) - parseFloat(DA);
-        FinalTotal = parseFloat(Fdiscountamount) + parseFloat(TaxAmount) + parseFloat(ShippingAmount);
+        BalanceDue = parseFloat(Fdiscountamount) + parseFloat(shippingCost) - parseFloat(DA);
+        FinalTotal = parseFloat(Fdiscountamount) + parseFloat(shippingCost);
+        AmountWithDiscount = parseFloat(Fdiscountamount) - parseFloat(DA);
     }
     else {
-        BalanceDue = parseFloat(TotalAmount) + parseFloat(TaxAmount) + parseFloat(ShippingAmount) - parseFloat(DA);
-        FinalTotal = parseFloat(TotalAmount) + parseFloat(TaxAmount) + parseFloat(ShippingAmount);
+        BalanceDue = parseFloat(TotalAmount) + parseFloat(ShippingAmount) - parseFloat(DA);
+        FinalTotal = parseFloat(TotalAmount) + parseFloat(ShippingAmount);
+        AmountWithDiscount = parseFloat(Fdiscountamount) - parseFloat(DA);
     }
 
     $(".FinalTotalTxt").text(FinalTotal.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
     $(".balanceDueAmount").text(BalanceDue.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
     $(".amount-big").text(BalanceDue.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+    $(".AmountWithDiscount").text(AmountWithDiscount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 }
 
 var InvoiceEqSuggestionclickbind = function (item) {
@@ -339,6 +355,7 @@ var SaveInvoice = function () {
             Total: ($(this).find('.txtProductQuantity').val() * parseFloat($(this).find('.txtProductRate').val().trim().replaceAll(',', ''))).toString(),
             WarehouseId: $(this).find('.txtProductDesc').val()
         });
+        console.log(DetailList);
     });
     var url = "/Invoice/AddInvoice";
 
@@ -347,10 +364,12 @@ var SaveInvoice = function () {
         "SalesOrder.SalesOrderId": SalesOrderId,
         "SalesOrder.CustomerId": CustomerId,
         "SalesOrder.Amount": BalanceDue,
+        "SalesOrder.Total": TotalAmount,
+    
         "SalesOrder.OrderDate": $(".OrderDate").val(),
         "SalesOrder.DelivaryDate": $(".DeliveryDate").val(),
-        "SalesOrder.DiscountAmount": DiscountDBAmount,
-
+        "SalesOrder.DiscountAmount": $("#discountAmount").val(),
+        "SalesOrder.Freight": $("#shippingCost").val(),
         "SalesOrder.PaymentAmount": $("#paymentamount").val(),
         "SalesOrder.PaymentNote": $("#paymentnote").val(),
         "SalesOrder.PaymentDate": $("#paymentdate").val(),
@@ -411,6 +430,10 @@ $(document).ready(function () {
         CalculateNewAmount();
     });
 
+    $("#shippingCost").change(function () {
+    
+        CalculateNewAmount();
+    });
     $("#CustomerInvoiceTab tbody").on('blur', 'tr', function (item) {
         if (typeof ($(item.target).parent().parent().attr('data-id')) == 'undefined'
             && typeof ($(item.target).parent().parent().parent().attr('data-id')) == 'undefined') {
