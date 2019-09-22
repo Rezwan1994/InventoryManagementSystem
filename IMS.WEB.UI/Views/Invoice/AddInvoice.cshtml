@@ -319,143 +319,140 @@
                     <div class="col-md-12">
 
                         @*<div class="row">*@
-                            @*<div class="col-md-12">
-                                <div class="Discount discount-amount-div row margin-TB-5p" style="float:right;">
-                                    <div class="col-xs-3">
+                        @*<div class="col-md-12">
+            <div class="Discount discount-amount-div row margin-TB-5p" style="float:right;">
+                <div class="col-xs-3">
 
-                                        <span class="discount_text_custom">Discount(%) </span>
-                                    </div>
-                                    <div class="col-xs-6">
+                    <span class="discount_text_custom">Discount(%) </span>
+                </div>
+                <div class="col-xs-6">
 
-                                        <input type="text" id="discountAmount" value="@Model.SalesOrder.DiscountAmount" class="float-right form-control" />
+                    <input type="text" id="discountAmount" value="@Model.SalesOrder.DiscountAmount" class="float-right form-control" />
 
-                                    </div>
+                </div>
 
-                                </div>
-                            </div>*@
+            </div>
+        </div>*@
 
-                            @*@if (Model.SalesOrder.Id > 0)
-                            {*@
-                                @*<div class="col-md-12">
-                                    <div class="col-xs-3">
+                        @*@if (Model.SalesOrder.Id > 0)
+        {*@
+                        @*<div class="col-md-12">
+            <div class="col-xs-3">
 
+                <span class="span-style Subtotal_text_custom">Sub Total</span>
+            </div>
+            <div class="col-xs-6">
+
+                <span>@Model.SalesOrder.SubTotal</span>
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-xs-3">
+
+                <span class="span-style Paid_text_custom">Paid</span>
+            </div>
+            <div class="col-xs-6">
+
+                <span>@Model.SalesOrder.PaymentAmount</span>
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-xs-3">
+
+                <span class="span-style Total_text_custom">Total</span>
+            </div>
+            <div class="col-xs-6">
+
+                <span>@Model.SalesOrder.Amount</span>
+
+            </div>
+        </div>*@
+
+                        <table style="margin-left:60px;">
+                            <thead>
+                                <tr>
+                                    <th width="15%"></th>
+                                    <th width="20%"></th>
+                                    <th width="30%"></th>
+                                    <th width="15%"></th>
+                                    <th width="20%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
                                         <span class="span-style Subtotal_text_custom">Sub Total</span>
-                                    </div>
-                                    <div class="col-xs-6">
+                                    </td>
+                                    <td align="right">
+                                        <span class="amount">@Model.SalesOrder.Total</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="float:left">
+                                        <span class="span-style discount_text_custom">Discount(%) </span>
+                                    </td>
+                                    <td align="right">
+                                        <input type="text" id="discountAmount" value="@Model.SalesOrder.DiscountAmount" class="float-right form-control" />
+                                    </td>
+                                </tr>
 
-                                        <span>@Model.SalesOrder.SubTotal</span>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="col-xs-3">
-
-                                        <span class="span-style Paid_text_custom">Paid</span>
-                                    </div>
-                                    <div class="col-xs-6">
-
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <span class="span-style Subtotal_text_custom">
+                                            Shipping/Handling
+                                        </span>
+                                    </td>
+                                    <td align="right">
+                                        <input type="text" value="@Model.SalesOrder.Freight" class="float-right form-control" id="shippingCost">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <span class="span-style Subtotal_text_custom">
+                                            Sub Total
+                                        </span>
+                                    </td>
+                                    <td align="right">
+                                        <span class="balanceDueAmount">@Model.SalesOrder.Amount</span>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom:1px dashed">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <span class="span-style Subtotal_text_custom">Paid</span>
+                                    </td>
+                                    <td align="right">
                                         <span>@Model.SalesOrder.PaymentAmount</span>
+                                    </td>
+                                </tr>
 
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="col-xs-3">
-
-                                        <span class="span-style Total_text_custom">Total</span>
-                                    </div>
-                                    <div class="col-xs-6">
-
-                                        <span>@Model.SalesOrder.Amount</span>
-
-                                    </div>
-                                </div>*@
-
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th width="15%"></th>
-                                            <th width="20%"></th>
-                                            <th width="30%"></th>
-                                            <th width="15%"></th>
-                                            <th width="20%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <span class="span-style Subtotal_text_custom">Sub Total</span>
-                                            </td>
-                                            <td align="right">
-                                                <span class="amount">@Model.SalesOrder.Total</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td style="float:left">
-                                                <span class="span-style discount_text_custom">Discount(%) </span>
-                                            </td>
-                                            <td align="right">
-                                                <input type="text" id="discountAmount" value="@Model.SalesOrder.DiscountAmount" class="float-right form-control" />
-                                            </td>
-                                        </tr>
-                                   
-                                        <tr>
-                                            <td>
-                                                <span class="span-style Subtotal_text_custom" style="color:red;width:122px;">Unpaid Amount</span>
-                                            </td>
-                                            <td>
-                                                <span>@Model.SalesOrder.SubTotal</span>
-                                            </td>
-                                            <td></td>
-                                            <td>
-                                                <span class="span-style Subtotal_text_custom">
-                                                    Shipping/Handling
-                                                </span>
-                                            </td>
-                                            <td align="right">
-                                                <input type="text" value="@Model.SalesOrder.Freight" class="float-right form-control" id="shippingCost">
-                                            </td>
-                                        </tr>
-                                             <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <span class="span-style Subtotal_text_custom">
-                                                    Sub Total
-                                                </span>
-                                            </td>
-                                            <td align="right">
-                                                <span class="balanceDueAmount">@Model.SalesOrder.Amount</span>
-                                            </td>
-                                        </tr>
-                                        <tr style="border-bottom:1px dashed">
-                                            <td>
-                                              
-                                            </td>
-                                            <td>
-                                            
-                                            </td>
-                                            <td></td>
-                                            <td>
-                                                <span class="span-style Subtotal_text_custom">Paid</span>
-                                            </td>
-                                            <td align="right">
-                                                <span>@Model.SalesOrder.PaymentAmount</span>
-                                            </td>
-                                        </tr>
-                                 
-                                    </tbody>
-                                </table>
-                            @*}*@
+                            </tbody>
+                        </table>
+                        <div style=" float: right; width: 33%;" >
+                            <span class="span-style Subtotal_text_custom"style="color:red;width: 283px;float:left;">Unpaid Amount</span>
+                            <span class="span-style">@Model.SalesOrder.SubTotal</span>
                         </div>
+                     
+                        @*}*@
+                    </div>
                     @*</div>*@
                 </div>
             </div>
