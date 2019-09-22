@@ -1,6 +1,7 @@
 ﻿using SFMS.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -187,6 +188,11 @@ namespace IMSRepository
 
         public List<Product> GetByProductName(string ProductName)
         {
+            if (context.Database.Connection.State == ConnectionState.Open)
+            {
+                context.Database.Connection.Close();
+            }
+            context = DataContext.getInstance();
             return context.Set<Product>().Where(x => x.ProductName.ToLower().Contains(ProductName.ToLower())).ToList();
         }
     }

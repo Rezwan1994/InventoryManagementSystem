@@ -18,12 +18,14 @@ namespace IMS.WEB.UI.Controllers
         ProductsFacade productsFacade = null;
         WareHouseFacade wareHouseFacade = null;
         PWMFacade pWMFacade = null;
+        LookUpFacade lookupFacade = null;
         public ProductsController()
         {
             DataContext Context = DataContext.getInstance();
             productsFacade = new ProductsFacade(Context);
             wareHouseFacade = new WareHouseFacade(Context);
             pWMFacade = new PWMFacade(Context);
+            lookupFacade = new LookUpFacade(Context);
         }
         public ActionResult Index()
         {
@@ -84,10 +86,24 @@ namespace IMS.WEB.UI.Controllers
         public ActionResult AddProduct(int? id)
         {
             Product model = new Product();
+            List<SelectListItem> ProductList = new List<SelectListItem>();
+
             if (id.HasValue && id > 0)
             {
                 model = productsFacade.Get(id.Value);
+                ProductList.Add(new SelectListItem
+                {
+                    Text = model.ProductName,
+                    Value = model.ProductName
+                });
             }
+            ViewBag.Category = lookupFacade.GetLookupByKey("ProductCategory").Select(x =>
+ new SelectListItem()
+ {
+     Text = x.DisplayText.ToString(),
+     Value = x.DataValue.ToString()
+ }).ToList();
+            ViewBag.ProductList = ProductList;
             return View(model);
         }
 
@@ -282,13 +298,13 @@ namespace IMS.WEB.UI.Controllers
 
         public JsonResult DeleteWarehouse(int id)
         {
-            bool result = wareHouseFacade.Delete(id)>0;
+            bool result = wareHouseFacade.Delete(id) > 0;
             string message = "Something Wrong!!";
             if (result)
             {
                 message = "Warehouse deleted Sucessfully";
             }
-            return Json(new { result = result, message= message });
+            return Json(new { result = result, message = message });
         }
 
         public ActionResult GetWarehousesList()
@@ -430,7 +446,7 @@ namespace IMS.WEB.UI.Controllers
                 if (tempProduct.Quantity < newPWM.Quantity)
                 {
                     message = "Quantity must be less or equal to the remaining product";
-                    return Json(new { result = result, message= message });
+                    return Json(new { result = result, message = message });
                 }
                 if (newPWM.Id > 0)
                 {
@@ -511,13 +527,13 @@ namespace IMS.WEB.UI.Controllers
 
         #region ProductByKey
 
-        public JsonResult GetEquipmentListByKey(string key,string ExistEquipment,Guid Warehouse)
+        public JsonResult GetEquipmentListByKey(string key, string ExistEquipment, Guid Warehouse)
         {
             string result = "[]";
             if (!string.IsNullOrWhiteSpace(key))
             {
 
-                List<Product> EqList = productsFacade.GetProductsByKey(key,ExistEquipment, Warehouse);
+                List<Product> EqList = productsFacade.GetProductsByKey(key, ExistEquipment, Warehouse);
                 if (EqList.Count > 0)
                     result = JsonConvert.SerializeObject(EqList);
             }
@@ -529,12 +545,12 @@ namespace IMS.WEB.UI.Controllers
         public JsonResult LoadProductByName(string ProductName)
         {
             List<SelectListItem> ProductList = new List<SelectListItem>();
-                ProductList.AddRange(productsFacade.GetByProductName(ProductName).Select(x =>
-                           new SelectListItem()
-                           {
-                               Text = x.ProductId.ToString(),
-                               Value = x.ProductName.ToString()
-                           }).ToList());
+            ProductList.AddRange(productsFacade.GetByProductName(ProductName).Select(x =>
+                       new SelectListItem()
+                       {
+                           Text = x.ProductId.ToString(),
+                           Value = x.ProductName.ToString()
+                       }).ToList());
             return Json(ProductList, JsonRequestBehavior.AllowGet);
         }
         #endregion
