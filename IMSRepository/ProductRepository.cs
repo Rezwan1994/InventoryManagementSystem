@@ -188,12 +188,22 @@ namespace IMSRepository
 
         public List<Product> GetByProductName(string ProductName)
         {
-            if (context.Database.Connection.State == ConnectionState.Open)
+            try
             {
-                context.Database.Connection.Close();
+                if (context.Database.Connection.State == ConnectionState.Open)
+                {
+                    context.Database.Connection.Close();
+                    context = DataContext.getInstance();
+                }
+                return context.Set<Product>().Where(x => x.ProductName.ToLower().Contains(ProductName.ToLower())).ToList();
+
             }
-            context = DataContext.getInstance();
-            return context.Set<Product>().Where(x => x.ProductName.ToLower().Contains(ProductName.ToLower())).ToList();
+            catch(Exception ex)
+            {
+                context = DataContext.getInstance();
+                return context.Set<Product>().Where(x => x.ProductName.ToLower().Contains(ProductName.ToLower())).ToList();
+            }
+
         }
     }
 }
