@@ -24,7 +24,7 @@ namespace IMSRepository
             if (!string.IsNullOrWhiteSpace(filter.SearchText))
             {
                 searchTextQuery = " c.ProductName like '%" + filter.SearchText + "%' or c.Category like '%" + filter.SearchText + "%' or c.SubCategory like '%" + filter.SearchText + "%' or c.Quantity like '%" + filter.SearchText + "%' and ";
-                CountTextQuery = " where c.ProductName like '%" + filter.SearchText + "%' or c.Category like '%" + filter.SearchText + "%' or c.SubCategory like '%" + filter.SearchText + "%' or c.Quantity like '%" + filter.SearchText + "%' and ";
+                CountTextQuery = " where c.ProductName like '%" + filter.SearchText + "%' or c.Category like '%" + filter.SearchText + "%' or c.SubCategory like '%" + filter.SearchText + "%' or c.Quantity like '%" + filter.SearchText + "%' ";
             }
 
             string rawQuery = @"  
@@ -183,6 +183,11 @@ namespace IMSRepository
         public Product GetByProductId(Guid ProductId)
         {
             return context.Set<Product>().Where(x => x.ProductId == ProductId).FirstOrDefault();
+        }
+
+        public List<Product> GetByProductName(string ProductName)
+        {
+            return context.Set<Product>().Where(x => x.ProductName.ToLower().Contains(ProductName.ToLower())).ToList();
         }
     }
 }

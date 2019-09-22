@@ -114,10 +114,26 @@ namespace IMS.WEB.UI.Controllers
                 }
                 else
                 {
-                    newProduct.ProductId = Guid.NewGuid();
-                    if (productsFacade.Insert(newProduct) > 0)
+                    Product oldProduct = productsFacade.GetByProductName(newProduct.ProductName).FirstOrDefault();
+                    if (oldProduct == null)
                     {
-                        result = true;
+                        newProduct.ProductId = Guid.NewGuid();
+                        if (productsFacade.Insert(newProduct) > 0)
+                        {
+                            result = true;
+                        }
+                    }
+                    else
+                    {
+                        oldProduct.Quantity = newProduct.Quantity + oldProduct.Quantity;
+                        oldProduct.SellingPrice = newProduct.SellingPrice;
+                        oldProduct.BuyingPrice = newProduct.BuyingPrice;
+                        oldProduct.SubCategory = newProduct.SubCategory;
+
+                        if (productsFacade.Update(oldProduct) > 0)
+                        {
+                            result = true;
+                        }
                     }
                 }
             }
@@ -508,6 +524,18 @@ namespace IMS.WEB.UI.Controllers
 
             return Json(new { result = result }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public JsonResult LoadProductByName(string ProductName)
+        {
+            List<SelectListItem> ProductList = new List<SelectListItem>();
+                ProductList.AddRange(productsFacade.GetByProductName(ProductName).Select(x =>
+                           new SelectListItem()
+                           {
+                               Text = x.ProductId.ToString(),
+                               Value = x.ProductName.ToString()
+                           }).ToList());
+            return Json(ProductList, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
