@@ -172,7 +172,7 @@ namespace IMS.WEB.UI.Controllers
             string query = Request.QueryString["q[term]"] != null ? Request.QueryString["q[term]"].ToString() : "";
             List<Product> ProductList = productsFacade.GetAllProductsbyQuery(query);
 
-            foreach (var item in ProductList)
+            foreach (var item in ProductList.ToList())
             {
                 List<ProductWarehouseMap> pwmList = pWMFacade.GetAll().Where(x => x.ProductId == item.ProductId).ToList();
                 if (pwmList.Count > 0)
@@ -442,8 +442,15 @@ namespace IMS.WEB.UI.Controllers
             var message = "";
             if (newPWM != null)
             {
-                Product tempProduct = productsFacade.GetByProductId(newPWM.ProductId);
-                if (tempProduct.Quantity < newPWM.Quantity)
+                //Product tempProduct = productsFacade.GetByProductId(newPWM.ProductId);
+                var RemainQuantity = 0;
+                List<ProductWarehouseMap> pwmList = pWMFacade.GetAll().Where(x => x.ProductId == newPWM.ProductId).ToList();
+                if (pwmList.Count > 0)
+                {
+                    RemainQuantity = newPWM.Quantity - pwmList.Sum(x => Convert.ToInt32(x.Quantity));
+                }
+
+                if (RemainQuantity < newPWM.Quantity)
                 {
                     message = "Quantity must be less or equal to the remaining product";
                     return Json(new { result = result, message = message });
