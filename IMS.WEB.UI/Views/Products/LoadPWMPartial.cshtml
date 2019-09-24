@@ -17,11 +17,11 @@
         });
     }
 
-    var NavigatePageListing = function (pagenumber, order, searchText) {
+    var NavigatePageListing = function (pagenumber, order, searchText, warehouseId) {
         console.log("fff")
         //var searchText = $(".srch-term").val();
         console.log(searchText)
-        $(".loadPWMlist").load("/Products/LoadPWMlist", { PageNumber: pagenumber, SearchText: searchText, Order: order });
+        $(".loadPWMlist").load("/Products/LoadPWMlist", { PageNumber: pagenumber, SearchText: searchText, Order: order, WarehouseId: warehouseId });
     }
 
     $(document).ready(function () {
@@ -32,7 +32,12 @@
         //})
 
         $('.srch-term').keyup(function () {
-            NavigatePageListing(1, null, this.value);
+            var WarehouseId = $("#Warehouse").val();
+            NavigatePageListing(1, null, this.value, WarehouseId);
+        })
+
+        $('#Warehouse').change(function () {
+            NavigatePageListing(1, null, '', this.value);
         })
     });
     var DeleteUser = function (id) {
@@ -69,13 +74,16 @@
 </script>
 
 <div class="opportunities_table_container">
-    <div class="input-group" style="float:left;width:50%">
+    <div class="input-group" style="float:left;width:40%">
         <input class="form-control srch-term" placeholder="Find Product Warehouse Map" type="text">
         <span class="input-group-btn">
             <button class="btn btn-secondary src-logo left_things main_search" type="button">
                 <i class="glyphicon glyphicon-search"></i>
             </button>
         </span>
+    </div>
+    <div class="input-group hide-tag" style="float:left;width:40%;padding-left:20px">
+        @Html.DropDownList("Warehouse", ViewBag.Warehouse as List<SelectListItem>, new { @class = "form-control", id = "Warehouse" })
     </div>
     <button class="btn btn-secondary dropdown-toggle" type="button" id="AddUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="OpenRightToLeftModal('/Products/AddPWM');">
         Map Product Warehouse

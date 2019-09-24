@@ -26,6 +26,7 @@ namespace SFMS.Entity
         public string SearchText { get; set; }
         public string Type { get; set; }
         public string status { get; set; }
+        public string CategoryName { get; set; }
     }
     public class PWMsFilter
     {
@@ -35,6 +36,7 @@ namespace SFMS.Entity
         public string SearchText { get; set; }
         public string Type { get; set; }
         public string status { get; set; }
+        public string WarehouseId { get; set; }
     }
     public class WarehouseFilter
     {

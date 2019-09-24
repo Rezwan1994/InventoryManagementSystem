@@ -35,7 +35,7 @@
 
 <div class="add-invoice-container">
     <div class="div-header clearfix">
-        <div class="header-title" style="background-color:#9e3532;color:white">
+        <div class="header-title" style="background-color:#00467A;color:white">
             <span class="custom-title-span">
 
             </span>
@@ -146,7 +146,7 @@
             <div class="invoice-informations">
                 <div class="add_invoice_table_style">
                     <table class="CustomerInvoiceTab" id="CustomerInvoiceTab">
-                        <thead style="background-color:#9e3532;color:white">
+                        <thead style="background-color:#00467A;color:white">
                             <tr>
                                 <th class="thead-th-style1 tab-index">
                                     <span>
@@ -372,7 +372,7 @@
             </div>
         </div>*@
 
-                        <table style="margin-left:60px;">
+                        <table style="margin-left:140px;">
                             <thead>
                                 <tr>
                                     <th width="15%"></th>
@@ -391,7 +391,7 @@
                                         <span class="span-style Subtotal_text_custom">Sub Total</span>
                                     </td>
                                     <td align="right">
-                                        <span class="amount">@Model.SalesOrder.Total</span>
+                                        <span class="amount">@Model.SalesOrder.Total @Currency</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -429,7 +429,7 @@
                                         </span>
                                     </td>
                                     <td align="right">
-                                        <span class="balanceDueAmount">@Model.SalesOrder.Amount</span>
+                                        <span class="balanceDueAmount">@Model.SalesOrder.Amount @Currency</span>
                                     </td>
                                 </tr>
                                 <tr style="border-bottom:1px dashed">
@@ -440,15 +440,15 @@
                                         <span class="span-style Subtotal_text_custom">Paid</span>
                                     </td>
                                     <td align="right">
-                                        <span>@Model.SalesOrder.PaymentAmount</span>
+                                        <span>@Model.SalesOrder.PaymentAmount @Currency</span>
                                     </td>
                                 </tr>
 
                             </tbody>
                         </table>
-                        <div style=" float: right; width: 33%;" >
-                            <span class="span-style Subtotal_text_custom"style="color:red;width: 283px;float:left;">Unpaid Amount</span>
-                            <span class="span-style">@Model.SalesOrder.SubTotal</span>
+                        <div style=" float: right; width: 32.5%;" >
+                            <span class="span-style Subtotal_text_custom"style="color:red;width: 297px;float:left;">Unpaid Amount</span>
+                            <span class="span-style">@Model.SalesOrder.SubTotal @Currency</span>
                         </div>
                      
                         @*}*@
@@ -459,7 +459,7 @@
 
         </div>
     </div>
-    <div class="invoice-footer col-md-12" style="background-color:#9e3532;color:white">
+    <div class="invoice-footer col-md-12" style="background-color:#00467A;color:white">
 
         <div class="SaveaButtonsDiv">
             <button class="btnInv InvoiceSaveButton">Create</button>

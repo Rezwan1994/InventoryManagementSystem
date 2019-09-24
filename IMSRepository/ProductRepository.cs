@@ -125,7 +125,7 @@ namespace IMSRepository
             if (!string.IsNullOrWhiteSpace(filter.SearchText))
             {
                 searchTextQuery = " P.ProductName like '%" + filter.SearchText + "%' or P.Category like '%" + filter.SearchText + "%' or P.SubCategory like '%" + filter.SearchText + "%' or c.Quantity like '%" + filter.SearchText + "%' or W.WarehouseName like '%" + filter.SearchText + "%' and ";
-                CountTextQuery = " where P.ProductName like '%" + filter.SearchText + "%' or P.Category like '%" + filter.SearchText + "%' or P.SubCategory like '%" + filter.SearchText + "%' or c.Quantity like '%" + filter.SearchText + "%' or W.WarehouseName like '%" + filter.SearchText + "%' and ";
+                CountTextQuery = " where P.ProductName like '%" + filter.SearchText + "%' or P.Category like '%" + filter.SearchText + "%' or P.SubCategory like '%" + filter.SearchText + "%' or c.Quantity like '%" + filter.SearchText + "%' or W.WarehouseName like '%" + filter.SearchText + "%' ";
             }
 
             string rawQuery = @"  
@@ -137,8 +137,8 @@ namespace IMSRepository
                                 set @pagestart=(@pageno-1)* @pagesize  
                                 select  TOP (@pagesize) c.*, P.*, W.* FROM ProductWarehouseMaps c
                                 
-                                left join Products P on P.ProductId=C.productId
-                                left join Warehouses W on W.WarehouseId=C.WarehouseId
+                                inner join Products P on P.ProductId=C.productId
+                                inner join Warehouses W on W.WarehouseId=C.WarehouseId
 
                            
                                 where {1}{2}  c.Id NOT IN(Select TOP (@pagestart) Id from ProductWarehouseMaps {0})

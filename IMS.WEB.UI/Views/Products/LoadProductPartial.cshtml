@@ -16,10 +16,10 @@
         });
     }
 
-    var NavigatePageListing = function (pagenumber, order) {
+    var NavigatePageListing = function (pagenumber, order, categoryName) {
         console.log("fff")
         var searchText = $(".srch-term").val();
-        $(".loadProductlist").load("/Products/LoadProductList", { PageNumber: pagenumber, SearchText: searchText, Order: order });
+        $(".loadProductlist").load("/Products/LoadProductList", { PageNumber: pagenumber, SearchText: searchText, Order: order, CategoryName: categoryName });
     }
 
     $(document).ready(function () {
@@ -31,7 +31,13 @@
         })
 
         $('.srch-term').keyup(function () {
-            NavigatePageListing(1, null);
+            var categoryName = $("#Category").val();
+            NavigatePageListing(1, null, categoryName);
+        })
+
+        $("#Category").change(function () {
+            //var categoryName = $("#Category").val();
+            NavigatePageListing(1, null, this.value);
         })
     });
     var DeleteUser = function (id) {
@@ -68,13 +74,16 @@
 </script>
 
 <div class="opportunities_table_container">
-    <div class="input-group hide-tag" style="float:left;width:50%">
+    <div class="input-group hide-tag" style="float:left;width:40%">
         <input class="form-control srch-term" placeholder="Find Product" type="text" autocomplete="off" value="&nbsp">
         <span class="input-group-btn">
             <button class="btn btn-secondary src-logo left_things main_search" type="button">
                 <i class="glyphicon glyphicon-search"></i>
             </button>
         </span>
+    </div>
+    <div class="input-group hide-tag" style="float:left;width:40%;padding-left:20px">
+        @Html.DropDownList("Category", ViewBag.Category as List<SelectListItem>, new { @class = "form-control", id = "Category" })
     </div>
     <button class="btn btn-secondary dropdown-toggle" type="button" id="AddUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Add Product

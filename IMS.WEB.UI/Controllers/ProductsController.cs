@@ -42,11 +42,28 @@ namespace IMS.WEB.UI.Controllers
 
         public ActionResult LoadProductPartial()
         {
+            List<SelectListItem> CategoryList = new List<SelectListItem>();
+            CategoryList.AddRange(lookupFacade.GetLookupByKey("ProductCategory").Select(x =>
+            new SelectListItem()
+            {
+                Text = x.DisplayText.ToString(),
+                Value = x.DataValue.ToString()
+            }).ToList());
+            CategoryList.RemoveAt(0);
+            CategoryList.Insert(0, new SelectListItem() {
+                Text = "Search By Category",
+                Value = "-1"
+            });
+            ViewBag.Category = CategoryList;
             return PartialView();
         }
 
         public ActionResult LoadProductList(ProductsFilter filter)
         {
+            if(filter.CategoryName == "-1" || filter.CategoryName == null)
+            {
+                filter.CategoryName = string.Empty;
+            }
             if (filter.PageNumber == 0)
             {
                 filter.PageNumber = 1;
@@ -80,6 +97,7 @@ namespace IMS.WEB.UI.Controllers
             }
 
             ViewBag.PageCount = Math.Ceiling((double)ViewBag.OutOfNumber / filter.UnitPerPage.Value);
+            productsList.ProductsList = productsList.ProductsList.Where(x => x.Category.Contains(filter.CategoryName)).ToList();
             return View(productsList.ProductsList);
         }
 
@@ -98,11 +116,11 @@ namespace IMS.WEB.UI.Controllers
                 });
             }
             ViewBag.Category = lookupFacade.GetLookupByKey("ProductCategory").Select(x =>
- new SelectListItem()
- {
-     Text = x.DisplayText.ToString(),
-     Value = x.DataValue.ToString()
- }).ToList();
+            new SelectListItem()
+            {
+                Text = x.DisplayText.ToString(),
+                Value = x.DataValue.ToString()
+            }).ToList();
             ViewBag.ProductList = ProductList;
             return View(model);
         }
@@ -336,11 +354,29 @@ namespace IMS.WEB.UI.Controllers
         #region Product Warehouse Map
         public ActionResult LoadPWMPartial()
         {
+            List<SelectListItem> WarehouseList = new List<SelectListItem>();
+            List<ProductWarehouseMap> pwmList = pWMFacade.GetAll().GroupBy(y => y.WarehouseId).Select(x=>x.First()).Distinct().ToList();
+            WarehouseList.AddRange(pwmList.Select(x=>
+            new SelectListItem()
+            {
+                Text = wareHouseFacade.GetByWarehouseId(x.WarehouseId).WarehouseName,
+                Value = x.WarehouseId.ToString()
+            }).ToList());
+            WarehouseList.Insert(0, new SelectListItem()
+            {
+                Text = "Search By Warehouse",
+                Value = "-1"
+            });
+            ViewBag.Warehouse = WarehouseList;
             return PartialView();
         }
 
         public ActionResult LoadPWMList(PWMsFilter filter)
         {
+            if(filter.WarehouseId == "-1" || filter.WarehouseId == null)
+            {
+                filter.WarehouseId = "";
+            }
             if (filter.PageNumber == 0)
             {
                 filter.PageNumber = 1;
@@ -374,6 +410,7 @@ namespace IMS.WEB.UI.Controllers
             }
 
             ViewBag.PageCount = Math.Ceiling((double)ViewBag.OutOfNumber / filter.UnitPerPage.Value);
+            pwmsList.PWMList = pwmsList.PWMList.Where(x => x.WarehouseId.ToString().Contains(filter.WarehouseId)).ToList();
             return View(pwmsList.PWMList);
         }
 
@@ -442,19 +479,19 @@ namespace IMS.WEB.UI.Controllers
             var message = "";
             if (newPWM != null)
             {
-                //Product tempProduct = productsFacade.GetByProductId(newPWM.ProductId);
+                Product tempProduct = productsFacade.GetByProductId(newPWM.ProductId);
                 var RemainQuantity = 0;
                 List<ProductWarehouseMap> pwmList = pWMFacade.GetAll().Where(x => x.ProductId == newPWM.ProductId).ToList();
                 if (pwmList.Count > 0)
                 {
-                    RemainQuantity = newPWM.Quantity - pwmList.Sum(x => Convert.ToInt32(x.Quantity));
+                    RemainQuantity = tempProduct.Quantity - pwmList.Sum(x => Convert.ToInt32(x.Quantity));
+                    if (RemainQuantity < newPWM.Quantity)
+                    {
+                        message = "Quantity must be less or equal to the remaining product";
+                        return Json(new { result = result, message = message });
+                    }
                 }
 
-                if (RemainQuantity < newPWM.Quantity)
-                {
-                    message = "Quantity must be less or equal to the remaining product";
-                    return Json(new { result = result, message = message });
-                }
                 if (newPWM.Id > 0)
                 {
                     var oldPWM = pWMFacade.Get(newPWM.Id);
