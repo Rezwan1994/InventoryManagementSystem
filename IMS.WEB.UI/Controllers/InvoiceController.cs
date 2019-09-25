@@ -110,11 +110,11 @@ namespace IMS.WEB.UI.Controllers
                                 item.SalesOrderDetailId = Guid.NewGuid();
                                 item.SalesOrderId = SalesOrderModel.SalesOrder.SalesOrderId;
                                 #region Product Deduct
-                                ProductWarehouseMap checkWarehouseProduct = pWMFacade.GetByWarehouseId(item.WarehouseId);
+                                ProductWarehouseMap checkWarehouseProduct = pWMFacade.GetAll().Where(x=>x.ProductId == item.ProductId && x.WarehouseId == item.WarehouseId).FirstOrDefault();
                                 checkWarehouseProduct.Quantity = checkWarehouseProduct.Quantity - item.Quantity;
                                 pWMFacade.Update(checkWarehouseProduct);
 
-                                Product oldProduct = productsFacade.GetByProductId(checkWarehouseProduct.ProductId);
+                                Product oldProduct = productsFacade.GetByProductId(item.ProductId);
                                 oldProduct.Quantity = oldProduct.Quantity - item.Quantity;
                                 productsFacade.Update(oldProduct);
                                 #endregion
@@ -174,13 +174,19 @@ namespace IMS.WEB.UI.Controllers
                         {
                             foreach (var item in salesdetaillist)
                             {
-                                ProductWarehouseMap productWarehouseMap = pWMFacade.GetByWarehouseId(item.WarehouseId);
-                                productWarehouseMap.Quantity = productWarehouseMap.Quantity + item.Quantity;
-                                pWMFacade.Update(productWarehouseMap);
+                                ProductWarehouseMap productWarehouseMap = pWMFacade.GetAll().Where(x=>x.ProductId == item.ProductId && x.WarehouseId == item.WarehouseId).FirstOrDefault();
+                                if (productWarehouseMap != null)
+                                {
+                                    productWarehouseMap.Quantity = productWarehouseMap.Quantity + item.Quantity;
+                                    pWMFacade.Update(productWarehouseMap);
+                                }
 
-                                Product oldProduct = productsFacade.GetByProductId(productWarehouseMap.ProductId);
-                                oldProduct.Quantity = oldProduct.Quantity + item.Quantity;
-                                productsFacade.Update(oldProduct);
+                                Product oldProduct = productsFacade.GetByProductId(item.ProductId);
+                                if (oldProduct != null)
+                                {
+                                    oldProduct.Quantity = oldProduct.Quantity + item.Quantity;
+                                    productsFacade.Update(oldProduct);
+                                }
 
                                 salesDetailFacade.Delete(item.Id);
                             }
@@ -198,13 +204,19 @@ namespace IMS.WEB.UI.Controllers
                                 tempSalesOrderDetail.WarehouseId = item.WarehouseId;
 
                                 #region Product Deduct
-                                ProductWarehouseMap checkWarehouseProduct = pWMFacade.GetByWarehouseId(item.WarehouseId);
-                                checkWarehouseProduct.Quantity = checkWarehouseProduct.Quantity - item.Quantity;
-                                pWMFacade.Update(checkWarehouseProduct);
+                                ProductWarehouseMap checkWarehouseProduct = pWMFacade.GetAll().Where(x=>x.ProductId==item.ProductId && x.WarehouseId == item.WarehouseId).FirstOrDefault();
+                                if (checkWarehouseProduct != null)
+                                {
+                                    checkWarehouseProduct.Quantity = checkWarehouseProduct.Quantity - item.Quantity;
+                                    pWMFacade.Update(checkWarehouseProduct);
+                                }
 
-                                Product oldProduct = productsFacade.GetByProductId(checkWarehouseProduct.ProductId);
-                                oldProduct.Quantity = oldProduct.Quantity - item.Quantity;
-                                productsFacade.Update(oldProduct);
+                                Product oldProduct = productsFacade.GetByProductId(item.ProductId);
+                                if (oldProduct != null)
+                                {
+                                    oldProduct.Quantity = oldProduct.Quantity - item.Quantity;
+                                    productsFacade.Update(oldProduct);
+                                }
                                 #endregion
 
                                 salesDetailFacade.Insert(tempSalesOrderDetail);
