@@ -480,21 +480,22 @@ namespace IMS.WEB.UI.Controllers
             if (newPWM != null)
             {
                 Product tempProduct = productsFacade.GetByProductId(newPWM.ProductId);
-                var RemainQuantity = 0;
-                List<ProductWarehouseMap> pwmList = pWMFacade.GetAll().Where(x => x.ProductId == newPWM.ProductId).ToList();
-                if (pwmList.Count > 0)
+                var RemainQuantity = tempProduct.Quantity;
+              
+                if (newPWM.Id > 0)
                 {
-                    RemainQuantity = tempProduct.Quantity - pwmList.Sum(x => Convert.ToInt32(x.Quantity));
+                    var oldPWM = pWMFacade.Get(newPWM.Id);
+                    List<ProductWarehouseMap> pwmList = pWMFacade.GetAll().Where(x => x.ProductId == newPWM.ProductId).ToList();
+                    if (pwmList.Count > 0)
+                    {
+                        RemainQuantity = tempProduct.Quantity - pwmList.Where(x => x.Id != oldPWM.Id).Sum(x => Convert.ToInt32(x.Quantity));
+                    }
                     if (RemainQuantity < newPWM.Quantity)
                     {
                         message = "Quantity must be less or equal to the remaining product";
                         return Json(new { result = result, message = message });
                     }
-                }
 
-                if (newPWM.Id > 0)
-                {
-                    var oldPWM = pWMFacade.Get(newPWM.Id);
                     oldPWM.WarehouseId = newPWM.WarehouseId;
                     oldPWM.ProductId = newPWM.ProductId;
                     oldPWM.Quantity = newPWM.Quantity;
@@ -505,6 +506,17 @@ namespace IMS.WEB.UI.Controllers
                 }
                 else
                 {
+                    List<ProductWarehouseMap> pwmList = pWMFacade.GetAll().Where(x => x.ProductId == newPWM.ProductId).ToList();
+                    if (pwmList.Count > 0)
+                    {
+                        RemainQuantity = tempProduct.Quantity - pwmList.Sum(x => Convert.ToInt32(x.Quantity));
+                    }
+                    if (RemainQuantity < newPWM.Quantity)
+                    {
+                        message = "Quantity must be less or equal to the remaining product";
+                        return Json(new { result = result, message = message });
+                    }
+
                     var samePWM = pWMFacade.GetAll().Where(x => x.ProductId == newPWM.ProductId && x.WarehouseId == newPWM.WarehouseId).FirstOrDefault();
                     if (samePWM != null)
                     {
