@@ -16,4 +16,11 @@ namespace IMS.WEB.UI.Models
         public List<Product> FinishedProducts { get; set; }
         public List<PaymentReceive> UnpaidInvoices { get; set; }
     }
+
+    public class GraphData
+    {
+        public string y { get; set; }
+        public double a { get; set; }
+        public double b { get; set; }
+    }
 }

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using IMSRepository;
 using IMS.WEB.UI.Models;
 using System.Web.Security;
+using System.Web.Script.Serialization;
 
 namespace IMS.WEB.UI.Controllers
 {
@@ -62,6 +63,78 @@ namespace IMS.WEB.UI.Controllers
             return View(dashboardViewModel);
         }
 
+        [HttpPost]
+        public string GetBarChartData()
+        {
+            List<PaymentReceive> paymentReceives = paymentFacade.GetAll();
+            List<GraphData> dataList = new List<GraphData>
+            {
+                new GraphData {
+                    y ="JAN",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 1).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 1).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="FEB",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 2).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 2).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="MAR",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 3).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 3).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="APR",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 4).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 4).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="MAY",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 5).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 5).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="JUN",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 6).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 6).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="JUL",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 7).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 7).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="AUG",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 8).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 8).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="SEP",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 9).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 9).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="OCT",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 10).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 10).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="NOV",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 11).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 11).ToList().Sum(x => x.PaymentAmount)
+        },
+               new GraphData {
+                    y ="DEC",
+                    a = paymentReceives.Where(x => (x.PaymentStatus == "UnPaid" || x.PaymentStatus== "Partially Paid") && x.PaymentDate.Month == 12).Sum(x => x.BalanceDue),
+                    b = paymentReceives.Where(x => x.PaymentStatus == "Paid" && x.PaymentDate.Month == 12).ToList().Sum(x => x.PaymentAmount)
+        },
+            };
+
+            var jsonSerializer = new JavaScriptSerializer();
+            string data = jsonSerializer.Serialize(dataList);
+            return data;
+        }
         public ActionResult Login()
         {
             return View();
